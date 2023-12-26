@@ -1,11 +1,11 @@
 namespace: dev
 core:
-  appName: core-dev
-  host: "coredev.uvi.ru"
+  appName: admin-back
+  host: "admin-back.uvi.ru"
   image:
-    name: "10.0.0.239:80/uvi/dev/dev"
+    name: "10.0.0.239:80/uvi/admin/back"
     tag: latest
 
-import:
-  image:
-    name: "10.0.0.239:80/uvi/dev/import"
+#import:
+#  image:
+#    name: "10.0.0.239:80/uvi/dev/import"

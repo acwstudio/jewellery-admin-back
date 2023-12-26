@@ -1,0 +1,16 @@
+phpunit:
+  image: 10.0.0.239:80/uvi/core:latest
+  stage: validation
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+#    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  services:
+    - postgres:13-alpine
+  variables:
+    POSTGRES_DB: 'checkoutservicedb_testing'
+    POSTGRES_HOST_AUTH_METHOD: trust
+  before_script:
+    - cat $ENV_PHPUNIT >> .env
+    - composer install --dev --no-scripts
+  script:
+    - php vendor/bin/phpunit -c phpunit.xml
