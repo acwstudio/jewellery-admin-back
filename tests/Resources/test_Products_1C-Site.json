@@ -1,0 +1,113 @@
+{
+    "UID": "b6a08193-9591-4414-af51-77fc5ba66663",
+    "DeletionMark": false,
+    "Name": "Золотое кольцо 750 пробы; желтое золото; вставки 42 Бр.(N)Кр-57 0,885 2/2А; 29 Сапфир цветн. 1,01; 1",
+    "SiteName": "",
+    "Description": "",
+    "VendorCode": "1066467",
+    "IsNew": false,
+    "Metal": "Золото",
+    "Fineness": 0,
+    "MetalColor": "Желтое",
+    "Discount": false,
+    "AvgWeight": 13.55,
+    "ProductType": "Кольца",
+    "ProductSubTypes": ["Обручальные", "Помолвочные"],
+    "ProductOccasions": ["Свадьба"],
+    "ProductStyles": ["Вечерний"],
+    "ProductDesigns": ["Клевер"],
+    "IsBestseller": false,
+    "Luxe": true,
+    "UVI_LenghtHeight": "16",
+    "Insert": "Сапфир нат.",
+    "UVI_StoneSize": "10*16,5/1,5/1",
+    "UVI_InsertsAverageWeight": 0.885,
+    "UVI_MetalAverageWeight": 9.935,
+    "UVI_BraceletChainThick": "",
+    "UVI_RingShangWidth": "2",
+    "Photo": [
+        {
+            "Key": "1066467-1.jpg",
+            "Bucket": "Production"
+        },
+        {
+            "Key": "1066467-2.jpg",
+            "Bucket": "Production"
+        },
+        {
+            "Key": "1066467-3.jpg",
+            "Bucket": "Production"
+        },
+        {
+            "Key": "1066467-4.jpg",
+            "Bucket": "Production"
+        },
+        {
+            "Key": "1066467-5.jpg",
+            "Bucket": "Production"
+        },
+        {
+            "Key": "1066467 (1).JPG",
+            "Bucket": "Technical"
+        },
+        {
+            "Key": "1066467 (2).JPG",
+            "Bucket": "Technical"
+        },
+        {
+            "Key": "1066467 (3).JPG",
+            "Bucket": "Technical"
+        }
+    ],
+    "Video": [
+        {
+            "Key": "1067707.mp4",
+            "Bucket": "video"
+        }
+    ],
+    "Inserts": [
+        {
+            "InsertWeight": 0.39,
+            "Insert": "Сапфир нат.",
+            "InsertCount": 11,
+            "InsertColor": "Разноцветный"
+        },
+        {
+            "InsertWeight": 0.56,
+            "Insert": "Сапфир нат.",
+            "InsertCount": 18,
+            "InsertColor": "Разноцветный"
+        },
+        {
+            "InsertWeight": 1.01,
+            "Insert": "Сапфир нат.",
+            "InsertCount": 29,
+            "InsertColor": "Разноцветный"
+        },
+        {
+            "InsertWeight": 15.23,
+            "Insert": "Турмалин",
+            "InsertCount": 1,
+            "InsertColor": "Разноцветный"
+        },
+        {
+            "InsertWeight": 0.885,
+            "Insert": "Бриллиант",
+            "InsertCount": 42,
+            "InsertShape": "Круглая",
+            "InsertColor": "Бесцветный"
+        }
+    ],
+    "Materials": [],
+    "UVI_Coating": "Нет",
+    "trade_offers": [
+        {
+            "Size": "16.5",
+            "Weight": 13.55
+        },
+        {
+            "Size": "17",
+            "Weight": null
+        }
+    ]
+}

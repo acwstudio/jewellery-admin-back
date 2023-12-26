@@ -1,0 +1,26 @@
+core:
+  appName: core
+  port: 80
+  host: "coredev.uvi.ru"
+  image:
+    name: "10.0.0.239:80/uvi/dev/dev"
+    tag: latest
+  replicas: 1
+  containerPort: 9000
+production: "false"
+swagger:
+  appName: swagger
+  port: 80
+  host: "swagger.uvi.ru"
+  Namespace: dev
+
+#redis:
+##  appName: redis
+#  storageClassName: "rook-ceph-block"
+#  storage: 1Gi
+
+#swagger:
+##  appName: swagger
+#  port: 80
+
+

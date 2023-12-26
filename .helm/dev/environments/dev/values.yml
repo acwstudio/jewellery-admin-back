@@ -1,0 +1,11 @@
+namespace: dev
+core:
+  appName: core-dev
+  host: "coredev.uvi.ru"
+  image:
+    name: "10.0.0.239:80/uvi/dev/dev"
+    tag: latest
+
+import:
+  image:
+    name: "10.0.0.239:80/uvi/dev/import"

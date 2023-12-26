@@ -1,0 +1,8 @@
+core:
+  image:
+    name: "10.0.0.239:80/uvi/core/core"
+  host: "core.staging.uvi.ru"
+
+import:
+  image:
+    name: "10.0.0.239:80/uvi/core/import"

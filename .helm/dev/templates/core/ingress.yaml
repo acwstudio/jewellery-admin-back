@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.core.appName }}-fastcgi-params
+  namespace: {{ .Release.Namespace }}
+data:
+  SCRIPT_FILENAME: "/var/www/html/public/$fastcgi_script_name"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "FCGI"
+    cert-manager.io/cluster-issuer: core-{{ .Release.Namespace }}
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/client-max-body-size: 20m
+    nginx.ingress.kubernetes.io/proxy-body-size: 20m
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http(s)://*.*uvi.ru, http(s)://*.uvi.ru"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "shop-cart-token, *"
+    nginx.ingress.kubernetes.io/fastcgi-params-configmap: {{ .Values.core.appName }}-fastcgi-params
+    nginx.ingress.kubernetes.io/rewrite-target: /index.php?$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  name: {{ .Values.core.appName }}
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.core.host }}
+      secretName: {{ .Values.core.appName }}
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.core.host }}
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ .Values.core.appName }}
+                port:
+                  number: 9000
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: core-{{ .Release.Namespace }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@ves-media.com
+    privateKeySecretRef:
+      name: {{ .Values.core.appName }}
+    solvers:
+      - http01:
+          ingress:
+            class: nginx

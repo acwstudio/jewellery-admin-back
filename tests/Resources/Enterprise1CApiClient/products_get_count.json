@@ -1,0 +1,18 @@
+{
+    "Result": true,
+    "ErrorMessage": "",
+    "Products": [
+        {
+            "UID": "112347",
+            "VendorCode": "12347",
+            "Size": "",
+            "StockCount": "10"
+        },
+        {
+            "UID": "101234",
+            "VendorCode": "01234",
+            "Size": "18",
+            "StockCount":"1"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+COMMIT_RANGE="$1...${CURRENT_BRANCH}"
+
+IFS='
+'
+CHANGED_FILES=$(git diff --name-only --diff-filter=ACMRTUXB "${COMMIT_RANGE}")
+if ! echo "${CHANGED_FILES}"; then CHANGED_FILES=/dev/null; fi
+php /var/www/vendor/bin/phpcbf --standard=/var/www/ruleset.xml --extensions=php $CHANGED_FILES
