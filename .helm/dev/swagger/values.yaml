@@ -1,4 +1,0 @@
-swagger:
-  appName: swagger
-  port: 80
-  host: "swaggerdev.uvi.lan"

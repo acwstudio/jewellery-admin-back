@@ -1,5 +1,0 @@
-swagger:
-  appName: swagger
-  port: 80
-  host: "swagger.uvi.ru"
-  Namespace: dev

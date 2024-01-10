@@ -1,5 +1,0 @@
-parameters:
-    level: 5
-    ignoreErrors:
-        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Http::enterprise1C\(\)#'
-        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Http::enterprise1CWebCC\(\)#'
