@@ -2,8 +2,9 @@ version: "3.8"
 services:
   admin-back:
     build: ./
+
     ports:
-      - '9000:9000'
+      - 8000:8000
     networks:
       - dev-admin
     volumes:
@@ -15,5 +16,5 @@ networks:
       config:
         - subnet: 172.42.0.0/16
           gateway: 172.42.0.1
-volumes:
-  - back-data:
+#volumes:
+#  - back-data:
