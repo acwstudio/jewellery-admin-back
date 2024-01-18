@@ -6,6 +6,8 @@ services:
       - '9000:9000'
     networks:
       - dev-admin
+    volumes:
+      - .:/var/www/html/
 networks:
   dev-admin:
     driver: bridge
@@ -13,3 +15,5 @@ networks:
       config:
         - subnet: 172.42.0.0/16
           gateway: 172.42.0.1
+volumes:
+  - back-data:
