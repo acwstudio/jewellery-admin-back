@@ -9,6 +9,22 @@ services:
       - dev-admin
     volumes:
       - .:/var/www/html/
+  db:
+    image: postgres
+  #  restart: always
+    ports:
+      - '15432:15432'
+    environment:
+      POSTGRES_PASSWORD: uvi
+      POSTGRES_USER: uvi
+      POSTGRES_DATABASE: backend_admin
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./build_conf/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - dev-admin
+
 networks:
   dev-admin:
     driver: bridge
@@ -16,5 +32,6 @@ networks:
       config:
         - subnet: 172.42.0.0/16
           gateway: 172.42.0.1
-#volumes:
-#  - back-data:
+volumes:
+  postgres_data:
+
