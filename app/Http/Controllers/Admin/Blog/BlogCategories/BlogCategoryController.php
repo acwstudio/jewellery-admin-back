@@ -3,19 +3,26 @@
 namespace App\Http\Controllers\Admin\Blog\BlogCategories;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BlogCategory\BlogCategoryCollection;
 use Domain\Blog\Models\BlogCategory;
+use Domain\Blog\Services\BlogCategory\BlogCategoryService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BlogCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(
+        public BlogCategoryService $blogCategoryService
+    ) {
+    }
+
+    public function index(Request $request): JsonResponse
     {
-        //
+        $data = $request->all();
+
+        $items = $this->blogCategoryService->index($data);
+
+        return (new BlogCategoryCollection($items))->response();
     }
 
     /**
