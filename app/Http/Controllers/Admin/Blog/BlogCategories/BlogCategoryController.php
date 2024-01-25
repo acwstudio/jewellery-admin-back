@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin\Blog\BlogCategories;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\BlogCategory\BlogCategoryStoreRequest;
+use App\Http\Requests\Blog\BlogCategory\BlogCategoryUpdateRequest;
 use App\Http\Resources\Blog\BlogCategory\BlogCategoryCollection;
 use App\Http\Resources\Blog\BlogCategory\BlogCategoryResource;
 use Domain\Blog\Models\BlogCategory;
 use Domain\Blog\Services\BlogCategory\BlogCategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BlogCategoryController extends Controller
 {
@@ -32,7 +35,7 @@ class BlogCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogCategoryStoreRequest $request)
     {
         //
     }
@@ -60,7 +63,7 @@ class BlogCategoryController extends Controller
      * @param  \Domain\Blog\Models\BlogCategory  $blogCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BlogCategory $blogCategory)
+    public function update(BlogCategoryUpdateRequest $request, int $id)
     {
         //
     }
@@ -68,10 +71,10 @@ class BlogCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Domain\Blog\Models\BlogCategory  $blogCategory
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
-    public function destroy(BlogCategory $blogCategory)
+    public function destroy(int $id)
     {
         //
     }

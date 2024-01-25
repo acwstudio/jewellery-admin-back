@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Blog\BlogPosts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\BlogPost\BlogPostStoreRequest;
+use App\Http\Requests\Blog\BlogPost\BlogPostUpdateRequest;
 use App\Http\Resources\Blog\BlogPost\BlogPostCollection;
 use App\Http\Resources\Blog\BlogPost\BlogPostResource;
 use Domain\Blog\Models\BlogPost;
@@ -37,7 +39,7 @@ class BlogPostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogPostStoreRequest $request)
     {
         //
     }
@@ -65,7 +67,7 @@ class BlogPostController extends Controller
      * @param  \Domain\Blog\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BlogPost $blogPost)
+    public function update(BlogPostUpdateRequest $request, BlogPost $blogPost)
     {
         //
     }
@@ -76,7 +78,7 @@ class BlogPostController extends Controller
      * @param  \Domain\Blog\Models\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BlogPost $blogPost)
+    public function destroy(int $id)
     {
         //
     }

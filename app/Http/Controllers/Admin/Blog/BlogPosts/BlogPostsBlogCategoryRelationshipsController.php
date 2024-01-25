@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin\Blog\BlogPosts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\BlogPost\BlogPostsBlogCategoryUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
 use Domain\Blog\Services\BlogPost\BlogPostRelationsService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BlogPostsBlogCategoryRelationshipsController extends Controller
 {
@@ -25,8 +29,10 @@ class BlogPostsBlogCategoryRelationshipsController extends Controller
         return (new ApiEntityIdentifierResource($paginatedQuery))->response();
     }
 
-    public function update()
+    public function update(BlogPostsBlogCategoryUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-
+        return \response()->json([
+            'notice' => 'use update blog_category_id field by PATCH ' .
+                route('blog-posts.update',['id' => $id]) . ' instead']);
     }
 }

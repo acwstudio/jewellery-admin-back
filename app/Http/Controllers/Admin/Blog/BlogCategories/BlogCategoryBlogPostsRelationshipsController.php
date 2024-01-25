@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Blog\BlogCategories;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\BlogCategory\BlogCategoryBlogPostsUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
 use Domain\Blog\Services\BlogCategory\BlogCategoryRelationsService;
 use Illuminate\Http\JsonResponse;
@@ -29,8 +30,14 @@ class BlogCategoryBlogPostsRelationshipsController extends Controller
         return ApiEntityIdentifierResource::collection($paginatedQuery)->response();
     }
 
-    public function update()
+    public function update(BlogCategoryBlogPostsUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
+        data_set($data, 'relation_data', $request->all());
+        data_set($data, 'relation_method', 'blogPosts');
+        data_set($data, 'id', $id);
 
+        $this->blogCategoryRelationsService->updateRelations($data);
+
+        return response()->json(null, 204);
     }
 }
