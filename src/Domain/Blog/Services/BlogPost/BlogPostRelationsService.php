@@ -6,6 +6,7 @@ namespace Domain\Blog\Services\BlogPost;
 
 use Domain\Blog\Repositories\BlogPostRepository\BlogPostRelationsRepository;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Model;
 
 final class BlogPostRelationsService
 {
@@ -13,7 +14,7 @@ final class BlogPostRelationsService
     {
     }
 
-    public function indexRelations(array $data): Paginator
+    public function indexRelations(array $data): Paginator|Model
     {
         return $this->blogPostRelationsRepository->indexRelations($data);
     }

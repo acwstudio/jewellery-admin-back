@@ -17,11 +17,9 @@ class BlogCategoryBlogPostsRelationshipsController extends Controller
 
     public function index(Request $request, int $id): JsonResponse
     {
-//        $perPage = $request->get('per_page');
-
         $params = ($request->query());
         unset($params['q']);
-//        dd($params);
+
         data_set($data, 'relation_method', 'blogPosts');
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);

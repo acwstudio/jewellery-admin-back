@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain;
 
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -16,7 +17,7 @@ abstract class AbstractRelationsRepository
     private array $relationManyToMany = ['BelongsToMany', 'MorphToMany', 'MorphedToMany', 'MorphedByMany'];
     private string $nameRelationClass;
 
-    abstract public function indexRelations(array $data): Paginator;
+    abstract public function indexRelations(array $data): Paginator|Model;
 
     abstract public function updateRelations(array $data): void;
 

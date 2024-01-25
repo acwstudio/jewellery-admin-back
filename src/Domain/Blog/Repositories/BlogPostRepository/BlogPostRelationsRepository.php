@@ -7,16 +7,17 @@ namespace Domain\Blog\Repositories\BlogPostRepository;
 use Domain\AbstractRelationsRepository;
 use Domain\Blog\Models\BlogPost;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Model;
 
 final class BlogPostRelationsRepository extends AbstractRelationsRepository
 {
-    public function indexRelations(array $data): Paginator
+    public function indexRelations(array $data): Paginator|Model
     {
         $relation = data_get($data, 'relation_method');
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
-
-        return BlogPost::findOrFail($id)->{$relation}()->simplePaginate($perPage)->appends(data_get($data, 'params'));
+//        dd(BlogPost::findOrFail($id)->{$relation});
+        return BlogPost::findOrFail($id)->{$relation};
     }
 
     public function updateRelations(array $data): void

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Blog\BlogPosts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Blog\BlogPost\BlogPostCollection;
+use App\Http\Resources\Blog\BlogPost\BlogPostResource;
 use Domain\Blog\Models\BlogPost;
 use Domain\Blog\Services\BlogPost\BlogPostService;
 use Illuminate\Http\JsonResponse;
@@ -44,12 +45,17 @@ class BlogPostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Domain\Blog\Models\BlogPost  $blogPost
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function show(BlogPost $blogPost)
+    public function show(Request $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+        $model = $this->blogPostService->show($id, $data);
+
+        return (new BlogPostResource($model))->response();
     }
 
     /**
