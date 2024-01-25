@@ -32,12 +32,21 @@ class BlogCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param BlogCategoryStoreRequest $request
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function store(BlogCategoryStoreRequest $request)
+    public function store(BlogCategoryStoreRequest $request): JsonResponse
     {
-        //
+        $data = $request->all();
+
+        $blogCategory = $this->blogCategoryService->store($data);
+
+        return (new BlogCategoryResource($blogCategory))
+            ->response()
+            ->header('Location', route('blog-categories.show', [
+                'id' => $blogCategory->id
+            ]));
     }
 
     /**
@@ -59,23 +68,31 @@ class BlogCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Domain\Blog\Models\BlogCategory  $blogCategory
-     * @return \Illuminate\Http\Response
+     * @param BlogCategoryUpdateRequest $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function update(BlogCategoryUpdateRequest $request, int $id)
+    public function update(BlogCategoryUpdateRequest $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+
+        $this->blogCategoryService->update($data);
+
+        return response()->json(null, 204);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        $this->blogCategoryService->destroy($id);
+
+        return response()->json(null, 204);
     }
 }

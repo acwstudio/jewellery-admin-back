@@ -36,7 +36,7 @@ final class BlogCategoryRepository implements BlogCategoryRepositoryInterface
     {
         return QueryBuilder::for(BlogCategory::class)
             ->where('id', $id)
-            ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('blog_posts'))
+            ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('blog_categories'))
             ->allowedIncludes(['blogPosts'])
             ->firstOrFail();
     }

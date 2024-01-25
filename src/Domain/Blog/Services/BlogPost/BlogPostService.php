@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Blog\Services\BlogPost;
 
 use Domain\AbstractCRUDService;
+use Domain\Blog\Pipelines\BlogPost\BlogPostPipeline;
 use Domain\Blog\Repositories\BlogPostRepository\BlogPostRepositoryInterface;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ final class BlogPostService extends AbstractCRUDService
 {
     public function __construct(
         public BlogPostRepositoryInterface $blogPostRepositoryInterface,
-//        public BlogPostPipeline $blogPostPipeline
+        public BlogPostPipeline $blogPostPipeline
     ) {
     }
 
@@ -24,7 +25,7 @@ final class BlogPostService extends AbstractCRUDService
 
     public function store(array $data): Model
     {
-        // TODO: Implement store() method.
+        return $this->blogPostPipeline->store($data);
     }
 
     public function show(int $id, array $data): Model
@@ -32,13 +33,19 @@ final class BlogPostService extends AbstractCRUDService
         return $this->blogPostRepositoryInterface->show($id, $data);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        $this->blogPostPipeline->update($data);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function destroy(int $id): void
     {
-        // TODO: Implement destroy() method.
+        $this->blogPostPipeline->destroy($id);
     }
 }

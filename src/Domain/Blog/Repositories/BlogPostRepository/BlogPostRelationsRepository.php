@@ -20,6 +20,9 @@ final class BlogPostRelationsRepository extends AbstractRelationsRepository
         return BlogPost::findOrFail($id)->{$relation};
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function updateRelations(array $data): void
     {
         /**

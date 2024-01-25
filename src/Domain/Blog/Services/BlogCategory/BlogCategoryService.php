@@ -6,6 +6,7 @@ namespace Domain\Blog\Services\BlogCategory;
 
 use Domain\AbstractCRUDService;
 use Domain\Blog\Models\BlogCategory;
+use Domain\Blog\Pipelines\BlogCategory\BlogCategoryPipeline;
 use Domain\Blog\Repositories\BlogCategoryRepository\BlogCategoryRepositoryInterface;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ final class BlogCategoryService extends AbstractCRUDService
 {
     public function __construct(
         public BlogCategoryRepositoryInterface $blogCategoryRepositoryInterface,
-//        public BlogCategoryPipeline $blogCategoryPipeline
+        public BlogCategoryPipeline $blogCategoryPipeline
     ) {
     }
 
@@ -28,7 +29,7 @@ final class BlogCategoryService extends AbstractCRUDService
      */
     public function store(array $data): Model
     {
-//        return $this->blogCategoryPipeline->store($data);
+        return $this->blogCategoryPipeline->store($data);
     }
 
     public function show(int $id, array $data): Model|BlogCategory
@@ -41,11 +42,14 @@ final class BlogCategoryService extends AbstractCRUDService
      */
     public function update(array $data): void
     {
-//        $this->blogCategoryPipeline->update($data);
+        $this->blogCategoryPipeline->update($data);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function destroy(int $id): void
     {
-//        $this->blogCategoryPipeline->destroy($id);
+        $this->blogCategoryPipeline->destroy($id);
     }
 }

@@ -36,12 +36,20 @@ class BlogPostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param BlogPostStoreRequest $request
+     * @return JsonResponse
      */
-    public function store(BlogPostStoreRequest $request)
+    public function store(BlogPostStoreRequest $request): JsonResponse
     {
-        //
+        $data = $request->all();
+        /** @var BlogPost $blogPost */
+        $blogPost = $this->blogPostService->store($data);
+
+        return (new BlogPostResource(BlogPost::find($blogPost->id)))
+            ->response()
+            ->header('Location', route('blog-posts.show', [
+                'id' => $blogPost->id
+            ]));
     }
 
     /**
@@ -63,23 +71,30 @@ class BlogPostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Domain\Blog\Models\BlogPost  $blogPost
-     * @return \Illuminate\Http\Response
+     * @param BlogPostUpdateRequest $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function update(BlogPostUpdateRequest $request, BlogPost $blogPost)
+    public function update(BlogPostUpdateRequest $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+
+        $this->blogPostService->update($data);
+
+        return response()->json(null, 204);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Domain\Blog\Models\BlogPost  $blogPost
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        $this->blogPostService->destroy($id);
+
+        return response()->json(null, 204);
     }
 }

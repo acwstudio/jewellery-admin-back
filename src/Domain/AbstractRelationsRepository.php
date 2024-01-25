@@ -21,6 +21,9 @@ abstract class AbstractRelationsRepository
 
     abstract public function updateRelations(array $data): void;
 
+    /**
+     * @throws \ReflectionException
+     */
     protected function handleUpdateRelations(array $data): void
     {
         $model = data_get($data, 'model');
@@ -70,6 +73,7 @@ abstract class AbstractRelationsRepository
     private function updateRelationToOne($data): void
     {
         $model = data_get($data, 'model');
+
         $relationMethod = data_get($data, 'relation_method');
         $id = data_get($data, 'relation_data.data.id');
 
