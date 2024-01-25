@@ -25,8 +25,6 @@ return new class extends Migration
             $table->text('content');
             $table->string('status');
             $table->timestamp('published_at');
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
             $table->boolean('is_main');
             $table->boolean('active')->default(true);
             $table->timestamps();

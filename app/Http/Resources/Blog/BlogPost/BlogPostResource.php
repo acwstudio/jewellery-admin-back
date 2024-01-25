@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\BlogPost;
+namespace App\Http\Resources\Blog\BlogPost;
 
-use App\Http\Resources\BlogCategory\BlogCategoryResource;
+use App\Http\Resources\Blog\BlogCategory\BlogCategoryResource;
 use App\Http\Resources\IncludeRelatedEntitiesResourceTrait;
 use Domain\Blog\Models\BlogPost;
 use Illuminate\Http\Resources\Json\JsonResource;

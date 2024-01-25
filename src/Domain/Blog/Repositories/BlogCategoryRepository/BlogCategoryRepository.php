@@ -15,12 +15,12 @@ final class BlogCategoryRepository implements BlogCategoryRepositoryInterface
     public function index(array $data): Paginator
     {
         return QueryBuilder::for(BlogCategory::class)
-            ->allowedFields(['id','slug','name','meta_description'])
+            ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('blog_categories'))
             ->allowedIncludes(['blogPosts'])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
-                AllowedFilter::exact('name'),
+                'name','active'
             ])
             ->allowedSorts(['name','id'])
             ->simplePaginate($data['per_page'] ?? null)
@@ -34,13 +34,9 @@ final class BlogCategoryRepository implements BlogCategoryRepositoryInterface
 
     public function show(int $id, array $data): Model|BlogCategory
     {
-        // it is just only for ModelNotFoundException
-//        $blogCategory = BlogCategory::findOrFail($id);
-
-
         return QueryBuilder::for(BlogCategory::class)
             ->where('id', $id)
-            ->allowedFields(['id','slug','name','meta_description'])
+            ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('blog_posts'))
             ->allowedIncludes(['blogPosts'])
             ->firstOrFail();
     }

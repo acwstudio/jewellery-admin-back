@@ -3,19 +3,31 @@
 namespace App\Http\Controllers\Admin\Blog\BlogPosts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Blog\BlogPost\BlogPostCollection;
 use Domain\Blog\Models\BlogPost;
+use Domain\Blog\Services\BlogPost\BlogPostService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BlogPostController extends Controller
 {
+    public function __construct(
+        public BlogPostService $blogPostService
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        //
+        $data = $request->all();
+
+        $items = $this->blogPostService->index($data);
+
+        return (new BlogPostCollection($items))->response();
     }
 
     /**

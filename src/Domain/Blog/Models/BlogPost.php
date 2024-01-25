@@ -19,13 +19,12 @@ class BlogPost extends BaseModel
         'blog_category_id',
         'slug',
         'title',
-        'image_id',
-        'preview_id',
+        'description',
+        'image',
+        'preview',
         'content',
         'status',
         'published_at',
-        'meta_title',
-        'meta_description',
         'is_main',
         'active'
     ];
@@ -37,11 +36,6 @@ class BlogPost extends BaseModel
     public function blogCategory(): BelongsTo
     {
         return $this->belongsTo(BlogCategory::class);
-    }
-
-    protected static function newFactory()
-    {
-        return app(BlogPostFactory::class);
     }
 
     public function sluggable(): array

@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Domain\Blog\Repositories\BlogCategoryRepository;
+namespace Domain\Blog\Repositories\BlogPostRepository;
 
 use Domain\AbstractRelationsRepository;
-use Domain\Blog\Models\BlogCategory;
+use Domain\Blog\Models\BlogPost;
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class BlogCategoryRelationsRepository extends AbstractRelationsRepository
+final class BlogPostRelationsRepository extends AbstractRelationsRepository
 {
     public function indexRelations(array $data): Paginator
     {
@@ -17,7 +16,7 @@ final class BlogCategoryRelationsRepository extends AbstractRelationsRepository
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        return BlogCategory::findOrFail($id)->{$relation}()->simplePaginate($perPage)->appends(data_get($data, 'params'));
+        return BlogPost::findOrFail($id)->{$relation}()->simplePaginate($perPage)->appends(data_get($data, 'params'));
     }
 
     public function updateRelations(array $data): void
@@ -28,7 +27,7 @@ final class BlogCategoryRelationsRepository extends AbstractRelationsRepository
          * BelongsToMany, MorphedToMany, MorphedByMany
          */
 
-        data_get($data, 'model') ?? data_set($data, 'model', BlogCategory::findOrFail(data_get($data, 'id')));
+            data_get($data, 'model') ?? data_set($data, 'model', BlogPost::findOrFail(data_get($data, 'id')));
 
         $this->handleUpdateRelations($data);
     }

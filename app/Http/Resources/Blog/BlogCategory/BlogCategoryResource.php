@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\BlogCategory;
+namespace App\Http\Resources\Blog\BlogCategory;
 
-use App\Http\Resources\BlogPost\BlogPostCollection;
+use App\Http\Resources\Blog\BlogPost\BlogPostCollection;
 use App\Http\Resources\IncludeRelatedEntitiesResourceTrait;
 use Domain\Blog\Models\BlogCategory;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -27,7 +27,7 @@ class BlogCategoryResource extends JsonResource
             'type' => BlogCategory::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'blogCategory' => $this->sectionRelationships('blog-category.blog-posts', BlogPostCollection::class)
+                'blogPosts' => $this->sectionRelationships('blog-category.blog-posts', BlogPostCollection::class)
             ]
         ];
     }

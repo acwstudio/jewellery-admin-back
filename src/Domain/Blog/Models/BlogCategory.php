@@ -15,7 +15,7 @@ class BlogCategory extends BaseModel
 
     public const TYPE_RESOURCE = 'blogCategories';
 
-    protected $fillable = ['name','slug','meta_description','active'];
+    protected $fillable = ['parent_id','name','slug','description','active'];
 
     public function blogPosts(): HasMany
     {

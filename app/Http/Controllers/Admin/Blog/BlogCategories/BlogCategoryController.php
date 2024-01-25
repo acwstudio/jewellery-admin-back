@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin\Blog\BlogCategories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BlogCategory\BlogCategoryCollection;
+use App\Http\Resources\Blog\BlogCategory\BlogCategoryCollection;
+use App\Http\Resources\Blog\BlogCategory\BlogCategoryResource;
 use Domain\Blog\Models\BlogCategory;
 use Domain\Blog\Services\BlogCategory\BlogCategoryService;
 use Illuminate\Http\JsonResponse;
@@ -39,12 +40,17 @@ class BlogCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Domain\Blog\Models\BlogCategory  $blogCategory
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function show(BlogCategory $blogCategory)
+    public function show(Request $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+        $model = $this->blogCategoryService->show($id, $data);
+
+        return (new BlogCategoryResource($model))->response();
     }
 
     /**
