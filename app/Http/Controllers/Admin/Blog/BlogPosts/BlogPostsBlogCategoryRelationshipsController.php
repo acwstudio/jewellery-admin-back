@@ -32,7 +32,7 @@ class BlogPostsBlogCategoryRelationshipsController extends Controller
     public function update(BlogPostsBlogCategoryUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
         return \response()->json([
-            'notice' => 'use update blog_category_id field by PATCH ' .
+            'Warning' => 'use update blog_category_id field by PATCH ' .
                 route('blog-posts.update',['id' => $id]) . ' instead']);
     }
 }

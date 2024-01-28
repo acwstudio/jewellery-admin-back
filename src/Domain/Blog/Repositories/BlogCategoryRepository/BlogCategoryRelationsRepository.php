@@ -20,6 +20,9 @@ final class BlogCategoryRelationsRepository extends AbstractRelationsRepository
         return BlogCategory::findOrFail($id)->{$relation}()->simplePaginate($perPage)->appends(data_get($data, 'params'));
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function updateRelations(array $data): void
     {
         /**

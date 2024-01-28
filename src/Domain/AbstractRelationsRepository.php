@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Cache;
 
 abstract class AbstractRelationsRepository
 {
@@ -26,6 +27,7 @@ abstract class AbstractRelationsRepository
      */
     protected function handleUpdateRelations(array $data): void
     {
+        /** @var Model $model */
         $model = data_get($data, 'model');
         $relationMethod = data_get($data, 'relation_method');
 
@@ -33,14 +35,18 @@ abstract class AbstractRelationsRepository
 
         if (in_array($this->nameRelationClass, $this->relationToMany)) {
             $this->updateRelationToMany($data);
+            Cache::tags([$model::class, get_class($model->{$relationMethod}()->getRelated())])->flush();
         }
 
         if (in_array($this->nameRelationClass, $this->relationToOne)) {
+
             $this->updateRelationToOne($data);
+            Cache::tags([$model::class, get_class($model->{$relationMethod}()->getRelated())])->flush();
         }
 
         if (in_array($this->nameRelationClass, $this->relationManyToMany)) {
             $this->updateRelationManyToMany($data);
+            Cache::tags([$model::class, get_class($model->{$relationMethod}()->getRelated())])->flush();
         }
     }
 
@@ -91,6 +97,7 @@ abstract class AbstractRelationsRepository
 
     private function updateRelationManyToMany($data): void
     {
+        // todo sync related models
     }
 
     /**

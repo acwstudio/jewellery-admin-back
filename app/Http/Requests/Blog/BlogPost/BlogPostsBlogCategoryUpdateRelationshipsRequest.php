@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Blog\BlogPost;
 
+use Domain\Blog\Models\BlogCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BlogPostsBlogCategoryUpdateRelationshipsRequest extends FormRequest
@@ -11,7 +12,7 @@ class BlogPostsBlogCategoryUpdateRelationshipsRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,10 +22,12 @@ class BlogPostsBlogCategoryUpdateRelationshipsRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'data'      => ['required', 'array'],
+            'data.id'   => ['required','integer','exists:blog_categories,id'],
+            'data.type' => ['required','string','in:' . BlogCategory::TYPE_RESOURCE],
         ];
     }
 }
