@@ -19,7 +19,7 @@ final class BlogCategoryCachedRepository extends AbstractCachedRepository implem
 
     public function index(array $data): Paginator
     {
-        return Cache::remember($this->getCacheKey($data), $this->getTtl(),
+        return Cache::tags([BlogCategory::class])->remember($this->getCacheKey($data), $this->getTtl(),
             function () use ($data) {
                 return $this->blogCategoryRepositoryInterface->index($data);
         });
@@ -27,7 +27,7 @@ final class BlogCategoryCachedRepository extends AbstractCachedRepository implem
 
     public function show(int $id, array $data): Model|BlogCategory
     {
-        return Cache::remember($this->getCacheKey($data), $this->getTtl(),
+        return Cache::tags([BlogCategory::class])->remember($this->getCacheKey($data), $this->getTtl(),
             function () use ($id, $data) {
                 return $this->blogCategoryRepositoryInterface->show($id, $data);
             });

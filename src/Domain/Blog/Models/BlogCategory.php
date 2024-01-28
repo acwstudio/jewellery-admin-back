@@ -7,11 +7,12 @@ namespace Domain\Blog\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 use Domain\Shared\Models\BaseModel;
+use Domain\Shared\Observers\RedisCache\RedisCacheable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BlogCategory extends BaseModel
 {
-    use Sluggable;
+    use Sluggable, RedisCacheable;
 
     public const TYPE_RESOURCE = 'blogCategories';
 

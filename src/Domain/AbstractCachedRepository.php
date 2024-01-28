@@ -23,4 +23,11 @@ abstract class AbstractCachedRepository
     {
         return self::CACHE_TTL_SECONDS;
     }
+
+    protected function getShortClassName(): bool|string
+    {
+        $explodedClassName = explode('\\', static::class);
+
+        return end($explodedClassName);
+    }
 }

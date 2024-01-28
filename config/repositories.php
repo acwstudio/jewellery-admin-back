@@ -12,11 +12,11 @@ return [
     [
         'interface'      => BlogCategoryRepositoryInterface::class,
         'implementation' => BlogCategoryRepository::class,
-//        'cache'          => BlogCategoryCachedRepository::class
+        'cache'          => BlogCategoryCachedRepository::class
     ],
     [
         'interface'      => BlogPostRepositoryInterface::class,
         'implementation' => BlogPostRepository::class,
-//        'cache'          => BlogPostCachedRepository::class
+        'cache'          => BlogPostCachedRepository::class
     ]
 ];
