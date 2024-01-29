@@ -39,7 +39,6 @@ abstract class AbstractRelationsRepository
         }
 
         if (in_array($this->nameRelationClass, $this->relationToOne)) {
-
             $this->updateRelationToOne($data);
             Cache::tags([$model::class, get_class($model->{$relationMethod}()->getRelated())])->flush();
         }

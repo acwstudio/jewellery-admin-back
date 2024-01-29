@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Domain\Blog\Pipelines\BlogCategory;
 
 use Domain\AbstractPipeline;
-use Domain\Blog\Pipelines\BlogCategory\Pipes\BlogCategoryBlogPostsStoreUpdateRelationshipsPipe;
+use Domain\Blog\Pipelines\BlogCategory\Pipes\BlogCategoriesParentUpdateRelationshipsPipe;
+use Domain\Blog\Pipelines\BlogCategory\Pipes\BlogCategoryBlogPostsUpdateRelationshipsPipe;
+use Domain\Blog\Pipelines\BlogCategory\Pipes\BlogCategoryChildrenUpdateRelationshipsPipe;
 use Domain\Blog\Pipelines\BlogCategory\Pipes\BlogCategoryDestroyPipe;
 use Domain\Blog\Pipelines\BlogCategory\Pipes\BlogCategoryStorePipe;
 use Domain\Blog\Pipelines\BlogCategory\Pipes\BlogCategoryUpdatePipe;
@@ -27,7 +29,9 @@ final class BlogCategoryPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     BlogCategoryStorePipe::class,
-                    BlogCategoryBlogPostsStoreUpdateRelationshipsPipe::class
+                    BlogCategoryBlogPostsUpdateRelationshipsPipe::class,
+                    BlogCategoriesParentUpdateRelationshipsPipe::class,
+                    BlogCategoryChildrenUpdateRelationshipsPipe::class,
                 ])
                 ->thenReturn();
 
@@ -54,7 +58,9 @@ final class BlogCategoryPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     BlogCategoryUpdatePipe::class,
-                    BlogCategoryBlogPostsStoreUpdateRelationshipsPipe::class
+                    BlogCategoryBlogPostsUpdateRelationshipsPipe::class,
+                    BlogCategoriesParentUpdateRelationshipsPipe::class,
+                    BlogCategoryChildrenUpdateRelationshipsPipe::class,
                 ])
                 ->thenReturn();
 

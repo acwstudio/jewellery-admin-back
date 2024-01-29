@@ -16,13 +16,14 @@ final class BlogCategoryRepository implements BlogCategoryRepositoryInterface
     {
         return QueryBuilder::for(BlogCategory::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('blog_categories'))
-            ->allowedIncludes(['blogPosts'])
+            ->allowedIncludes(['blogPosts','parent','children'])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
+                AllowedFilter::exact('parent_id'),
                 'name','active'
             ])
-            ->allowedSorts(['name','id'])
+            ->allowedSorts(['name','id','parent_id'])
             ->simplePaginate($data['per_page'] ?? null)
             ->appends($data);
     }
@@ -37,7 +38,7 @@ final class BlogCategoryRepository implements BlogCategoryRepositoryInterface
         return QueryBuilder::for(BlogCategory::class)
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('blog_categories'))
-            ->allowedIncludes(['blogPosts'])
+            ->allowedIncludes(['blogPosts','parent','children'])
             ->firstOrFail();
     }
 

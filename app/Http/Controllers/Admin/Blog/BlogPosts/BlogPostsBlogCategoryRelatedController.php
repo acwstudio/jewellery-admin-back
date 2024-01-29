@@ -20,8 +20,8 @@ class BlogPostsBlogCategoryRelatedController extends Controller
         data_set($data, 'relation_method', 'blogCategory');
         data_set($data, 'id', $id);
 
-        $paginatedQuery = $this->blogPostRelationsService->indexRelations($data);
+        $blogCategory = $this->blogPostRelationsService->indexRelations($data);
 
-        return (new BlogCategoryResource($paginatedQuery))->response();
+        return (new BlogCategoryResource($blogCategory))->response();
     }
 }

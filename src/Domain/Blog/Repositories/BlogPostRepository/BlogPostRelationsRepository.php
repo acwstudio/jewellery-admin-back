@@ -16,8 +16,13 @@ final class BlogPostRelationsRepository extends AbstractRelationsRepository
         $relation = data_get($data, 'relation_method');
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
-//        dd(BlogPost::findOrFail($id)->{$relation});
-        return BlogPost::findOrFail($id)->{$relation};
+
+        if (in_array(BlogPost::findOrFail($id)->{$relation}()::class, config('api-settings.to-one')))
+        {
+            return BlogPost::findOrFail($id)->{$relation}()->firstOrFail();
+        }
+
+        return BlogPost::findOrFail($id)->{$relation}()->simplePaginate($perPage)->appends(data_get($data, 'params'));
     }
 
     /**

@@ -27,7 +27,9 @@ class BlogCategoryResource extends JsonResource
             'type' => BlogCategory::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'blogPosts' => $this->sectionRelationships('blog-category.blog-posts', BlogPostCollection::class)
+                'blogPosts' => $this->sectionRelationships('blog-category.blog-posts', BlogPostCollection::class),
+                'parent' => $this->sectionRelationships('blog-categories.parent', BlogCategoryResource::class),
+                'children' => $this->sectionRelationships('blog-category.children', BlogCategoryCollection::class),
             ]
         ];
     }
@@ -36,6 +38,8 @@ class BlogCategoryResource extends JsonResource
     {
         return [
             BlogPostCollection::class => $this->whenLoaded('blogPosts'),
+            BlogCategoryCollection::class => $this->whenLoaded('children'),
+            BlogCategoryResource::class => $this->whenLoaded('parent'),
         ];
     }
 }
