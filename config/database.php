@@ -78,6 +78,21 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'pgsql_core' => [
+            'driver' => 'pgsql',
+            'url' => env('DATABASE_URL_CORE'),
+            'host' => env('DB_HOST_CORE', '127.0.0.1'),
+            'port' => env('DB_PORT_CORE', '5432'),
+            'database' => env('DB_DATABASE_CORE', 'forge'),
+            'username' => env('DB_USERNAME_CORE', 'forge'),
+            'password' => env('DB_PASSWORD_CORE', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),

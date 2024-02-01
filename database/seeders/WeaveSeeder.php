@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Domain\Catalog\Models\Weave;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +20,7 @@ class WeaveSeeder extends Seeder
         DB::table('weaves')->truncate();
         DB::statement('SET SESSION_REPLICATION_ROLE="origin";');
 
-        $weaves = DB::table('catalog.features')->where('type', 'weaving')->get();
+        $weaves = DB::connection('pgsql_core')->table('catalog.features')->where('type', 'weaving')->get();
 //        dd($weaves);
         foreach ($weaves as $weave) {
             DB::table('weaves')->insert([
