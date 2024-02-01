@@ -3,19 +3,33 @@
 namespace App\Http\Controllers\Admin\Catalog\Weaves;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Catalog\Weave\WeaveCollection;
+use App\Http\Resources\Catalog\Weave\WeaveResource;
 use Domain\Catalog\Models\Weave;
+use Domain\Catalog\Services\Weave\WeaveService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class WeaveController extends Controller
 {
+    public function __construct(
+        public WeaveService $weaveService
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        //
+        $data = $request->all();
+
+        $items = $this->weaveService->index($data);
+
+        return (new WeaveCollection($items))->response();
     }
 
     /**
@@ -32,12 +46,17 @@ class WeaveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Domain\Catalog\Models\Weave  $weave
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function show(Weave $weave)
+    public function show(Request $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+        $model = $this->weaveService->show($id, $data);
+
+        return (new WeaveResource($model))->response();
     }
 
     /**

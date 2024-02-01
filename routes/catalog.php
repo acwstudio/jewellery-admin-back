@@ -30,10 +30,10 @@ use App\Http\Controllers\Admin\Catalog\Weaves\WeavesProductsRelationshipsControl
 /*****************  PRODUCTS ROUTES **************/
 // CRUD
 Route::get('products', [ProductController::class, 'index'])->name('products.index');
-Route::get('products/{id}', [ProductController::class, 'index'])->name('products.show');
-Route::post('products', [ProductController::class, 'index'])->name('products.store');
-Route::patch('products/{id}', [ProductController::class, 'index'])->name('products.update');
-Route::delete('products/{id}', [ProductController::class, 'index'])->name('products.destroy');
+Route::get('products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::post('products', [ProductController::class, 'store'])->name('products.store');
+Route::patch('products/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 //  many-to-one  Products to ProductCategory
 Route::get('products/{id}/relationships/product-category', [ProductsProductCategoryRelationshipsController::class, 'index'])
     ->name('products.relationships.product-category');
@@ -59,10 +59,10 @@ Route::get('products/{id}/blog-posts', [ProductsBlogPostsRelatedController::clas
 /*****************  PRODUCT CATEGORIES ROUTES **************/
 // CRUD
 Route::get('product-categories', [ProductCategoryController::class, 'index'])->name('product-categories.index');
-Route::get('product-categories/{id}', [ProductCategoryController::class, 'index'])->name('product-categories.show');
-Route::post('product-categories', [ProductCategoryController::class, 'index'])->name('product-categories.store');
-Route::patch('product-categories/{id}', [ProductCategoryController::class, 'index'])->name('product-categories.update');
-Route::delete('product-categories/{id}', [ProductCategoryController::class, 'index'])->name('product-categories.destroy');
+Route::get('product-categories/{id}', [ProductCategoryController::class, 'show'])->name('product-categories.show');
+Route::post('product-categories', [ProductCategoryController::class, 'store'])->name('product-categories.store');
+Route::patch('product-categories/{id}', [ProductCategoryController::class, 'update'])->name('product-categories.update');
+Route::delete('product-categories/{id}', [ProductCategoryController::class, 'destroy'])->name('product-categories.destroy');
 //  one-to-many  Product Categories to Products
 Route::get('product-categories/{id}/relationships/products', [ProductCategoryProductsRelationshipsController::class, 'index'])
     ->name('product-category.relationships.products');
@@ -74,10 +74,10 @@ Route::get('product-categories/{id}/products', [ProductCategoryProductsRelatedCo
 /*****************  WEAVES ROUTES **************/
 // CRUD
 Route::get('weaves', [WeaveController::class, 'index'])->name('weaves.index');
-Route::get('weaves/{id}', [WeaveController::class, 'index'])->name('weaves.show');
-Route::post('weaves', [WeaveController::class, 'index'])->name('weaves.store');
-Route::patch('weaves/{id}', [WeaveController::class, 'index'])->name('weaves.update');
-Route::delete('weaves/{id}', [WeaveController::class, 'index'])->name('weaves.destroy');
+Route::get('weaves/{id}', [WeaveController::class, 'show'])->name('weaves.show');
+Route::post('weaves', [WeaveController::class, 'store'])->name('weaves.store');
+Route::patch('weaves/{id}', [WeaveController::class, 'update'])->name('weaves.update');
+Route::delete('weaves/{id}', [WeaveController::class, 'destroy'])->name('weaves.destroy');
 //  many-to-many  Weaves to Products
 Route::get('weaves/{id}/relationships/products', [WeavesProductsRelationshipsController::class, 'index'])
     ->name('weaves.relationships.products');

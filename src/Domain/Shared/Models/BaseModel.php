@@ -16,7 +16,7 @@ abstract class BaseModel extends Model
         $parts = str(get_called_class())->explode('\\');
         $domain = $parts[1];
         $model = $parts->last();
-//        dd($parts);
+
         return app("Database\\Factories\\{$domain}\\{$model}Factory");
     }
 }
