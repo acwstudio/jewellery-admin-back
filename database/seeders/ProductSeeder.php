@@ -23,7 +23,7 @@ class ProductSeeder extends Seeder
 
 //        $categoryIds = [];
         $catalogIds = DB::table('catalog.categories')->where('parent_id', null)->get();
-//        dd($ids);
+        dd($catalogIds);
         $parentIds = DB::table('catalog.categories')->where('parent_id', 1)->pluck('id');
 //        dd($parentIds);
 

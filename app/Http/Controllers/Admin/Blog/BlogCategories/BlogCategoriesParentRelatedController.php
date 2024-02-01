@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Blog\BlogCategories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Blog\BlogCategory\BlogCategoryCollection;
 use App\Http\Resources\Blog\BlogCategory\BlogCategoryResource;
 use Domain\Blog\Services\BlogCategory\BlogCategoryRelationsService;
 use Illuminate\Http\JsonResponse;

@@ -3,12 +3,11 @@
 namespace Domain\Catalog\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Domain\Shared\Models\BaseModel;
 
-class Brand extends Model
+class Brand extends BaseModel
 {
-    use HasFactory, Sluggable;
+    use Sluggable;
 
     public function sluggable(): array
     {

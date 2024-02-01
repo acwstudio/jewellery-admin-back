@@ -1,12 +1,12 @@
 <?php
 
 
-use Domain\Blog\Repositories\BlogCategoryRepository\BlogCategoryCachedRepository;
-use Domain\Blog\Repositories\BlogCategoryRepository\BlogCategoryRepository;
-use Domain\Blog\Repositories\BlogCategoryRepository\BlogCategoryRepositoryInterface;
-use Domain\Blog\Repositories\BlogPostRepository\BlogPostCachedRepository;
-use Domain\Blog\Repositories\BlogPostRepository\BlogPostRepository;
-use Domain\Blog\Repositories\BlogPostRepository\BlogPostRepositoryInterface;
+use Domain\Blog\Repositories\BlogCategory\BlogCategoryCachedRepository;
+use Domain\Blog\Repositories\BlogCategory\BlogCategoryRepository;
+use Domain\Blog\Repositories\BlogCategory\BlogCategoryRepositoryInterface;
+use Domain\Blog\Repositories\BlogPost\BlogPostCachedRepository;
+use Domain\Blog\Repositories\BlogPost\BlogPostRepository;
+use Domain\Blog\Repositories\BlogPost\BlogPostRepositoryInterface;
 
 return [
     [

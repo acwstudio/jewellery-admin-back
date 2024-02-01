@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Blog\Repositories\BlogCategoryRepository;
+namespace Domain\Blog\Repositories\BlogCategory;
 
 use Domain\AbstractCachedRepository;
 use Domain\Blog\Models\BlogCategory;

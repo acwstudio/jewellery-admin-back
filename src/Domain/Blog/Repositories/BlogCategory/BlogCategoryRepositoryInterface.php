@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Blog\Repositories\BlogCategoryRepository;
+namespace Domain\Blog\Repositories\BlogCategory;
 
 use Domain\Blog\Models\BlogCategory;
 use Illuminate\Contracts\Pagination\Paginator;

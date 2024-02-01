@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Blog\Pipelines\BlogPost\Pipes;
 
-use Domain\Blog\Repositories\BlogPostRepository\BlogPostRelationsRepository;
+use Domain\Blog\Repositories\BlogPost\BlogPostRelationsRepository;
 
 final class BlogPostsBlogCategoryStoreUpdateRelationshipsPipe
 {

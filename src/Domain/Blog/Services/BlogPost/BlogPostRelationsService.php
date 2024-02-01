@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Blog\Services\BlogPost;
 
-use Domain\Blog\Repositories\BlogPostRepository\BlogPostRelationsRepository;
+use Domain\Blog\Repositories\BlogPost\BlogPostRelationsRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Catalog\ProductCategories;
+namespace App\Http\Controllers\Admin\Catalog\Products;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProductsProductCategoryRelationshipsController extends Controller
+class ProductsBlogPostsRelationshipsController extends Controller
 {
     public function index()
     {

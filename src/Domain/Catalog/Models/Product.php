@@ -6,12 +6,12 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Domain\Blog\Models\BlogPost;
 use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends BaseModel
 {
-    use HasFactory, RedisCacheable, Sluggable;
+    use RedisCacheable, Sluggable;
 
     public const TYPE_RESOURCE = 'products';
 
@@ -30,6 +30,16 @@ class Product extends BaseModel
     public function blogPosts(): BelongsToMany
     {
         return $this->belongsToMany(BlogPost::class);
+    }
+
+    public function productCategory(): BelongsTo
+    {
+        return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function weaves(): BelongsToMany
+    {
+        return$this->belongsToMany(Weave::class);
     }
 
     public function sluggable(): array

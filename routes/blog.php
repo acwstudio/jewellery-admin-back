@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\Blog\BlogPosts\BlogPostController;
 use App\Http\Controllers\Admin\Blog\BlogCategories\BlogCategoryBlogPostsRelatedController;
 use App\Http\Controllers\Admin\Blog\BlogPosts\BlogPostsBlogCategoryRelationshipsController;
 use App\Http\Controllers\Admin\Blog\BlogPosts\BlogPostsBlogCategoryRelatedController;
+use App\Http\Controllers\Admin\Blog\BlogPosts\BlogPostsProductsRelatedController;
+use App\Http\Controllers\Admin\Blog\BlogPosts\BlogPostsProductsRelationshipsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -74,3 +76,10 @@ Route::patch('blog-posts/{id}/relationships/blog-category', [BlogPostsBlogCatego
     ->name('blog-posts.relationships.blog-category');
 Route::get('blog-posts/{id}/blog-category', [BlogPostsBlogCategoryRelatedController::class, 'index'])
     ->name('blog-posts.blog-category');
+//  many-to-many BlogPosts to  Products
+Route::get('blog-posts/{id}/relationships/products', [BlogPostsProductsRelationshipsController::class, 'index'])
+    ->name('blog-posts.relationships.products');
+Route::patch('blog-posts/{id}/relationships/products', [BlogPostsProductsRelationshipsController::class, 'update'])
+    ->name('blog-posts.relationships.products');
+Route::get('blog-posts/{id}/products', [BlogPostsProductsRelatedController::class, 'index'])
+    ->name('blog-posts.products');

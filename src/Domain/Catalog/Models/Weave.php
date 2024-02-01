@@ -5,19 +5,19 @@ namespace Domain\Catalog\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class ProductCategory extends BaseModel
+class Weave extends BaseModel
 {
     use Sluggable, RedisCacheable;
 
-    public const TYPE_RESOURCE = 'productCategories';
+    public const TYPE_RESOURCE = 'weaves';
 
-    protected $fillable = ['parent_id','name','description','slug','is_active'];
+    protected $fillable = ['name','slug','is_active'];
 
-    public function products(): HasMany
+    public function products(): BelongsToMany
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 
     public function sluggable(): array

@@ -6,8 +6,8 @@ namespace Domain\Blog\Services\BlogCategory;
 
 use Domain\AbstractCRUDService;
 use Domain\Blog\Models\BlogCategory;
+use Domain\Blog\Repositories\BlogCategory\BlogCategoryRepositoryInterface;
 use Domain\Blog\Pipelines\BlogCategory\BlogCategoryPipeline;
-use Domain\Blog\Repositories\BlogCategoryRepository\BlogCategoryRepositoryInterface;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 

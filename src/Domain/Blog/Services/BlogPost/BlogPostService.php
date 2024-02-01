@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Domain\Blog\Services\BlogPost;
 
 use Domain\AbstractCRUDService;
+use Domain\Blog\Repositories\BlogPost\BlogPostRepositoryInterface;
 use Domain\Blog\Pipelines\BlogPost\BlogPostPipeline;
-use Domain\Blog\Repositories\BlogPostRepository\BlogPostRepositoryInterface;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 
