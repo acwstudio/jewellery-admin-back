@@ -23,7 +23,7 @@ final class BlogPostRepository implements BlogPostRepositoryInterface
             'active','title','content'
             ])
             ->allowedSorts(['title','id'])
-            ->simplePaginate($data['per_page'] ?? null)
+            ->paginate($data['per_page'] ?? null)
             ->appends($data);
     }
 

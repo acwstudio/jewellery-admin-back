@@ -22,8 +22,7 @@ final class BlogCategoryRelationsRepository extends AbstractRelationsRepository
         {
             return BlogCategory::findOrFail($id)->{$relation}()->firstOrFail();
         }
-
-        return BlogCategory::findOrFail($id)->{$relation}()->simplePaginate($perPage)->appends(data_get($data, 'params'));
+        return BlogCategory::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
     /**

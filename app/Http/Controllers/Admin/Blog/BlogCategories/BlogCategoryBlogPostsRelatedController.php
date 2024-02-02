@@ -17,10 +17,12 @@ class BlogCategoryBlogPostsRelatedController extends Controller
 
     public function index(Request $request, int $id): JsonResponse
     {
-        $data = $request->all();
+        $params = ($request->query());
+        unset($params['q']);
 
         data_set($data, 'relation_method', 'blogPosts');
         data_set($data, 'id', $id);
+        data_set($data, 'params', $params);
 
         $blogPosts = $this->blogCategoryRelationsService->indexRelations($data);
 

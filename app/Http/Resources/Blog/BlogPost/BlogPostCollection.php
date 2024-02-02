@@ -11,9 +11,4 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class BlogPostCollection extends ResourceCollection
 {
     use IncludeRelatedEntitiesCollectionTrait;
-
-    protected function total(): int
-    {
-        return BlogPost::where('active', true)->count();
-    }
 }

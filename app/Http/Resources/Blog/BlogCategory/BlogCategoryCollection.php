@@ -11,9 +11,4 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class BlogCategoryCollection extends ResourceCollection
 {
     use IncludeRelatedEntitiesCollectionTrait;
-
-    protected function total(): int
-    {
-        return BlogCategory::where('active', true)->count();
-    }
 }

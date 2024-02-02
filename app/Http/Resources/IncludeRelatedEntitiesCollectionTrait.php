@@ -22,7 +22,8 @@ trait IncludeRelatedEntitiesCollectionTrait
             'data'     => $this->collection,
             'included' => $this->mergeIncludedRelations($request),
             'meta' => [
-                'total' => $this->total() ?? null
+//                'total' => $this->total() ?? null
+//                'total' => $this->collection->count()
             ]
         ];
     }
@@ -40,5 +41,5 @@ trait IncludeRelatedEntitiesCollectionTrait
         return $includes->isNotEmpty() ? $includes : new MissingValue();
     }
 
-    abstract protected function total(): int;
+//    abstract protected function total(): int;
 }

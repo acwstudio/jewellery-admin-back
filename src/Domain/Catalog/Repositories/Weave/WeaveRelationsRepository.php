@@ -23,7 +23,7 @@ final class WeaveRelationsRepository extends AbstractRelationsRepository
             return Weave::findOrFail($id)->{$relation}()->firstOrFail();
         }
 
-        return Weave::findOrFail($id)->{$relation}()->simplePaginate($perPage)->appends(data_get($data, 'params'));
+        return Weave::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
     /**

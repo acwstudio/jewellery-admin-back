@@ -23,7 +23,7 @@ final class ProductRelationsRepository extends AbstractRelationsRepository
             return Product::findOrFail($id)->{$relation}()->firstOrFail();
         }
 
-        return Product::findOrFail($id)->{$relation}()->simplePaginate($perPage)->appends(data_get($data, 'params'));
+        return Product::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
     /**

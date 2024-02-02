@@ -6,9 +6,11 @@ namespace Domain\Blog\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Database\Factories\Blog\BlogPostFactory;
+use Domain\Catalog\Models\Product;
 use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class BlogPost extends BaseModel
 {
@@ -37,6 +39,11 @@ class BlogPost extends BaseModel
     public function blogCategory(): BelongsTo
     {
         return $this->belongsTo(BlogCategory::class);
+    }
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class);
     }
 
     public function sluggable(): array

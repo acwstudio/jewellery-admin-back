@@ -25,7 +25,7 @@ final class ProductRepository implements ProductRepositoryInterface
                 'name','active'
             ])
             ->allowedSorts(['name','id','slug','product_category_id','sku'])
-            ->simplePaginate($data['per_page'] ?? null)
+            ->paginate($data['per_page'] ?? null)
             ->appends($data);
     }
 

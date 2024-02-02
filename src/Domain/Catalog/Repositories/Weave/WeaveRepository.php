@@ -24,7 +24,7 @@ final class WeaveRepository implements WeaveRepositoryInterface
                 'name','active'
             ])
             ->allowedSorts(['name','id','slug'])
-            ->simplePaginate($data['per_page'] ?? null)
+            ->paginate($data['per_page'] ?? null)
             ->appends($data);
     }
 

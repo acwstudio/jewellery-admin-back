@@ -24,7 +24,7 @@ final class BlogCategoryRepository implements BlogCategoryRepositoryInterface
                 'name','active'
             ])
             ->allowedSorts(['name','id','parent_id'])
-            ->simplePaginate($data['per_page'] ?? null)
+            ->paginate($data['per_page'] ?? null)
             ->appends($data);
     }
 

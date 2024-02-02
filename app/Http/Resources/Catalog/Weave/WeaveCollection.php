@@ -9,9 +9,4 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class WeaveCollection extends ResourceCollection
 {
     use IncludeRelatedEntitiesCollectionTrait;
-
-    protected function total(): int
-    {
-        return Weave::where('is_active', true)->count();
-    }
 }
