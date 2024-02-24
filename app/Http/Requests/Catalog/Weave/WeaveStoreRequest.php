@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Catalog\Weave;
 
+use Domain\Catalog\Models\Product;
+use Domain\Catalog\Models\Weave;
 use Illuminate\Foundation\Http\FormRequest;
 
 class WeaveStoreRequest extends FormRequest
@@ -13,7 +15,7 @@ class WeaveStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,20 @@ class WeaveStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'validation' => ['required']
+            'data'                                => ['required','array'],
+            'data.type'                           => ['required','string','in:' . Weave::TYPE_RESOURCE],
+            'data.attributes'                     => ['required','array'],
+            'data.attributes.name'                => ['required','string'],
+            'data.attributes.slug'                => ['prohibited'],
+            'data.attributes.is_active'           => ['required','boolean'],
+            // relationships
+            'data.relationships'                     => ['sometimes','required','array'],
+            // many to many banners
+            'data.relationships.products'             => ['sometimes','required','array'],
+            'data.relationships.products.data'        => ['sometimes','required','array'],
+            'data.relationships.products.data.*'      => ['sometimes','required','array'],
+            'data.relationships.products.data.*.type' => ['present','string','in:' . Product::TYPE_RESOURCE],
+            'data.relationships.products.data.*.id'   => ['present','string', 'distinct', 'exists:products,id']
         ];
     }
 }
