@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Domain\Shared\Observers\RedisCache;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use ReflectionClass;
+use ReflectionMethod;
 
 final class RedisCacheObserver
 {
@@ -12,13 +15,49 @@ final class RedisCacheObserver
     {
     }
 
-    public function saved($model): void
+    /**
+     * @throws \ReflectionException
+     */
+    public function saved(Model $model): void
     {
-        Cache::tags([$model::class])->flush();
+        $tags = $this->defineTags($model);
+        Cache::tags($tags)->flush();
     }
 
-    public function delete($model): void
+    /**
+     * @throws \ReflectionException
+     */
+    public function delete(Model $model): void
     {
-        Cache::tags([$model::class])->flush();
+        $tags = $this->defineTags($model);
+        Cache::tags($tags)->flush();
+    }
+
+    /**
+     * @throws \ReflectionException
+     */
+    private function defineTags(Model $model): array
+    {
+        $modelName = $model::class;
+        $reflector = new ReflectionClass($modelName);
+        $relations = [];
+        $tags = [];
+        foreach ($reflector->getMethods() as $reflectionMethod) {
+            $returnType = $reflectionMethod->getReturnType();
+            if ($returnType) {
+                if (in_array(class_basename($returnType->getName()), [
+                    'HasOne', 'HasMany', 'BelongsTo', 'BelongsToMany', 'MorphToMany', 'MorphTo'
+                ])) {
+                    $relations[] = $reflectionMethod;
+                }
+            }
+        }
+
+        foreach ($relations as $relation) {
+            $relModel = $model->{$relation->name}();
+            $tags[] = get_class($relModel->getRelated());
+        }
+
+        return $tags;
     }
 }
