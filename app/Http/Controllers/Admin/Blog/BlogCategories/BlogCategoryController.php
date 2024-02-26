@@ -40,12 +40,12 @@ class BlogCategoryController extends Controller
     {
         $data = $request->all();
 
-        $blogCategory = $this->blogCategoryService->store($data);
+        $model = $this->blogCategoryService->store($data);
 
-        return (new BlogCategoryResource($blogCategory))
+        return (new BlogCategoryResource($model))
             ->response()
             ->header('Location', route('blog-categories.show', [
-                'id' => $blogCategory->id
+                'id' => $model->id
             ]));
     }
 

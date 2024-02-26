@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoriesParentRelatedController;
+use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoriesParentRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryChildrenRelatedController;
+use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryChildrenRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryController;
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryProductsRelatedController;
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryProductsRelationshipsController;
@@ -70,6 +74,20 @@ Route::patch('product-categories/{id}/relationships/products', [ProductCategoryP
     ->name('product-category.relationships.products');
 Route::get('product-categories/{id}/products', [ProductCategoryProductsRelatedController::class, 'index'])
     ->name('product-category.products');
+//  many-to-one  Product Category to parent
+Route::get('product-categories/{id}/relationships/parent', [ProductCategoriesParentRelationshipsController::class, 'index'])
+    ->name('product-categories.relationships.parent');
+Route::patch('product-categories/{id}/relationships/parent', [ProductCategoriesParentRelationshipsController::class, 'update'])
+    ->name('product-categories.relationships.parent');
+Route::get('product-categories/{id}/parent', [ProductCategoriesParentRelatedController::class, 'index'])
+    ->name('product-categories.parent');
+//  one-to-many  Product Category to children
+Route::get('product-categories/{id}/relationships/children', [ProductCategoryChildrenRelationshipsController::class, 'index'])
+    ->name('product-category.relationships.children');
+Route::patch('product-categories/{id}/relationships/children', [ProductCategoryChildrenRelationshipsController::class, 'update'])
+    ->name('product-category.relationships.children');
+Route::get('product-categories/{id}/children', [ProductCategoryChildrenRelatedController::class, 'index'])
+    ->name('product-category.children');
 
 /*****************  WEAVES ROUTES **************/
 // CRUD

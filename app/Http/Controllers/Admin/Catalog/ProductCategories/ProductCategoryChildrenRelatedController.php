@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Catalog\ProductCategories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Catalog\Product\ProductCollection;
+use App\Http\Resources\Catalog\ProductCategory\ProductCategoryCollection;
 use Domain\Catalog\Services\ProductCategory\ProductCategoryRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ProductCategoryProductsRelatedController extends Controller
+class ProductCategoryChildrenRelatedController extends Controller
 {
     public function __construct(
         public ProductCategoryRelationsService $productCategoryRelationsService
@@ -20,12 +20,12 @@ class ProductCategoryProductsRelatedController extends Controller
         $params = ($request->query());
         unset($params['q']);
 
-        data_set($data, 'relation_method', 'products');
+        data_set($data, 'relation_method', 'children');
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
         $collection = $this->productCategoryRelationsService->indexRelations($data);
 
-        return (new ProductCollection($collection))->response();
+        return (new ProductCategoryCollection($collection))->response();
     }
 }

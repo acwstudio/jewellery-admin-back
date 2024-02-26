@@ -24,8 +24,8 @@ class BlogCategoryBlogPostsRelatedController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $blogPosts = $this->blogCategoryRelationsService->indexRelations($data);
+        $collection = $this->blogCategoryRelationsService->indexRelations($data);
 
-        return (new BlogPostCollection($blogPosts))->response();
+        return (new BlogPostCollection($collection))->response();
     }
 }

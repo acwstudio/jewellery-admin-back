@@ -23,9 +23,9 @@ class BlogCategoriesParentRelationshipsController extends Controller
         data_set($data, 'relation_method', 'parent');
         data_set($data, 'id', $id);
 
-        $blogPosts = $this->blogCategoryRelationsService->indexRelations($data);
+        $model = $this->blogCategoryRelationsService->indexRelations($data);
 
-        return (new ApiEntityIdentifierResource($blogPosts))->response();
+        return (new ApiEntityIdentifierResource($model))->response();
     }
 
     public function update(BlogCategoriesParentUpdateRelationshipsRequest $request, int $id): JsonResponse

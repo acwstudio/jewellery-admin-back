@@ -20,14 +20,34 @@ class WeaveSeeder extends Seeder
         DB::table('weaves')->truncate();
         DB::statement('SET SESSION_REPLICATION_ROLE="origin";');
 
-        $weaves = DB::connection('pgsql_core')->table('catalog.features')->where('type', 'weaving')->get();
-//        dd($weaves);
-        foreach ($weaves as $weave) {
+        $oldWeaves = DB::connection('pgsql_core')->table('catalog.features')->where('type', 'weaving')->get();
+
+        foreach ($oldWeaves as $oldWeave) {
             DB::table('weaves')->insert([
-                'name' => $weave->value,
-                'slug' => SlugService::createSlug(Weave::class, 'slug', $weave->value),
+                'name' => $oldWeave->value,
+                'slug' => SlugService::createSlug(Weave::class, 'slug', $oldWeave->value),
                 'is_active' => true
             ]);
         }
+
+        $weaves = DB::table('weaves')->get();
+
+        $productWeaves = DB::table('products')->where('summary', 'LIKE', '%плетение%')->get();
+
+        foreach ($weaves as $weave) {
+            $name = $weave->name;
+            $weaveId = $weave->id;
+            $items = DB::table('products')->where('summary', 'LIKE', "%{$name}%")->get();
+//            dd(DB::table('products')->where('summary', 'LIKE', "%{$name}%")->get());
+            foreach ($items as $item) {
+                DB::table('product_weave')->insert([
+                    'product_id' => $item->id,
+                    'weave_id' => $weaveId,
+                ]);
+            }
+        }
+
+//        $weaves = DB::connection('pgsql_core')->table('catalog.features')->where('type', 'weaving')->get();
+
     }
 }

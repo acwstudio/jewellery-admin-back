@@ -5,6 +5,7 @@ namespace Domain\Catalog\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductCategory extends BaseModel
@@ -18,6 +19,16 @@ class ProductCategory extends BaseModel
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(ProductCategory::class, 'parent_id', 'id');
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(ProductCategory::class, 'parent_id', 'id');
     }
 
     public function sluggable(): array

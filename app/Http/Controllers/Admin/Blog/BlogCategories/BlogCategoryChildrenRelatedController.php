@@ -24,8 +24,8 @@ class BlogCategoryChildrenRelatedController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $paginatedQuery = $this->blogCategoryRelationsService->indexRelations($data);
+        $collection = $this->blogCategoryRelationsService->indexRelations($data);
 
-        return (new BlogCategoryCollection($paginatedQuery))->response();
+        return (new BlogCategoryCollection($collection))->response();
     }
 }

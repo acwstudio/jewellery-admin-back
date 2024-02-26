@@ -40,7 +40,15 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $data = $request->all();
 
+        $model = $this->productCategoryService->store($data);
+
+        return (new ProductCategoryResource($model))
+            ->response()
+            ->header('Location', route('product-categories.show', [
+                'id' => $model->id
+            ]));
     }
 
     /**

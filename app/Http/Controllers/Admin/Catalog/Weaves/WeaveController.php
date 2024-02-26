@@ -68,7 +68,7 @@ class WeaveController extends Controller
      * @param  \Domain\Catalog\Models\Weave  $weave
      * @return \Illuminate\Http\Response
      */
-    public function update(WeaveUpdateRequest $request, Weave $weave)
+    public function update(WeaveUpdateRequest $request, int $id)
     {
         //
     }
@@ -79,7 +79,7 @@ class WeaveController extends Controller
      * @param  \Domain\Catalog\Models\Weave  $weave
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Weave $weave)
+    public function destroy(int $id)
     {
         //
     }
