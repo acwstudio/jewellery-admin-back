@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Log;
 
 final class BlogPostPipeline extends AbstractPipeline
 {
-
     /**
      * @throws \Throwable
      */

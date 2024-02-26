@@ -20,8 +20,8 @@ class BlogCategoriesParentRelatedController extends Controller
         data_set($data, 'relation_method', 'parent');
         data_set($data, 'id', $id);
 
-        $blogCategory = $this->blogCategoryRelationsService->indexRelations($data);
+        $model = $this->blogCategoryRelationsService->indexRelations($data);
 
-        return (new BlogCategoryResource($blogCategory))->response();
+        return (new BlogCategoryResource($model))->response();
     }
 }

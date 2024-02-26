@@ -17,7 +17,7 @@ final class ProductRepository implements ProductRepositoryInterface
     {
         return QueryBuilder::for(Product::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('products'))
-            ->allowedIncludes(['weaves','blogPosts'])
+            ->allowedIncludes(['weaves','blogPosts','productCategory','brand'])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
@@ -39,7 +39,7 @@ final class ProductRepository implements ProductRepositoryInterface
         return QueryBuilder::for(Product::class)
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('products'))
-            ->allowedIncludes(['weaves','blogPosts'])
+            ->allowedIncludes(['weaves','blogPosts','productCategory','brand'])
             ->firstOrFail();
     }
 

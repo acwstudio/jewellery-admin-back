@@ -15,75 +15,69 @@ class ProductSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::statement('SET SESSION_REPLICATION_ROLE="replica";');
         DB::table('products')->truncate();
         DB::statement('SET SESSION_REPLICATION_ROLE="origin";');
 
-//        $categoryIds = [];
-        $catalogIds = DB::table('catalog.categories')->where('parent_id', null)->get();
-        dd($catalogIds);
-        $parentIds = DB::table('catalog.categories')->where('parent_id', 1)->pluck('id');
-//        dd($parentIds);
+        $chains = DB::connection('pgsql_core')
+            ->table('catalog.products')
+            ->where('name', 'LIKE', '%цепь%')
+            ->get();
 
-        foreach ($catalogIds as $catalogId) {
-            $id = DB::table('public.product_categories')->where('name', $catalogId->title)->first();
-//            dd($id);
-            $ringsIds = DB::table('catalog.product_categories')
-                ->select('id')
-                ->where('category_id', $catalogId->id)
-                ->get();
-//            dd($ringsIds);
-            $n = 0;
-            foreach ($ringsIds as $key => $ringsId) {
-//                dump($ringsId->id);
-                $product = DB::table('catalog.products')
-                    ->find($ringsId->id);
-
-                if ($product) {
-                    dump($n++);
-                    dump($product->id);
-                    dump($id->name);
-
-                    DB::table('products')->insert([
-                        'product_category_id' => $id->id,
-                        'brand_id' => null,
-                        'sku' => $product->sku,
-                        'name' => $product->name,
-                        'summary' => $product->summary,
-                        'description' => $product->description ?? null,
-                        'slug' => SlugService::createSlug(Product::class, 'slug', $product->name),
-                        'is_active' => true
-                    ]);
-                }
-//            dump($product);
-            }
+        foreach ($chains as $chain) {
+            DB::table('products')->insert([
+                'product_category_id' => 19,
+                'brand_id' => null,
+                'sku' => $chain->sku,
+                'name' => $chain->name,
+                'slug' => SlugService::createSlug(Product::class, 'slug', $chain->name),
+                'summary' => $chain->summary,
+                'description' => $chain->description,
+                'is_active' => true,
+                'weight' => null,
+            ]);
         }
-//        $ringsIds = DB::table('catalog.product_categories')
-//            ->select('id')
-//            ->where('category_id', 6)
-//            ->get();
-//        dd($productIds);
-//        $n = 0;
-//        foreach ($ringsIds as $key => $ringsId) {
-//            $product = DB::table('catalog.products')
-//                ->find($ringsId->id);
-//
-//            if ($product) {
-//                dump($n++);
-//                DB::table('products')->insert([
-//                'product_category_id' => 3,
-//                'brand_id' => null,
-//                'sku' => $product->sku,
-//                'name' => $product->name,
-//                'summary' => $product->summary,
-//                'description' => $product->description ?? null,
-//                'slug' => SlugService::createSlug(Product::class, 'slug', $product->name),
-//                'is_active' => true
-//            ]);
-//            }
-//            dump($product);
-//        }
+
+        $bracelets = DB::connection('pgsql_core')
+            ->table('catalog.products')
+            ->where('name', 'LIKE', '%браслет%')
+            ->get();
+
+        foreach ($bracelets as $bracelet) {
+//            dump($bracelet->name);
+            DB::table('products')->insert([
+                'product_category_id' => 4,
+                'brand_id' => null,
+                'sku' => $bracelet->sku,
+                'name' => $bracelet->name,
+                'slug' => SlugService::createSlug(Product::class, 'slug', $bracelet->name),
+                'summary' => $bracelet->summary,
+                'description' => $bracelet->description,
+                'is_active' => true,
+                'weight' => null,
+            ]);
+        }
+
+        $necklaces = DB::connection('pgsql_core')
+            ->table('catalog.products')
+            ->where('name', 'LIKE', '%колье%')
+            ->get();
+
+        foreach ($necklaces as $necklace) {
+//            dump($necklace->name);
+            DB::table('products')->insert([
+                'product_category_id' => 15,
+                'brand_id' => null,
+                'sku' => $necklace->sku,
+                'name' => $necklace->name,
+                'slug' => SlugService::createSlug(Product::class, 'slug', $necklace->name),
+                'summary' => $necklace->summary,
+                'description' => $necklace->description,
+                'is_active' => true,
+                'weight' => null,
+            ]);
+        }
     }
 }

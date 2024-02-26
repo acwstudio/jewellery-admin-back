@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Catalog\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Catalog\Product\ProductUpdateRequest;
 use App\Http\Resources\Catalog\Product\ProductCollection;
 use App\Http\Resources\Catalog\Product\ProductResource;
 use Domain\Catalog\Models\Product;
@@ -35,19 +36,19 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
         $data = $request->all();
         /** @var Product $blogPost */
-        $product = $this->productService->store($data);
+        $model = $this->productService->store($data);
 
-        return (new ProductResource(Product::find($blogPost->id)))
+        return (new ProductResource(Product::find($model->id)))
             ->response()
             ->header('Location', route('products.show', [
-                'id' => $product->id
+                'id' => $model->id
             ]));
     }
 
@@ -70,23 +71,30 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Domain\Catalog\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param ProductUpdateRequest $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, int $id)
+    public function update(ProductUpdateRequest $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+
+        $this->productService->update($data);
+
+        return response()->json(null, 204);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Domain\Catalog\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        $this->productService->destroy($id);
+
+        return response()->json(null, 204);
     }
 }

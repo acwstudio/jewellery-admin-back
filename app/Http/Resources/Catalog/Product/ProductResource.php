@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Catalog\Product;
 
+use App\Http\Resources\Blog\BlogPost\BlogPostCollection;
+use App\Http\Resources\Catalog\ProductCategory\ProductCategoryResource;
 use App\Http\Resources\Catalog\Weave\WeaveCollection;
 use App\Http\Resources\IncludeRelatedEntitiesResourceTrait;
 use Domain\Catalog\Models\Product;
@@ -24,7 +26,12 @@ class ProductResource extends JsonResource
             'type' => Product::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'weaves' => $this->sectionRelationships('products.weaves', WeaveCollection::class)
+                'weaves'          => $this->sectionRelationships('products.weaves', WeaveCollection::class),
+                'productCategory' => $this->sectionRelationships(
+                    'products.product-category', ProductCategoryResource::class
+                ),
+//                'brand' => $this->sectionRelationships('products.brand', BrandCollection::class),
+                'blogPosts' => $this->sectionRelationships('products.blog-posts', BlogPostCollection::class),
             ]
         ];
     }
@@ -33,6 +40,9 @@ class ProductResource extends JsonResource
     {
         return [
             WeaveCollection::class => $this->whenLoaded('weaves'),
+            ProductCategoryResource::class => $this->whenLoaded('productCategory'),
+//            BrandCollection::class => $this->whenLoaded('brand'),
+            BlogPostCollection::class => $this->whenLoaded('blogPosts'),
         ];
     }
 }

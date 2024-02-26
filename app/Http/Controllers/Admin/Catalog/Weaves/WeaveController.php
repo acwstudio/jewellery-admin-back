@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Catalog\Weaves;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Catalog\Weave\WeaveStoreRequest;
+use App\Http\Requests\Catalog\Weave\WeaveUpdateRequest;
 use App\Http\Resources\Catalog\Weave\WeaveCollection;
 use App\Http\Resources\Catalog\Weave\WeaveResource;
 use Domain\Catalog\Models\Weave;
@@ -38,7 +40,7 @@ class WeaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WeaveStoreRequest $request)
     {
         //
     }
@@ -66,7 +68,7 @@ class WeaveController extends Controller
      * @param  \Domain\Catalog\Models\Weave  $weave
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Weave $weave)
+    public function update(WeaveUpdateRequest $request, int $id)
     {
         //
     }
@@ -77,7 +79,7 @@ class WeaveController extends Controller
      * @param  \Domain\Catalog\Models\Weave  $weave
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Weave $weave)
+    public function destroy(int $id)
     {
         //
     }

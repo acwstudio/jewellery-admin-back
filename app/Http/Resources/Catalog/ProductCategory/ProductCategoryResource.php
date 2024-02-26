@@ -24,7 +24,9 @@ class ProductCategoryResource extends JsonResource
             'type' => ProductCategory::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'products' => $this->sectionRelationships('product-category.products', ProductCollection::class)
+                'products' => $this->sectionRelationships('product-category.products', ProductCollection::class),
+                'parent' => $this->sectionRelationships('product-categories.parent', ProductCategoryResource::class),
+                'children' => $this->sectionRelationships('product-category.children', ProductCategoryCollection::class),
             ]
         ];
     }
@@ -33,6 +35,8 @@ class ProductCategoryResource extends JsonResource
     {
         return [
             ProductCollection::class => $this->whenLoaded('products'),
+            ProductCategoryCollection::class => $this->whenLoaded('children'),
+            ProductCategoryResource::class => $this->whenLoaded('parent'),
         ];
     }
 }
