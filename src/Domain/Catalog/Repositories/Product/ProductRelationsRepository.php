@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 final class ProductRelationsRepository extends AbstractRelationsRepository
 {
-
     public function indexRelations(array $data): Paginator|Model
     {
         $relation = data_get($data, 'relation_method');

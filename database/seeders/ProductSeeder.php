@@ -66,7 +66,7 @@ class ProductSeeder extends Seeder
             ->get();
 
         foreach ($necklaces as $necklace) {
-            dump($necklace->name);
+//            dump($necklace->name);
             DB::table('products')->insert([
                 'product_category_id' => 15,
                 'brand_id' => null,

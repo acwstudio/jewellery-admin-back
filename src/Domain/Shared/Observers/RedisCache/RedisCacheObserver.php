@@ -27,7 +27,7 @@ final class RedisCacheObserver
     /**
      * @throws \ReflectionException
      */
-    public function delete(Model $model): void
+    public function deleted(Model $model): void
     {
         $tags = $this->defineTags($model);
         Cache::tags($tags)->flush();
@@ -52,7 +52,7 @@ final class RedisCacheObserver
                 }
             }
         }
-
+        $tags[] = $modelName;
         foreach ($relations as $relation) {
             $relModel = $model->{$relation->name}();
             $tags[] = get_class($relModel->getRelated());
