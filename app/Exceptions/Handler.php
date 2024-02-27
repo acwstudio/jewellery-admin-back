@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +49,37 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    protected function invalidJson($request, ValidationException $exception): JsonResponse
+    {
+        $errors = (collect($exception->validator->errors()))
+            ->map(function ($error, $key) {
+                return [
+                    'title' => 'Validation Error',
+                    'details' => $error[0],
+                    'source' => [
+                        'pointer' => '/' . str_replace('.',  '/', $key)
+                    ]
+                ];
+            })
+            ->values();
+
+        return response()->json([
+            'success' => false,
+            'errors' => $errors
+        ], $exception->status);
+    }
+
+    protected function prepareJsonResponse($request, Throwable $e): JsonResponse
+    {
+        return response()->json([
+            'errors' => [
+                [
+                    'title' => \Str::title(\Str::snake(class_basename($e), ' ')),
+                    'details' => $e->getMessage(),
+                ]
+            ]
+        ], $this->isHttpException($e) ? $e->getStatusCode() : $e->getCode());
     }
 }
