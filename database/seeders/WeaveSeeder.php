@@ -38,11 +38,19 @@ class WeaveSeeder extends Seeder
             $name = $weave->name;
             $weaveId = $weave->id;
             $items = DB::table('products')->where('summary', 'LIKE', "%{$name}%")->get();
-//            dd(DB::table('products')->where('summary', 'LIKE', "%{$name}%")->get());
+
             foreach ($items as $item) {
+//                $sku = $item->sku;
+//                $oldId = DB::connection('pgsql_core')->table('catalog.products')->where('sku', '=', $sku)->first()->id;
+//                $productWeave = DB::connection('pgsql_core')->table('catalog.product_features')
+//                    ->where('product_id', '=', $oldId)
+//                    ->where('feature_id', '=', 17)
+//                    ->first();
+//                dump($productWeave);
                 DB::table('product_weave')->insert([
                     'product_id' => $item->id,
                     'weave_id' => $weaveId,
+//                    'thickness' => is_null($productWeave) ? null : $productWeave->value
                 ]);
             }
         }
