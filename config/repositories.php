@@ -22,6 +22,21 @@ use Domain\Catalog\Repositories\ProductCategory\ProductCategoryRepositoryInterfa
 use Domain\Catalog\Repositories\Weave\WeaveCachedRepository;
 use Domain\Catalog\Repositories\Weave\WeaveRepository;
 use Domain\Catalog\Repositories\Weave\WeaveRepositoryInterface;
+use Domain\Performance\Repositories\Banner\BannerCachedRepository;
+use Domain\Performance\Repositories\Banner\BannerRepository;
+use Domain\Performance\Repositories\Banner\BannerRepositoryInterface;
+use Domain\Performance\Repositories\ImageBanner\ImageBannerCachedRepository;
+use Domain\Performance\Repositories\ImageBanner\ImageBannerRepository;
+use Domain\Performance\Repositories\ImageBanner\ImageBannerRepositoryInterface;
+use Domain\Performance\Repositories\TypeBanner\TypeBannerCachedRepository;
+use Domain\Performance\Repositories\TypeBanner\TypeBannerRepository;
+use Domain\Performance\Repositories\TypeBanner\TypeBannerRepositoryInterface;
+use Domain\Performance\Repositories\TypeDevice\TypeDeviceCachedRepository;
+use Domain\Performance\Repositories\TypeDevice\TypeDeviceRepository;
+use Domain\Performance\Repositories\TypeDevice\TypeDeviceRepositoryInterface;
+use Domain\Performance\Repositories\TypePage\TypePageCachedRepository;
+use Domain\Performance\Repositories\TypePage\TypePageRepository;
+use Domain\Performance\Repositories\TypePage\TypePageRepositoryInterface;
 
 return [
     [
@@ -58,5 +73,30 @@ return [
         'interface'      => PriceCategoryRepositoryInterface::class,
         'implementation' => PriceCategoryRepository::class,
         'cache'          => PriceCategoryCachedRepository::class
+    ],
+    [
+        'interface'      => BannerRepositoryInterface::class,
+        'implementation' => BannerRepository::class,
+        'cache'          => BannerCachedRepository::class
+    ],
+    [
+        'interface'      => ImageBannerRepositoryInterface::class,
+        'implementation' => ImageBannerRepository::class,
+        'cache'          => ImageBannerCachedRepository::class
+    ],
+    [
+        'interface'      => TypeBannerRepositoryInterface::class,
+        'implementation' => TypeBannerRepository::class,
+        'cache'          => TypeBannerCachedRepository::class
+    ],
+    [
+        'interface'      => TypePageRepositoryInterface::class,
+        'implementation' => TypePageRepository::class,
+        'cache'          => TypePageCachedRepository::class
+    ],
+    [
+        'interface'      => TypeDeviceRepositoryInterface::class,
+        'implementation' => TypeDeviceRepository::class,
+        'cache'          => TypeDeviceCachedRepository::class
     ],
 ];
