@@ -7,6 +7,12 @@ use Domain\Blog\Repositories\BlogCategory\BlogCategoryRepositoryInterface;
 use Domain\Blog\Repositories\BlogPost\BlogPostCachedRepository;
 use Domain\Blog\Repositories\BlogPost\BlogPostRepository;
 use Domain\Blog\Repositories\BlogPost\BlogPostRepositoryInterface;
+use Domain\Catalog\Repositories\Price\PriceCachedRepository;
+use Domain\Catalog\Repositories\Price\PriceRepository;
+use Domain\Catalog\Repositories\Price\PriceRepositoryInterface;
+use Domain\Catalog\Repositories\PriceCategory\PriceCategoryCachedRepository;
+use Domain\Catalog\Repositories\PriceCategory\PriceCategoryRepository;
+use Domain\Catalog\Repositories\PriceCategory\PriceCategoryRepositoryInterface;
 use Domain\Catalog\Repositories\Product\ProductCachedRepository;
 use Domain\Catalog\Repositories\Product\ProductRepository;
 use Domain\Catalog\Repositories\Product\ProductRepositoryInterface;
@@ -42,5 +48,15 @@ return [
         'interface'      => ProductCategoryRepositoryInterface::class,
         'implementation' => ProductCategoryRepository::class,
         'cache'          => ProductCategoryCachedRepository::class
+    ],
+    [
+        'interface'      => PriceRepositoryInterface::class,
+        'implementation' => PriceRepository::class,
+        'cache'          => PriceCachedRepository::class
+    ],
+    [
+        'interface'      => PriceCategoryRepositoryInterface::class,
+        'implementation' => PriceCategoryRepository::class,
+        'cache'          => PriceCategoryCachedRepository::class
     ],
 ];

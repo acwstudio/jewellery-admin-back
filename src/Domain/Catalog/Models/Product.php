@@ -8,6 +8,7 @@ use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends BaseModel
 {
@@ -40,6 +41,16 @@ class Product extends BaseModel
     public function weaves(): BelongsToMany
     {
         return$this->belongsToMany(Weave::class);
+    }
+
+    public function prices(): HasMany
+    {
+        return $this->hasMany(Price::class);
+    }
+
+    public function priceCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(PriceCategory::class, 'prices');
     }
 
     public function sluggable(): array

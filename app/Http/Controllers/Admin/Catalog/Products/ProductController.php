@@ -27,8 +27,12 @@ class ProductController extends Controller
     public function index(Request $request): JsonResponse
     {
         $data = $request->all();
-
+//        dump(microtime(true)-LARAVEL_START);
         $items = $this->productService->index($data);
+
+//        $response_time = (microtime(true) - LARAVEL_START)*1000;
+//        dump(microtime(true)-LARAVEL_START);
+//        dd(LARAVEL_START);
 
         return (new ProductCollection($items))->response();
     }

@@ -17,12 +17,13 @@ final class ProductRepository implements ProductRepositoryInterface
     {
         return QueryBuilder::for(Product::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('products'))
-            ->allowedIncludes(['weaves','blogPosts','productCategory','brand'])
+            ->allowedIncludes(['weaves','blogPosts','productCategory','brand','prices','priceCategories'])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('sku'),
-                'name','active'
+                AllowedFilter::exact('product_category_id'),
+                'name','is_active'
             ])
             ->allowedSorts(['name','id','slug','product_category_id','sku'])
             ->paginate($data['per_page'] ?? null)
@@ -39,7 +40,7 @@ final class ProductRepository implements ProductRepositoryInterface
         return QueryBuilder::for(Product::class)
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('products'))
-            ->allowedIncludes(['weaves','blogPosts','productCategory','brand'])
+            ->allowedIncludes(['weaves','blogPosts','productCategory','brand','prices','priceCategories'])
             ->firstOrFail();
     }
 
