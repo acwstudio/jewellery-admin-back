@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('type_banner_id');
+            $table->unsignedBigInteger('type_page_id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('slug');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('type_banner_id')->references('id')->on('type_banners');
+            $table->foreign('type_page_id')->references('id')->on('type_pages');
         });
     }
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Performance\Repositories\Banner;
 
+use Domain\Performance\CustomBuilders\Banner\FilterByTypeDeviceId;
+use Domain\Performance\CustomBuilders\Banner\SortBySequence;
 use Domain\Performance\Models\Banner;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +22,7 @@ final class BannerRepository implements BannerRepositoryInterface
             ->allowedIncludes(['imageBanners','typeBanner','typePage'])
             ->allowedSorts([
                 'name','id','slug','type_banner_id','type_page_id',
-//                AllowedSort::custom('sequence', new SortBySequence()),
+                AllowedSort::custom('sequence', new SortBySequence()),
             ])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
@@ -29,7 +31,7 @@ final class BannerRepository implements BannerRepositoryInterface
                 AllowedFilter::exact('type_banner_id'),
                 AllowedFilter::exact('link'),
                 AllowedFilter::exact('type_page_id'),
-//                AllowedFilter::custom('type_device_id', new FilterByTypeDeviceId()),
+                AllowedFilter::custom('type_device_id', new FilterByTypeDeviceId()),
                 'is_active',
             ])
             ->allowedSorts([
@@ -53,7 +55,7 @@ final class BannerRepository implements BannerRepositoryInterface
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('banners'))
             ->allowedIncludes(['imageBanners','typeBanner','typePage'])
-//            ->allowedFilters(AllowedFilter::custom('type_device_id', new FilterByTypeDeviceId()))
+            ->allowedFilters(AllowedFilter::custom('type_device_id', new FilterByTypeDeviceId()))
             ->firstOrFail();
     }
 

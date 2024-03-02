@@ -14,9 +14,10 @@ use App\Http\Controllers\Admin\Performance\ImageBanners\ImageBannersBannersRelat
 use App\Http\Controllers\Admin\Performance\ImageBanners\ImageBannersBannersRelationshipsController;
 use App\Http\Controllers\Admin\Performance\ImageBanners\ImageBannersTypeDeviceRelatedController;
 use App\Http\Controllers\Admin\Performance\ImageBanners\ImageBannersTypeDeviceRelationshipsController;
-use App\Http\Controllers\Admin\Performance\ImageBanners\TypeBannerBannersRelatedController;
-use App\Http\Controllers\Admin\Performance\ImageBanners\TypeBannerBannersRelationshipsController;
-use App\Http\Controllers\Admin\Performance\ImageBanners\TypeBannerController;
+use App\Http\Controllers\Admin\Performance\ImageStorage\ImageStorageController;
+use App\Http\Controllers\Admin\Performance\TypeBanners\TypeBannerBannersRelatedController;
+use App\Http\Controllers\Admin\Performance\TypeBanners\TypeBannerBannersRelationshipsController;
+use App\Http\Controllers\Admin\Performance\TypeBanners\TypeBannerController;
 use App\Http\Controllers\Admin\Performance\TypeDevices\TypeDeviceController;
 use App\Http\Controllers\Admin\Performance\TypeDevices\TypeDeviceImageBannersRelatedController;
 use App\Http\Controllers\Admin\Performance\TypeDevices\TypeDeviceImageBannersRelationshipsController;
@@ -99,11 +100,11 @@ Route::withoutMiddleware(["auth"])->group(function () {
 //************************IMAGE STORAGE ROUTES******************************************
 Route::withoutMiddleware(["auth"])->group(function () {
     /** CRUD */
-//    Route::get('/image-storages', [ImageStorageController::class, 'index'])->name('image-storages.index');
-//    Route::get('/image-storages/{id}', [ImageStorageController::class, 'show'])->name('image-storages.show');
-//    Route::post('/image-storages', [ImageStorageController::class, 'store'])->name('image-storages.store');
-//    Route::patch('/image-storages', [ImageStorageController::class, 'update'])->name('image-storages.update');
-//    Route::delete('/image-storages', [ImageStorageController::class, 'destroy'])->name('image-storages.destroy');
+    Route::get('/image-storages', [ImageStorageController::class, 'index'])->name('image-storages.index');
+    Route::get('/image-storages/{id}', [ImageStorageController::class, 'show'])->name('image-storages.show');
+    Route::post('/image-storages', [ImageStorageController::class, 'store'])->name('image-storages.store');
+    Route::patch('/image-storages', [ImageStorageController::class, 'update'])->name('image-storages.update');
+    Route::delete('/image-storages', [ImageStorageController::class, 'destroy'])->name('image-storages.destroy');
 });
 
 //************************TYPE DEVICES ROUTES******************************************

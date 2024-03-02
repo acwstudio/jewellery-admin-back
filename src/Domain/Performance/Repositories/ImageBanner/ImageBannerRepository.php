@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-final class ImageBannerRepository
+final class ImageBannerRepository implements ImageBannerRepositoryInterface
 {
     public function index(array $data): Paginator
     {
@@ -25,7 +25,7 @@ final class ImageBannerRepository
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('name'),
                 AllowedFilter::exact('type_device_id'),
-//                AllowedFilter::custom('banner_id', new FilterByBannerId()),
+                AllowedFilter::custom('banner_id', new FilterByBannerId()),
                 'is_active'
             ])
             ->allowedSorts(['name','id','slug','type_device_id'])
