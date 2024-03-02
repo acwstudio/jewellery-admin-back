@@ -2,22 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin\Performance\Banners;
+namespace App\Http\Controllers\Admin\Performance\TypePages;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Performance\Banner\BannerStoreRequest;
-use App\Http\Requests\Performance\Banner\BannerUpdateRequest;
-use App\Http\Resources\Performance\Banner\BannerCollection;
-use App\Http\Resources\Performance\Banner\BannerResource;
-use Domain\Performance\Models\Banner;
-use Domain\Performance\Services\Banner\BannerService;
+use App\Http\Requests\Performance\TypePage\TypePageStoreRequest;
+use App\Http\Requests\Performance\TypePage\TypePageUpdateRequest;
+use App\Http\Resources\Performance\TypePage\TypePageCollection;
+use App\Http\Resources\Performance\TypePage\TypePageResource;
+use Domain\Performance\Services\TypePage\TypePageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class BannerController extends Controller
+class TypePageController extends Controller
 {
-    public function __construct(public BannerService $bannerService)
+    public function __construct(public TypePageService $typePageService)
     {
     }
 
@@ -31,27 +30,27 @@ class BannerController extends Controller
     {
         $data = $request->all();
 
-        $items = $this->bannerService->index($data);
+        $items = $this->typePageService->index($data);
 
-        return (new BannerCollection($items))->response();
+        return (new TypePageCollection($items))->response();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param BannerStoreRequest $request
+     * @param TypePageStoreRequest $request
      * @return JsonResponse
      */
-    public function store(BannerStoreRequest $request): JsonResponse
+    public function store(TypePageStoreRequest $request): JsonResponse
     {
         $data = $request->all();
 
-        $banner = $this->bannerService->store($data);
+        $typeBanner = $this->typePageService->store($data);
 
-        return (new BannerResource($banner))
+        return (new TypePageResource($typeBanner))
             ->response()
-            ->header('Location', route('banners.show', [
-                'id' => $banner->id
+            ->header('Location', route('type-banners.show', [
+                'id' => $typeBanner->id
             ]));
     }
 
@@ -66,24 +65,24 @@ class BannerController extends Controller
     {
         $data = $request->all();
         data_set($data, 'id', $id);
-        $model = $this->bannerService->show($id, $data);
+        $model = $this->typePageService->show($id, $data);
 
-        return (new BannerResource($model))->response();
+        return (new TypePageResource($model))->response();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param BannerUpdateRequest $request
+     * @param TypePageUpdateRequest $request
      * @param int $id
      * @return JsonResponse
      */
-    public function update(BannerUpdateRequest $request, int $id): JsonResponse
+    public function update(TypePageUpdateRequest $request, $id): JsonResponse
     {
         $data = $request->all();
         data_set($data, 'id', $id);
 
-        $this->bannerService->update($data);
+        $this->typePageService->update($data);
 
         return response()->json(null, 204);
     }
@@ -91,12 +90,12 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
     {
-        $this->bannerService->destroy($id);
+        $this->typePageService->destroy($id);
 
         return response()->json(null, 204);
     }
