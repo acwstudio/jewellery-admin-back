@@ -171,7 +171,7 @@ trait IncludeRelatedEntitiesResourceTrait
      */
     protected function limitRelatedItems(): int|null
     {
-        $limit = config('api-settings.limit-included');
+        $limit = (int) config('api-settings.limit-included');
 
         return $limit ? : null;
     }

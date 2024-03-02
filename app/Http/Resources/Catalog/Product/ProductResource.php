@@ -3,6 +3,8 @@
 namespace App\Http\Resources\Catalog\Product;
 
 use App\Http\Resources\Blog\BlogPost\BlogPostCollection;
+use App\Http\Resources\Catalog\Price\PriceCollection;
+use App\Http\Resources\Catalog\PriceCategory\PriceCategoryCollection;
 use App\Http\Resources\Catalog\ProductCategory\ProductCategoryResource;
 use App\Http\Resources\Catalog\Weave\WeaveCollection;
 use App\Http\Resources\IncludeRelatedEntitiesResourceTrait;
@@ -32,6 +34,10 @@ class ProductResource extends JsonResource
                 ),
 //                'brand' => $this->sectionRelationships('products.brand', BrandCollection::class),
                 'blogPosts' => $this->sectionRelationships('products.blog-posts', BlogPostCollection::class),
+                'prices' => $this->sectionRelationships('product.prices', PriceCollection::class),
+                'priceCategories' => $this->sectionRelationships(
+                    'products.price-categories', PriceCategoryCollection::class
+                )
             ]
         ];
     }
@@ -43,6 +49,8 @@ class ProductResource extends JsonResource
             ProductCategoryResource::class => $this->whenLoaded('productCategory'),
 //            BrandCollection::class => $this->whenLoaded('brand'),
             BlogPostCollection::class => $this->whenLoaded('blogPosts'),
+            PriceCollection::class => $this->whenLoaded('prices'),
+            PriceCategoryCollection::class => $this->whenLoaded('priceCategories'),
         ];
     }
 }

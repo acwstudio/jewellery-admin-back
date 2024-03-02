@@ -79,5 +79,25 @@ class ProductSeeder extends Seeder
                 'weight' => null,
             ]);
         }
+
+        $rings = DB::connection('pgsql_core')
+            ->table('catalog.products')
+            ->where('name', 'LIKE', '%кольцо%')
+            ->get();
+
+        foreach ($rings as $ring) {
+//            dump($bracelet->name);
+            DB::table('products')->insert([
+                'product_category_id' => 3,
+                'brand_id' => null,
+                'sku' => $ring->sku,
+                'name' => $ring->name,
+                'slug' => SlugService::createSlug(Product::class, 'slug', $ring->name),
+                'summary' => $ring->summary,
+                'description' => $ring->description,
+                'is_active' => true,
+                'weight' => null,
+            ]);
+        }
     }
 }
