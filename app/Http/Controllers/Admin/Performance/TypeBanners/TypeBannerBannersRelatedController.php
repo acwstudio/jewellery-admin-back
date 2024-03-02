@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin\Performance\ImageBanners;
+namespace App\Http\Controllers\Admin\Performance\TypeBanners;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Performance\Banner\BannerCollection;

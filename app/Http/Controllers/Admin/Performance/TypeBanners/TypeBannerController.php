@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin\Performance\ImageBanners;
+namespace App\Http\Controllers\Admin\Performance\TypeBanners;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Performance\TypeBanner\TypeBannerStoreRequest;
 use App\Http\Requests\Performance\TypeBanner\TypeBannerUpdateRequest;
 use App\Http\Resources\Performance\TypeBanner\TypeBannerCollection;
 use App\Http\Resources\Performance\TypeBanner\TypeBannerResource;
-use Domain\Performance\Models\TypeBanner;
 use Domain\Performance\Services\TypeBanner\TypeBannerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class TypeBannerController extends Controller
 {
