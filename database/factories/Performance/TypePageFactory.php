@@ -1,21 +1,21 @@
 <?php
 
-namespace Database\Factories\Catalog;
+namespace Database\Factories\Performance;
 
-use Domain\Catalog\Models\Product;
+use Domain\Performance\Models\TypePage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<Product>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<TypePage>
  */
-class ProductFactory extends Factory
+class TypePageFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
             //

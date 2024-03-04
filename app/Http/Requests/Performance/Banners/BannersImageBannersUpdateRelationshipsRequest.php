@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Performance\Banner;
+namespace App\Http\Requests\Performance\Banners;
 
 use Domain\Performance\Models\ImageBanner;
 use Illuminate\Foundation\Http\FormRequest;

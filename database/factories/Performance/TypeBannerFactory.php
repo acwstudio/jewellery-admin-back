@@ -1,14 +1,14 @@
 <?php
 
-namespace Database\Factories\Catalog;
+namespace Database\Factories\Performance;
 
-use Domain\Catalog\Models\Product;
+use Domain\Performance\Models\TypeBanner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<Product>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<TypeBanner>
  */
-class ProductFactory extends Factory
+class TypeBannerFactory extends Factory
 {
     /**
      * Define the model's default state.
