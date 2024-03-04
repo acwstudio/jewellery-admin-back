@@ -7,6 +7,7 @@ use Domain\Catalog\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
@@ -22,82 +23,87 @@ class ProductSeeder extends Seeder
         DB::statement('SET SESSION_REPLICATION_ROLE="origin";');
 
         $chains = DB::connection('pgsql_core')
-            ->table('catalog.products')
+            ->table('catalog.products')->select(['sku','name','summary','description'])
+            ->where('is_active', true)
             ->where('name', 'LIKE', '%цепь%')
             ->get();
 
-        foreach ($chains as $chain) {
-            DB::table('products')->insert([
-                'product_category_id' => 19,
-                'brand_id' => null,
-                'sku' => $chain->sku,
-                'name' => $chain->name,
-                'slug' => SlugService::createSlug(Product::class, 'slug', $chain->name),
-                'summary' => $chain->summary,
-                'description' => $chain->description,
-                'is_active' => true,
-                'weight' => null,
-            ]);
-        }
+        $chains->map(function ($chain) {
+            $chain->product_category_id = 19;
+            $chain->brand_id = null;
+            $chain->slug = Str::slug($chain->name) . '-' . $chain->sku;
+            $chain->is_active = true;
+            $chain->weight = null;
+        });
+        $arrChains = $chains->map(fn ($row) => get_object_vars($row))->toArray();
+
+        DB::table('products')->insert($arrChains);
 
         $bracelets = DB::connection('pgsql_core')
-            ->table('catalog.products')
+            ->table('catalog.products')->select(['sku','name','summary','description'])
+            ->where('is_active', true)
             ->where('name', 'LIKE', '%браслет%')
             ->get();
 
-        foreach ($bracelets as $bracelet) {
-//            dump($bracelet->name);
-            DB::table('products')->insert([
-                'product_category_id' => 4,
-                'brand_id' => null,
-                'sku' => $bracelet->sku,
-                'name' => $bracelet->name,
-                'slug' => SlugService::createSlug(Product::class, 'slug', $bracelet->name),
-                'summary' => $bracelet->summary,
-                'description' => $bracelet->description,
-                'is_active' => true,
-                'weight' => null,
-            ]);
-        }
+        $bracelets->map(function ($bracelet) {
+            $bracelet->product_category_id = 4;
+            $bracelet->brand_id = null;
+            $bracelet->slug = Str::slug($bracelet->name) . '-' . $bracelet->sku;
+            $bracelet->is_active = true;
+            $bracelet->weight = null;
+        });
+
+        $arrBracelets = $bracelets->map(fn ($row) => get_object_vars($row))->toArray();
+
+        DB::table('products')->insert($arrBracelets);
 
         $necklaces = DB::connection('pgsql_core')
-            ->table('catalog.products')
+            ->table('catalog.products')->select(['sku','name','summary','description'])
+            ->where('is_active', true)
             ->where('name', 'LIKE', '%колье%')
             ->get();
 
-        foreach ($necklaces as $necklace) {
-//            dump($necklace->name);
-            DB::table('products')->insert([
-                'product_category_id' => 15,
-                'brand_id' => null,
-                'sku' => $necklace->sku,
-                'name' => $necklace->name,
-                'slug' => SlugService::createSlug(Product::class, 'slug', $necklace->name),
-                'summary' => $necklace->summary,
-                'description' => $necklace->description,
-                'is_active' => true,
-                'weight' => null,
-            ]);
-        }
+        $necklaces->map(function ($necklace) {
+            $necklace->product_category_id = 15;
+            $necklace->brand_id = null;
+            $necklace->slug = Str::slug($necklace->name) . '-' . $necklace->sku;
+            $necklace->is_active = true;
+            $necklace->weight = null;
+        });
 
-        $rings = DB::connection('pgsql_core')
-            ->table('catalog.products')
-            ->where('name', 'LIKE', '%кольцо%')
-            ->get();
+        $arrNecklaces = $necklaces->map(fn ($row) => get_object_vars($row))->toArray();
 
-        foreach ($rings as $ring) {
-//            dump($bracelet->name);
-            DB::table('products')->insert([
-                'product_category_id' => 3,
-                'brand_id' => null,
-                'sku' => $ring->sku,
-                'name' => $ring->name,
-                'slug' => SlugService::createSlug(Product::class, 'slug', $ring->name),
-                'summary' => $ring->summary,
-                'description' => $ring->description,
-                'is_active' => true,
-                'weight' => null,
-            ]);
+        DB::table('products')->insert($arrNecklaces);
+
+        $query = DB::connection('pgsql_core')
+            ->table('catalog.products')->select(['sku','name','summary','description'])
+            ->where('is_active', true)
+            ->where('name', 'LIKE', '%кольцо%');
+
+        $max = 400;
+
+        $total = $query->count();
+        $pages = ceil($total / $max);
+        for ($i = 1; $i < ($pages + 1); $i++) {
+            $offset = (($i - 1)  * $max);
+            $start = ($offset == 0 ? 0 : ($offset + 1));
+            $rings = DB::connection('pgsql_core')
+                ->table('catalog.products')->select(['sku','name','summary','description'])
+                ->where('is_active', true)
+                ->where('name', 'LIKE', '%кольцо%')
+                ->skip($start)->take($max)->get();
+
+            $rings->map(function ($ring) {
+                $ring->product_category_id = 3;
+                $ring->brand_id = null;
+                $ring->slug = Str::slug($ring->name) . '-' . $ring->sku;
+                $ring->is_active = true;
+                $ring->weight = null;
+            });
+            $arrRings = $rings->map(fn ($row) => get_object_vars($row))->toArray();
+
+            DB::table('products')->insert($arrRings);
+            dump($max);
         }
     }
 }
