@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin\Performance\ImageStorage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Performance\ImageStorage\ImageStorageStoreRequest;
 use Domain\Shared\Services\ImageStorage\ImageStorageService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,13 +30,15 @@ class ImageStorageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ImageStorageStoreRequest $request
+     * @return JsonResponse
      */
-    public function store(ImageStorageStoreRequest $request)
+    public function store(ImageStorageStoreRequest $request): JsonResponse
     {
         $data = $request->all();
         $this->imageStorageService->store($data);
+
+        return response()->json(null, 204);
     }
 
     /**
@@ -52,7 +55,7 @@ class ImageStorageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

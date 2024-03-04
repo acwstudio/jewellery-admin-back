@@ -2,13 +2,13 @@
 
 namespace Database\Factories\Catalog;
 
-use Domain\Catalog\Models\Product;
+use Domain\Catalog\Models\Price;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<Product>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<Price>
  */
-class ProductFactory extends Factory
+class PriceFactory extends Factory
 {
     /**
      * Define the model's default state.
