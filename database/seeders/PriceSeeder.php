@@ -17,6 +17,10 @@ class PriceSeeder extends Seeder
      */
     public function run()
     {
+        $test_my = DB::connection('pgsql_core')->table('catalog.products')->where('is_active', true)->pluck('id');
+        $test = DB::connection('pgsql_core')->table('catalog.product_offers')->select('product_id')->groupBy('product_id')
+            ->whereIn('product_id', $test_my)->limit(50);
+        dd($test->get());
         DB::statement('SET SESSION_REPLICATION_ROLE="replica";');
         DB::table('prices')->truncate();
         DB::table('price_categories')->truncate();
