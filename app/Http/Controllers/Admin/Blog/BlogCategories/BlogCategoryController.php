@@ -88,6 +88,7 @@ class BlogCategoryController extends Controller
      *
      * @param int $id
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function destroy(int $id): JsonResponse
     {

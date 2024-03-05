@@ -24,37 +24,46 @@ class ProductSeeder extends Seeder
         DB::table('products')->truncate();
         DB::statement('SET SESSION_REPLICATION_ROLE="origin";');
 
-        $chains = $this->getQuery('%цепь%')->get();
+        $chains = $this->getQuery('цеп')->get();
         DB::table('products')->insert($this->addAttributes($chains, 16));
 
-        $bracelets = $this->getQuery('%браслет%')->get();
+        $bracelets = $this->getQuery('браслет')->get();
         DB::table('products')->insert($this->addAttributes($bracelets, 4));
 
-        $necklaces = $this->getQuery('%колье%')->get();
+        $necklaces = $this->getQuery('колье')->get();
         DB::table('products')->insert($this->addAttributes($necklaces, 12));
 
+        $brooches = $this->getQuery('брошь ')->get();
+        DB::table('products')->insert($this->addAttributes($brooches, 20));
+
+        $pendants = $this->getQuery('подвеск')->get();
+        DB::table('products')->insert($this->addAttributes($pendants, 15));
+
+        $pendants = $this->getQuery('бусы')->get();
+        DB::table('products')->insert($this->addAttributes($pendants, 11));
+
         $max = 600;
-        $total = $this->getQuery('%кольцо%')->count();
+        $total = $this->getQuery('кольц')->count();
         $pages = ceil($total / $max);
 
         for ($i = 1; $i < ($pages + 1); $i++) {
             $offset = (($i - 1) * $max);
             $start = ($offset == 0 ? 0 : ($offset + 1));
 
-            $rings = $this->getQuery('%кольцо%')->skip($start)->take($max)->get();
+            $rings = $this->getQuery('кольц')->skip($start)->take($max)->get();
             DB::table('products')->insert($this->addAttributes($rings, 3));
             dump($max);
         }
 
         $max = 700;
-        $total = $this->getQuery('%серьг%')->count();
+        $total = $this->getQuery('серьг')->count();
         $pages = ceil($total / $max);
 
         for ($i = 1; $i < ($pages + 1); $i++) {
             $offset = (($i - 1) * $max);
             $start = ($offset == 0 ? 0 : ($offset + 1));
 
-            $earrings = $this->getQuery('%серьг%')->skip($start)->take($max)->get();
+            $earrings = $this->getQuery('серьг')->skip($start)->take($max)->get();
             DB::table('products')->insert($this->addAttributes($earrings, 6));
             dump($max);
         }
@@ -75,9 +84,21 @@ class ProductSeeder extends Seeder
 
     private function getQuery(string $pattern): Builder
     {
+        $upperPattern = Str::ucfirst($pattern);
+//        dd($upperPattern);
         return $chains = DB::connection('pgsql_core')
             ->table('catalog.products')->select(['sku', 'name', 'summary', 'description'])
             ->where('is_active', true)
-            ->where('name', 'LIKE', $pattern);
+            ->where('summary', 'NOT LIKE', '%на цепи%')
+            ->where('summary', 'NOT LIKE', '%с подвеской%')
+            ->where(function ($query) use ($pattern, $upperPattern) {
+                $query->where('summary', 'LIKE', '%' . $pattern . '%')
+                    ->orWhere('summary', 'LIKE', '%' . $pattern)
+                    ->orWhere('summary', 'LIKE', $upperPattern . '%');
+            });
+//            ->where('summary', 'LIKE', '%' . $pattern . '%')
+//            ->orWhere('summary', 'LIKE', '%' . $pattern)
+//            ->orWhere('summary', 'LIKE', $upperPattern . '%');
+//            ->orWhere('summary', 'LIKE', '%' . $pattern . '%');
     }
 }
