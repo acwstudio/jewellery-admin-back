@@ -77,6 +77,8 @@ class ProductSeeder extends Seeder
             $ring->slug = Str::slug($ring->name) . '-' . $ring->sku;
             $ring->is_active = true;
             $ring->weight = null;
+            $ring->core_id = $ring->id;
+            unset($ring->id);
         });
 
         return $items->map(fn($row) => get_object_vars($row))->toArray();
@@ -85,9 +87,9 @@ class ProductSeeder extends Seeder
     private function getQuery(string $pattern): Builder
     {
         $upperPattern = Str::ucfirst($pattern);
-//        dd($upperPattern);
+
         return $chains = DB::connection('pgsql_core')
-            ->table('catalog.products')->select(['sku', 'name', 'summary', 'description'])
+            ->table('catalog.products')->select(['sku', 'name', 'summary', 'description', 'id'])
             ->where('is_active', true)
             ->where('summary', 'NOT LIKE', '%на цепи%')
             ->where('summary', 'NOT LIKE', '%с подвеской%')
@@ -96,9 +98,5 @@ class ProductSeeder extends Seeder
                     ->orWhere('summary', 'LIKE', '%' . $pattern)
                     ->orWhere('summary', 'LIKE', $upperPattern . '%');
             });
-//            ->where('summary', 'LIKE', '%' . $pattern . '%')
-//            ->orWhere('summary', 'LIKE', '%' . $pattern)
-//            ->orWhere('summary', 'LIKE', $upperPattern . '%');
-//            ->orWhere('summary', 'LIKE', '%' . $pattern . '%');
     }
 }

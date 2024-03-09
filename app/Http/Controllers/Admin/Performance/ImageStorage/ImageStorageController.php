@@ -9,7 +9,6 @@ use App\Http\Requests\Performance\ImageStorage\ImageStorageStoreRequest;
 use Domain\Shared\Services\ImageStorage\ImageStorageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ImageStorageController extends Controller
 {

@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin\Performance\Banners;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Performance\Banner\BannerStoreRequest;
-use App\Http\Requests\Performance\Banner\BannerUpdateRequest;
+use App\Http\Requests\Performance\Banners\BannerStoreRequest;
+use App\Http\Requests\Performance\Banners\BannerUpdateRequest;
 use App\Http\Resources\Performance\Banner\BannerCollection;
 use App\Http\Resources\Performance\Banner\BannerResource;
-use Domain\Performance\Models\Banner;
 use Domain\Performance\Services\Banner\BannerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class BannerController extends Controller
 {

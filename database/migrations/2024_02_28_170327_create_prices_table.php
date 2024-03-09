@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('price_category_id');
             $table->unsignedBigInteger('product_id');
-            $table->string('value');
+            $table->integer('value');
             $table->boolean('is_active');
             $table->timestamps();
 

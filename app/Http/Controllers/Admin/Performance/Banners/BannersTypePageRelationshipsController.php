@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin\Performance\Banners;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Performance\Banner\BannersTypePageUpdateRelationshipsRequest;
+use App\Http\Requests\Performance\Banners\BannersTypePageUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
 use Domain\Performance\Services\Banner\BannerRelationsService;
 use Illuminate\Http\JsonResponse;

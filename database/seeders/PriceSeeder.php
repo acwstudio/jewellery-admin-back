@@ -6,7 +6,9 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Domain\Catalog\Models\PriceCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PriceSeeder extends Seeder
 {
@@ -17,10 +19,6 @@ class PriceSeeder extends Seeder
      */
     public function run()
     {
-        $test_my = DB::connection('pgsql_core')->table('catalog.products')->where('is_active', true)->pluck('id');
-        $test = DB::connection('pgsql_core')->table('catalog.product_offers')->select('product_id')->groupBy('product_id')
-            ->whereIn('product_id', $test_my)->limit(50);
-        dd($test->get());
         DB::statement('SET SESSION_REPLICATION_ROLE="replica";');
         DB::table('prices')->truncate();
         DB::table('price_categories')->truncate();
@@ -33,37 +31,61 @@ class PriceSeeder extends Seeder
             DB::table('price_categories')->insert([
                 'name'      => $priceCategory,
                 'is_active' => true,
-                'slug'      => SlugService::createSlug(PriceCategory::class, 'slug', $priceCategory)
+                'slug'      => Str::slug($priceCategory)
             ]);
         }
 
-        $offers = DB::connection('pgsql_core')->table('catalog.product_offers')->get();
+        $max = 900;
+        $total = $this->getQuery()->count();
+        $pages = ceil($total / $max);
 
-        foreach ($offers as $offer) {
-            $coreProduct = DB::connection('pgsql_core')->table('catalog.products')
-                ->where('id', $offer->product_id)->first();
-            $size       = $offer->size;
-            $weight     = $offer->weight;
-            $offer_id   = $offer->id;
-            $offerPrices = DB::connection('pgsql_core')->table('catalog.product_offer_prices')
-                ->where('is_active', true)
-                ->where('product_offer_id', $offer_id)
-                ->get();
-            foreach ($offerPrices as $offerPrice) {
-                $id = DB::table('price_categories')->where('name', $offerPrice->type)->first()->id;
-                $product = DB::table('products')->where('sku', $coreProduct->sku)->first();
+        for ($i = 1; $i < ($pages + 1); $i++) {
+            $offset = (($i - 1) * $max);
+            $start = ($offset == 0 ? 0 : ($offset + 1));
 
-                if ($product) {
-                    $product_id = $product->id;
-                    DB::table('prices')->insert([
-                        'product_id' => $product_id,
-                        'price_category_id' => $id,
-                        'value' => $offerPrice->price,
-                        'is_active' => true
-                    ]);
-                }
-            }
+            $prices = $this->getQuery()->skip($start)->take($max);
 
+            DB::table('prices')->insert($this->addAttributes($prices));
+            dump($max);
         }
+    }
+
+    private function getQuery(): Collection
+    {
+        $ids = DB::table('products')->pluck('core_id')->toArray();
+        $string = implode(',', $ids);
+
+        $items = DB::connection('pgsql_core')
+            ->select("(select po.product_id, pop.price, pop.type, count(*) as cnt,
+            case
+                when pop.type = 'regular' then 1
+                When pop.type = 'live' then 2
+                When pop.type = 'promo' then 3
+            end as price_category_id
+            from catalog.product_offers as po
+            inner join catalog.product_offer_prices pop on po.id = pop.product_offer_id
+            inner join catalog.products p on po.product_id = p.id
+            where po.product_id in ($string) and  pop.is_active = true and p.is_active = true
+            group by po.product_id, pop.price, pop.type)");
+
+        return collect($items);
+    }
+
+    private function addAttributes(Collection $items): array
+    {
+        $items->map(function ($item) {
+            $product_id = DB::table('products')->where('core_id', $item->product_id)->first();
+
+            if ($product_id) {
+                $item->value = $item->price;
+                $item->product_id = $product_id->id;
+                $item->is_active = true;
+                unset($item->price);
+                unset($item->type);
+                unset($item->cnt);
+            }
+        });
+
+        return $items->map(fn($row) => get_object_vars($row))->toArray();
     }
 }
