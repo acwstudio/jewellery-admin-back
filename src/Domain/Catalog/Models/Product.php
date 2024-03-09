@@ -25,7 +25,8 @@ class Product extends BaseModel
         'summary',
         'description',
         'is_active',
-        'weight'
+        'weight',
+        'core_id'
     ];
 
     public function blogPosts(): BelongsToMany
