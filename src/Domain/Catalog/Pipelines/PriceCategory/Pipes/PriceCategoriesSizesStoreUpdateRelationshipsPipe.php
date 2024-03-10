@@ -6,8 +6,10 @@ namespace Domain\Catalog\Pipelines\PriceCategory\Pipes;
 
 use Domain\Catalog\Repositories\PriceCategory\PriceCategoryRelationsRepository;
 
-final class PriceCategoriesProductsStoreUpdateRelationshipsPipe
+final class PriceCategoriesSizesStoreUpdateRelationshipsPipe
 {
+    const RELATION = 'sizes';
+
     public function __construct(public PriceCategoryRelationsRepository $priceCategoryRelationsRepository)
     {
     }
@@ -17,11 +19,11 @@ final class PriceCategoriesProductsStoreUpdateRelationshipsPipe
      */
     public function handle(array $data, \Closure $next)
     {
-        $relationData = data_get($data, 'data.relationships.products');
+        $relationData = data_get($data, 'data.relationships.' . self::RELATION);
 
         if ($relationData) {
             data_set($data, 'relation_data', $relationData);
-            data_set($data, 'relation_method', 'products');
+            data_set($data, 'relation_method', self::RELATION);
 
             $this->priceCategoryRelationsRepository->updateRelations($data);
         }

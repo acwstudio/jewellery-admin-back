@@ -8,8 +8,10 @@ use Domain\Catalog\Services\Product\ProductRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ProductPricesRelatedController extends Controller
+class ProductSizesRelatedController extends Controller
 {
+    const RELATION = 'sizes';
+
     public function __construct(
         public ProductRelationsService $productRelationsService
     ) {
@@ -20,7 +22,7 @@ class ProductPricesRelatedController extends Controller
         $params = ($request->query());
         unset($params['q']);
 
-        data_set($data, 'relation_method', 'prices');
+        data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
