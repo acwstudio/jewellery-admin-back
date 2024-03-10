@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\Catalog\Products\ProductsProductCategoryRelations
 use App\Http\Controllers\Admin\Catalog\Products\ProductController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsWeavesRelatedController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsWeavesRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizeController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeaveController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeavesProductsRelatedController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeavesProductsRelationshipsController;
@@ -176,3 +177,6 @@ Route::patch('price-categories/{id}/relationships/prices', [PriceCategoryPricesR
 Route::get('price-categories/{id}/prices', [PriceCategoryPricesRelatedController::class, 'index'])
     ->name('price-category.prices');
 
+/******************* SIZES ROUTES ****************************/
+// CRUD
+Route::get('sizes', [SizeController::class, 'index'])->name('sizess.index');

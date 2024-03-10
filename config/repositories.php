@@ -19,6 +19,12 @@ use Domain\Catalog\Repositories\Product\ProductRepositoryInterface;
 use Domain\Catalog\Repositories\ProductCategory\ProductCategoryCachedRepository;
 use Domain\Catalog\Repositories\ProductCategory\ProductCategoryRepository;
 use Domain\Catalog\Repositories\ProductCategory\ProductCategoryRepositoryInterface;
+use Domain\Catalog\Repositories\Size\SizeCachedRepository;
+use Domain\Catalog\Repositories\Size\SizeRepository;
+use Domain\Catalog\Repositories\Size\SizeRepositoryInterface;
+use Domain\Catalog\Repositories\SizeCategory\SizeCategoryCachedRepository;
+use Domain\Catalog\Repositories\SizeCategory\SizeCategoryRepository;
+use Domain\Catalog\Repositories\SizeCategory\SizeCategoryRepositoryInterface;
 use Domain\Catalog\Repositories\Weave\WeaveCachedRepository;
 use Domain\Catalog\Repositories\Weave\WeaveRepository;
 use Domain\Catalog\Repositories\Weave\WeaveRepositoryInterface;
@@ -98,5 +104,15 @@ return [
         'interface'      => TypeDeviceRepositoryInterface::class,
         'implementation' => TypeDeviceRepository::class,
         'cache'          => TypeDeviceCachedRepository::class
+    ],
+    [
+        'interface'      => SizeRepositoryInterface::class,
+        'implementation' => SizeRepository::class,
+        'cache'          => SizeCachedRepository::class
+    ],
+    [
+        'interface'      => SizeCategoryRepositoryInterface::class,
+        'implementation' => SizeCategoryRepository::class,
+        'cache'          => SizeCategoryCachedRepository::class
     ],
 ];

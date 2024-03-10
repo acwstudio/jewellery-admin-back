@@ -6,9 +6,9 @@ namespace Domain\Catalog\Pipelines\Product\Pipes;
 
 use Domain\Catalog\Repositories\Product\ProductRelationsRepository;
 
-final class ProductsWeavesStoreUpdateRelationshipsPipe
+final class ProductSizesStoreUpdateRelationshipsPipe
 {
-    const RELATION = 'weaves';
+    const RELATION = 'sizes';
 
     public function __construct(public ProductRelationsRepository $productRelationsRepository)
     {

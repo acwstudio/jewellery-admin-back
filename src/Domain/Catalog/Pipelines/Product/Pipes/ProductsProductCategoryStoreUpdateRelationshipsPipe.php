@@ -8,6 +8,8 @@ use Domain\Catalog\Repositories\Product\ProductRelationsRepository;
 
 final class ProductsProductCategoryStoreUpdateRelationshipsPipe
 {
+    const RELATION = 'productCategory';
+
     public function __construct(public ProductRelationsRepository $productRelationsRepository)
     {
     }
@@ -17,11 +19,11 @@ final class ProductsProductCategoryStoreUpdateRelationshipsPipe
      */
     public function handle(array $data, \Closure $next)
     {
-        $relationData = data_get($data, 'data.relationships.productCategory');
+        $relationData = data_get($data, 'data.relationships.' . self::RELATION);
 
         if ($relationData) {
             data_set($data, 'relation_data', $relationData);
-            data_set($data, 'relation_method', 'productCategory');
+            data_set($data, 'relation_method', self::RELATION);
 
             $this->productRelationsRepository->updateRelations($data);
         }

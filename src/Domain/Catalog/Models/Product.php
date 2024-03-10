@@ -54,6 +54,16 @@ class Product extends BaseModel
         return $this->belongsToMany(PriceCategory::class, 'prices');
     }
 
+    public function sizeCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(SizeCategory::class, 'sizes');
+    }
+
+    public function sizes(): HasMany
+    {
+        return $this->hasMany(Size::class);
+    }
+
     public function sluggable(): array
     {
         return [

@@ -2,13 +2,13 @@
 
 namespace Database\Factories\Catalog;
 
-use Domain\Catalog\Models\Weave;
+use Domain\Catalog\Models\Size;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<Weave>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<Size>
  */
-class WeaveFactory extends Factory
+class SizeFactory extends Factory
 {
     /**
      * Define the model's default state.
