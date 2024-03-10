@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Domain\Catalog\Pipelines\PriceCategory\Pipes;
+namespace Domain\Catalog\Pipelines\SizeCategory\Pipes;
 
-use Domain\Catalog\Repositories\PriceCategory\PriceCategoryRelationsRepository;
+use Domain\Catalog\Repositories\SizeCategory\SizeCategoryRelationsRepository;
 
-final class PriceCategoryPricesStoreUpdateRelationshipsPipe
+final class SizeCategorySizesStoreUpdateRelationshipsPipe
 {
-    const RELATION = 'prices';
+    const RELATION = 'sizes';
 
-    public function __construct(public PriceCategoryRelationsRepository $priceCategoryRelationsRepository)
+    public function __construct(public SizeCategoryRelationsRepository $sizeCategoryRelationsRepository)
     {
     }
 
@@ -25,7 +25,7 @@ final class PriceCategoryPricesStoreUpdateRelationshipsPipe
             data_set($data, 'relation_data', $relationData);
             data_set($data, 'relation_method', self::RELATION);
 
-            $this->priceCategoryRelationsRepository->updateRelations($data);
+            $this->sizeCategoryRelationsRepository->updateRelations($data);
         }
 
         return $next($data);

@@ -21,7 +21,7 @@ class PriceCategory extends BaseModel
         return $this->hasMany(Price::class);
     }
 
-    public function products(): BelongsToMany
+    public function sizes(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'prices');
     }

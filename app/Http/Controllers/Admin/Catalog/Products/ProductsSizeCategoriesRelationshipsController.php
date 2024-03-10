@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin\Catalog\Products;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Catalog\Product\ProductPricesUpdateRelationshipsRequest;
+use App\Http\Requests\Catalog\Product\ProductsSizeCategoriesUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
 use Domain\Catalog\Services\Product\ProductRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ProductPricesRelationshipsController extends Controller
+class ProductsSizeCategoriesRelationshipsController extends Controller
 {
+    const RELATION = 'sizeCategories';
+
     public function __construct(
         public ProductRelationsService $productRelationsService
     ) {
@@ -21,7 +23,7 @@ class ProductPricesRelationshipsController extends Controller
         $params = ($request->query());
         unset($params['q']);
 
-        data_set($data, 'relation_method', 'prices');
+        data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
@@ -33,10 +35,10 @@ class ProductPricesRelationshipsController extends Controller
     /**
      * @throws \ReflectionException
      */
-    public function update(ProductPricesUpdateRelationshipsRequest $request, int $id): JsonResponse
+    public function update(ProductsSizeCategoriesUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
         data_set($data, 'relation_data', $request->all());
-        data_set($data, 'relation_method', 'prices');
+        data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
 
         $this->productRelationsService->updateRelations($data);

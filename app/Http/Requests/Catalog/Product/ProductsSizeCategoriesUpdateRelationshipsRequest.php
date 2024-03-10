@@ -4,7 +4,7 @@ namespace App\Http\Requests\Catalog\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductPricesUpdateRelationshipsRequest extends FormRequest
+class ProductsSizeCategoriesUpdateRelationshipsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

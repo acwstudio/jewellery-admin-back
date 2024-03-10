@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Catalog\Pipelines\PriceCategory;
 
 use Domain\AbstractPipeline;
-use Domain\Catalog\Pipelines\PriceCategory\Pipes\PriceCategoriesProductsStoreUpdateRelationshipsPipe;
+use Domain\Catalog\Pipelines\PriceCategory\Pipes\PriceCategoriesSizesStoreUpdateRelationshipsPipe;
 use Domain\Catalog\Pipelines\PriceCategory\Pipes\PriceCategoryDestroyPipe;
 use Domain\Catalog\Pipelines\PriceCategory\Pipes\PriceCategoryPricesStoreUpdateRelationshipsPipe;
 use Domain\Catalog\Pipelines\PriceCategory\Pipes\PriceCategoryStorePipe;
@@ -29,7 +29,7 @@ final class PriceCategoryPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     PriceCategoryStorePipe::class,
-                    PriceCategoriesProductsStoreUpdateRelationshipsPipe::class,
+                    PriceCategoriesSizesStoreUpdateRelationshipsPipe::class,
                     PriceCategoryPricesStoreUpdateRelationshipsPipe::class,
                 ])
                 ->thenReturn();
@@ -57,7 +57,7 @@ final class PriceCategoryPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     PriceCategoryUpdatePipe::class,
-                    PriceCategoriesProductsStoreUpdateRelationshipsPipe::class,
+                    PriceCategoriesSizesStoreUpdateRelationshipsPipe::class,
                     PriceCategoryPricesStoreUpdateRelationshipsPipe::class,
                 ])
                 ->thenReturn();

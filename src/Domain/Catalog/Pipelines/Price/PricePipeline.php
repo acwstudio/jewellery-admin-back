@@ -7,7 +7,7 @@ namespace Domain\Catalog\Pipelines\Price;
 use Domain\AbstractPipeline;
 use Domain\Catalog\Pipelines\Price\Pipes\PriceDestroyPipe;
 use Domain\Catalog\Pipelines\Price\Pipes\PricesPriceCategoryStoreUpdateRelationshipsPipe;
-use Domain\Catalog\Pipelines\Price\Pipes\PricesProductStoreUpdateRelationshipsPipe;
+use Domain\Catalog\Pipelines\Price\Pipes\PricesSizeStoreUpdateRelationshipsPipe;
 use Domain\Catalog\Pipelines\Price\Pipes\PriceStorePipe;
 use Domain\Catalog\Pipelines\Price\Pipes\PriceUpdatePipe;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +28,7 @@ final class PricePipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     PriceStorePipe::class,
-                    PricesProductStoreUpdateRelationshipsPipe::class,
+                    PricesSizeStoreUpdateRelationshipsPipe::class,
                     PricesPriceCategoryStoreUpdateRelationshipsPipe::class,
                 ])
                 ->thenReturn();
@@ -56,7 +56,7 @@ final class PricePipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     PriceUpdatePipe::class,
-                    PricesProductStoreUpdateRelationshipsPipe::class,
+                    PricesSizeStoreUpdateRelationshipsPipe::class,
                     PricesPriceCategoryStoreUpdateRelationshipsPipe::class,
                 ])
                 ->thenReturn();

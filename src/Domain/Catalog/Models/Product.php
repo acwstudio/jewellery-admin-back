@@ -44,16 +44,6 @@ class Product extends BaseModel
         return$this->belongsToMany(Weave::class);
     }
 
-    public function prices(): HasMany
-    {
-        return $this->hasMany(Price::class);
-    }
-
-    public function priceCategories(): BelongsToMany
-    {
-        return $this->belongsToMany(PriceCategory::class, 'prices');
-    }
-
     public function sizeCategories(): BelongsToMany
     {
         return $this->belongsToMany(SizeCategory::class, 'sizes');

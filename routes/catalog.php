@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Admin\Catalog\PriceCategories\PriceCategoriesProductsRelatedController;
-use App\Http\Controllers\Admin\Catalog\PriceCategories\PriceCategoriesProductsRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\PriceCategories\PriceCategoriesSizesRelatedController;
+use App\Http\Controllers\Admin\Catalog\PriceCategories\PriceCategoriesSizesRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\PriceCategories\PriceCategoryController;
 use App\Http\Controllers\Admin\Catalog\PriceCategories\PriceCategoryPricesRelatedController;
 use App\Http\Controllers\Admin\Catalog\PriceCategories\PriceCategoryPricesRelationshipsController;
@@ -21,8 +21,8 @@ use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryProducts
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryProductsRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsBlogPostsRelatedController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsBlogPostsRelationshipsController;
-use App\Http\Controllers\Admin\Catalog\Products\ProductsPriceCategoriesRelatedController;
-use App\Http\Controllers\Admin\Catalog\Products\ProductsPriceCategoriesRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Products\ProductsSizeCategoriesRelatedController;
+use App\Http\Controllers\Admin\Catalog\Products\ProductsSizeCategoriesRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsProductCategoryRelatedController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsProductCategoryRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductController;
@@ -32,8 +32,8 @@ use App\Http\Controllers\Admin\Catalog\Sizes\SizeController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeaveController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeavesProductsRelatedController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeavesProductsRelationshipsController;
-use App\Http\Controllers\Admin\Catalog\Products\ProductPricesRelatedController;
-use App\Http\Controllers\Admin\Catalog\Products\ProductPricesRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Products\ProductSizesRelatedController;
+use App\Http\Controllers\Admin\Catalog\Products\ProductSizesRelationshipsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,20 +74,20 @@ Route::patch('products/{id}/relationships/blog-posts', [ProductsBlogPostsRelatio
     ->name('products.relationships.blog-posts');
 Route::get('products/{id}/blog-posts', [ProductsBlogPostsRelatedController::class, 'index'])
     ->name('products.blog-posts');
-//  many-to-many Products to Price Categories
-Route::get('products/{id}/relationships/price-categories', [ProductsPriceCategoriesRelationshipsController::class, 'index'])
-    ->name('products.relationships.price-categories');
-Route::patch('products/{id}/relationships/price-categories', [ProductsPriceCategoriesRelationshipsController::class, 'update'])
-    ->name('products.relationships.price-categories');
-Route::get('products/{id}/price-categories', [ProductsPriceCategoriesRelatedController::class, 'index'])
-    ->name('products.price-categories');
-//  one-to-mane  Product to Prices
-Route::get('products/{id}/relationships/prices', [ProductPricesRelationshipsController::class, 'index'])
-    ->name('product.relationships.prices');
-Route::patch('products/{id}/relationships/prices', [ProductPricesRelationshipsController::class, 'update'])
-    ->name('product.relationships.prices');
-Route::get('products/{id}/prices', [ProductPricesRelatedController::class, 'index'])
-    ->name('product.prices');
+//  many-to-many Products to Size Categories
+Route::get('products/{id}/relationships/size-categories', [ProductsSizeCategoriesRelationshipsController::class, 'index'])
+    ->name('products.relationships.size-categories');
+Route::patch('products/{id}/relationships/size-categories', [ProductsSizeCategoriesRelationshipsController::class, 'update'])
+    ->name('products.relationships.size-categories');
+Route::get('products/{id}/size-categories', [ProductsSizeCategoriesRelatedController::class, 'index'])
+    ->name('products.size-categories');
+//  one-to-mane  Product to Sizes
+Route::get('products/{id}/relationships/sizes', [ProductSizesRelationshipsController::class, 'index'])
+    ->name('product.relationships.sizes');
+Route::patch('products/{id}/relationships/sizes', [ProductSizesRelationshipsController::class, 'update'])
+    ->name('product.relationships.sizes');
+Route::get('products/{id}/sizes', [ProductSizesRelatedController::class, 'index'])
+    ->name('product.sizes');
 
 /*****************  PRODUCT CATEGORIES ROUTES **************/
 // CRUD
@@ -162,13 +162,13 @@ Route::get('price-categories/{id}', [PriceCategoryController::class, 'show'])->n
 Route::post('price-categories', [PriceCategoryController::class, 'store'])->name('price-categories.store');
 Route::patch('price-categories/{id}', [PriceCategoryController::class, 'update'])->name('price-categories.update');
 Route::delete('price-categories/{id}', [PriceCategoryController::class, 'destroy'])->name('price-categories.destroy');
-//  many-to-many  PriceCategories to Products
-Route::get('price-categories/{id}/relationships/products', [PriceCategoriesProductsRelationshipsController::class, 'index'])
-    ->name('price-categories.relationships.products');
-Route::patch('price-categories/{id}/relationships/products', [PriceCategoriesProductsRelationshipsController::class, 'update'])
-    ->name('price-categories.relationships.products');
-Route::get('price-categories/{id}/products', [PriceCategoriesProductsRelatedController::class, 'index'])
-    ->name('price-categories.products');
+//  many-to-many  PriceCategories to Sizes
+Route::get('price-categories/{id}/relationships/sizes', [PriceCategoriesSizesRelationshipsController::class, 'index'])
+    ->name('price-categories.relationships.sizes');
+Route::patch('price-categories/{id}/relationships/sizes', [PriceCategoriesSizesRelationshipsController::class, 'update'])
+    ->name('price-categories.relationships.sizes');
+Route::get('price-categories/{id}/sizes', [PriceCategoriesSizesRelatedController::class, 'index'])
+    ->name('price-categories.sizes');
 //  many-to-one  Prices to Price Category
 Route::get('price-categories/{id}/relationships/prices', [PriceCategoryPricesRelationshipsController::class, 'index'])
     ->name('price-category.relationships.prices');
