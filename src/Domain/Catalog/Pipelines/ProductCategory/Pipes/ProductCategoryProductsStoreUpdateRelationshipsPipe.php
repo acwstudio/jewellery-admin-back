@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Domain\Catalog\Pipelines\Product\Pipes;
+namespace Domain\Catalog\Pipelines\ProductCategory\Pipes;
 
-use Domain\Catalog\Repositories\Product\ProductRelationsRepository;
+use Domain\Catalog\Repositories\ProductCategory\ProductCategoryRelationsRepository;
 
-final class ProductsWeavesStoreUpdateRelationshipsPipe
+final class ProductCategoryProductsStoreUpdateRelationshipsPipe
 {
-    const RELATION = 'weaves';
+    const RELATION = 'products';
 
-    public function __construct(public ProductRelationsRepository $productRelationsRepository)
+    public function __construct(public ProductCategoryRelationsRepository $productCategoryRelationsRepository)
     {
     }
 
@@ -25,7 +25,7 @@ final class ProductsWeavesStoreUpdateRelationshipsPipe
             data_set($data, 'relation_data', $relationData);
             data_set($data, 'relation_method', self::RELATION);
 
-            $this->productRelationsRepository->updateRelations($data);
+            $this->productCategoryRelationsRepository->updateRelations($data);
         }
 
         return $next($data);

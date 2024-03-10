@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('prices', function (Blueprint $table) {
+        Schema::create('sizes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('price_category_id');
-            $table->unsignedBigInteger('size_id');
-            $table->integer('value');
+            $table->unsignedBigInteger('size_category_id');
+            $table->unsignedBigInteger('product_id');
+            $table->float('value', 4);
             $table->boolean('is_active');
             $table->timestamps();
 
-            $table->foreign('price_category_id')->references('id')->on('price_categories')->cascadeOnDelete();
-            $table->foreign('size_id')->references('id')->on('sizes')->cascadeOnDelete();
+            $table->foreign('size_category_id')->references('id')->on('size_categories')->cascadeOnDelete();
+            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
         });
     }
 
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prices');
+        Schema::dropIfExists('sizes');
     }
 };

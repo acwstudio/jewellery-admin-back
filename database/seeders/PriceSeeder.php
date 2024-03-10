@@ -44,9 +44,26 @@ class PriceSeeder extends Seeder
             $start = ($offset == 0 ? 0 : ($offset + 1));
 
             $prices = $this->getQuery()->skip($start)->take($max);
-
-            DB::table('prices')->insert($this->addAttributes($prices));
-            dump($max);
+            foreach ($prices as $price) {
+                $sizes = DB::table('sizes')
+                    ->where('product_id', $price->product_id)
+//                    ->where('size_category_id', 2)
+                    ->get();
+                if ($sizes->count()) {
+                    dump($sizes);
+                    foreach ($sizes as $size) {
+                        DB::table('prices')->insert([
+                            'price_category_id' => $price->price_category_id,
+                            'value' => $price->price,
+                            'size_id' => $size->id,
+                            'is_active' => $size->is_active
+                        ]);
+                    }
+                }
+            }
+//            dd('ok!');
+//            DB::table('prices')->insert($this->addAttributes($prices));
+            dump('ok');
         }
     }
 

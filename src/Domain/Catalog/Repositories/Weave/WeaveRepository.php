@@ -21,7 +21,7 @@ final class WeaveRepository implements WeaveRepositoryInterface
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
-                'name','active'
+                'name','is_active'
             ])
             ->allowedSorts(['name','id','slug'])
             ->paginate($data['per_page'] ?? null)

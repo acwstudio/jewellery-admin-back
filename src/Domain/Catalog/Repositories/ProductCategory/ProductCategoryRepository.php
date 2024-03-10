@@ -12,7 +12,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 final class ProductCategoryRepository implements ProductCategoryRepositoryInterface
 {
-
     public function index(array $data): Paginator
     {
         return QueryBuilder::for(ProductCategory::class)
