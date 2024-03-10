@@ -34,9 +34,9 @@ class ProductResource extends JsonResource
                 ),
 //                'brand' => $this->sectionRelationships('products.brand', BrandCollection::class),
                 'blogPosts' => $this->sectionRelationships('products.blog-posts', BlogPostCollection::class),
-                'prices' => $this->sectionRelationships('product.prices', PriceCollection::class),
-                'priceCategories' => $this->sectionRelationships(
-                    'products.price-categories', PriceCategoryCollection::class
+                'sizes' => $this->sectionRelationships('product.sizes', SizeCollection::class),
+                'sizeCategories' => $this->sectionRelationships(
+                    'products.size-categories', SizeCategoryCollection::class
                 )
             ]
         ];
@@ -49,8 +49,8 @@ class ProductResource extends JsonResource
             ProductCategoryResource::class => $this->whenLoaded('productCategory'),
 //            BrandCollection::class => $this->whenLoaded('brand'),
             BlogPostCollection::class => $this->whenLoaded('blogPosts'),
-            PriceCollection::class => $this->whenLoaded('prices'),
-            PriceCategoryCollection::class => $this->whenLoaded('priceCategories'),
+            SizeCollection::class => $this->whenLoaded('sizes'),
+            SizeCategoryCollection::class => $this->whenLoaded('sizeCategories'),
         ];
     }
 }
