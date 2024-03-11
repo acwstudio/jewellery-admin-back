@@ -16,7 +16,7 @@ final class PriceRepository implements PriceRepositoryInterface
     {
         return QueryBuilder::for(Price::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('prices'))
-            ->allowedIncludes(['priceCategory','product'])
+            ->allowedIncludes(['priceCategory','product','size'])
             ->allowedFilters([
                 AllowedFilter::exact('product_id'),
                 AllowedFilter::exact('price_category_id'),
@@ -37,7 +37,7 @@ final class PriceRepository implements PriceRepositoryInterface
         return QueryBuilder::for(Price::class)
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('prices'))
-            ->allowedIncludes(['priceCategory','product'])
+            ->allowedIncludes(['priceCategory','product','size'])
             ->firstOrFail();
     }
 

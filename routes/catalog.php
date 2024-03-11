@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\Catalog\Prices\PricesPriceCategoryRelatedControll
 use App\Http\Controllers\Admin\Catalog\Prices\PricesPriceCategoryRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\Prices\PricesProductRelatedController;
 use App\Http\Controllers\Admin\Catalog\Prices\PricesProductRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Prices\PricesSizeRelatedController;
+use App\Http\Controllers\Admin\Catalog\Prices\PricesSizeRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoriesParentRelatedController;
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoriesParentRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryChildrenRelatedController;
@@ -155,6 +157,13 @@ Route::patch('prices/{id}/relationships/product', [PricesProductRelationshipsCon
     ->name('prices.relationships.product');
 Route::get('prices/{id}/product', [PricesProductRelatedController::class, 'index'])
     ->name('prices.product');
+//  many-to-one  Prices to Size
+Route::get('prices/{id}/relationships/size', [PricesSizeRelationshipsController::class, 'index'])
+    ->name('prices.relationships.size');
+Route::patch('prices/{id}/relationships/size', [PricesSizeRelationshipsController::class, 'update'])
+    ->name('prices.relationships.size');
+Route::get('prices/{id}/size', [PricesSizeRelatedController::class, 'index'])
+    ->name('prices.size');
 //  many-to-one  Prices to Price Category
 Route::get('prices/{id}/relationships/price-category', [PricesPriceCategoryRelationshipsController::class, 'index'])
     ->name('prices.relationships.price-category');

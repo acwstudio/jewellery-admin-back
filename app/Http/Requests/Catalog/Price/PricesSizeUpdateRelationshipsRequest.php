@@ -4,7 +4,7 @@ namespace App\Http\Requests\Catalog\Price;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PricesPriceCategoryUpdateRequest extends FormRequest
+class PricesSizeUpdateRelationshipsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,7 +21,7 @@ class PricesPriceCategoryUpdateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'data' => ['required']
