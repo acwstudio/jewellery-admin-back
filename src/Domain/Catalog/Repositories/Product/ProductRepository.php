@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Catalog\Repositories\Product;
 
+use Domain\Catalog\CustomBuilders\Product\FilterRelatedSizesByBalance;
+use Domain\Catalog\CustomBuilders\Product\FilterRelatedSizesByIsActive;
 use Domain\Catalog\Models\Product;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
@@ -17,11 +19,13 @@ final class ProductRepository implements ProductRepositoryInterface
     {
         return QueryBuilder::for(Product::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('products'))
-            ->allowedIncludes(['weaves','blogPosts','sizeCategories','brand','sizes'])
+            ->allowedIncludes(['weaves','blogPosts','sizeCategories','brand','sizes','productCategory'])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('sku'),
+                AllowedFilter::custom('activeSizes', new FilterRelatedSizesByIsActive()),
+                AllowedFilter::custom('balance', new FilterRelatedSizesByBalance()),
                 AllowedFilter::exact('product_category_id'),
                 'name','is_active'
             ])
@@ -40,7 +44,11 @@ final class ProductRepository implements ProductRepositoryInterface
         return QueryBuilder::for(Product::class)
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('products'))
-            ->allowedIncludes(['weaves','blogPosts','sizeCategories','brand','sizes'])
+            ->allowedIncludes(['weaves','blogPosts','sizeCategories','brand','sizes','productCategory'])
+            ->allowedFilters([
+                AllowedFilter::custom('activeSizes', new FilterRelatedSizesByIsActive()),
+                AllowedFilter::custom('balance', new FilterRelatedSizesByBalance()),
+            ])
             ->firstOrFail();
     }
 

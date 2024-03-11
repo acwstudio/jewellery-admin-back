@@ -24,6 +24,8 @@ class SizeSeeder extends Seeder
 
         $sizeCategories = ['размер кольца','размер браслета','без размера'];
 
+        $balance = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
         $ringSizes = ['15','15.5','16','16.5','17','17.5','18','18.5','19','19.5','20','20.5','21','21.5','22'];
         $braceletSizes = ['18','19','20','21','22','23'];
 
@@ -42,6 +44,7 @@ class SizeSeeder extends Seeder
                     'product_id' => $bracelet->id,
                     'size_category_id' => 2,
                     'value' => $braceletSize,
+                    'balance' => Arr::random($balance),
                     'is_active' => Arr::random([true,false])
                 ]);
             }
@@ -54,6 +57,7 @@ class SizeSeeder extends Seeder
                     'product_id' => $ring->id,
                     'size_category_id' => 1,
                     'value' => $ringSize,
+                    'balance' => Arr::random($balance),
                     'is_active' => Arr::random([true,false])
                 ]);
             }
@@ -69,6 +73,7 @@ class SizeSeeder extends Seeder
                     'product_id' => $product->id,
                     'size_category_id' => 3,
                     'value' => 0.0,
+                    'balance' => Arr::random($balance),
                     'is_active' => true
                 ]);
 //            }

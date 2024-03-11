@@ -6,6 +6,8 @@ use App\Http\Resources\Blog\BlogPost\BlogPostCollection;
 use App\Http\Resources\Catalog\Price\PriceCollection;
 use App\Http\Resources\Catalog\PriceCategory\PriceCategoryCollection;
 use App\Http\Resources\Catalog\ProductCategory\ProductCategoryResource;
+use App\Http\Resources\Catalog\Size\SizeCollection;
+use App\Http\Resources\Catalog\SizeCategory\SizeCategoryCollection;
 use App\Http\Resources\Catalog\Weave\WeaveCollection;
 use App\Http\Resources\IncludeRelatedEntitiesResourceTrait;
 use Domain\Catalog\Models\Product;

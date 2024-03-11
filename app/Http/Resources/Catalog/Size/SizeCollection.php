@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Catalog\Product;
+namespace App\Http\Resources\Catalog\Size;
 
 use App\Http\Resources\IncludeRelatedEntitiesCollectionTrait;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ProductCollection extends ResourceCollection
+class SizeCollection extends ResourceCollection
 {
     use IncludeRelatedEntitiesCollectionTrait;
 }

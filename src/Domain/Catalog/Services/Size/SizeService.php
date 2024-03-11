@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Domain\Catalog\Services\Price;
+namespace Domain\Catalog\Services\Size;
 
 use Domain\AbstractCRUDService;
-use Domain\Catalog\Pipelines\Price\PricePipeline;
-use Domain\Catalog\Repositories\Price\PriceRepositoryInterface;
+use Domain\Catalog\Pipelines\Size\SizePipeline;
+use Domain\Catalog\Repositories\Size\SizeRepositoryInterface;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 
-final class PriceService extends AbstractCRUDService
+final class SizeService extends AbstractCRUDService
 {
     public function __construct(
-        public PriceRepositoryInterface $priceRepositoryInterface,
-        public PricePipeline $pricePipeline
+        public SizeRepositoryInterface $sizeRepositoryInterface,
+        public SizePipeline $sizePipeline
     ) {
     }
 
     public function index(array $data): Paginator
     {
-        return $this->priceRepositoryInterface->index($data);
+        return $this->sizeRepositoryInterface->index($data);
     }
 
     /**
@@ -28,12 +28,12 @@ final class PriceService extends AbstractCRUDService
      */
     public function store(array $data): Model
     {
-        return $this->pricePipeline->store($data);
+        return $this->sizePipeline->store($data);
     }
 
     public function show(int $id, array $data): Model
     {
-        return $this->priceRepositoryInterface->show($id, $data);
+        return $this->sizeRepositoryInterface->show($id, $data);
     }
 
     /**
@@ -41,7 +41,7 @@ final class PriceService extends AbstractCRUDService
      */
     public function update(array $data): void
     {
-        $this->pricePipeline->update($data);
+        $this->sizePipeline->update($data);
     }
 
     /**
@@ -49,6 +49,6 @@ final class PriceService extends AbstractCRUDService
      */
     public function destroy(int $id): void
     {
-        $this->pricePipeline->destroy($id);
+        $this->sizePipeline->destroy($id);
     }
 }
