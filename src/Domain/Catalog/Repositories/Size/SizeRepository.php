@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-final class SizeRepository implements SizeCategoryRepositoryInterface
+final class SizeRepository implements SizeRepositoryInterface
 {
     public function index(array $data): Paginator
     {
@@ -21,7 +21,7 @@ final class SizeRepository implements SizeCategoryRepositoryInterface
                 AllowedFilter::exact('size_category_id'),
                 AllowedFilter::exact('product_id'),
                 AllowedFilter::exact('value'),
-                'is_active'
+                AllowedFilter::exact('is_active'),
             ])
             ->allowedSorts(['size_category_id','id','product_id'])
             ->paginate($data['per_page'] ?? null)

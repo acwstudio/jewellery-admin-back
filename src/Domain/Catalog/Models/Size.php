@@ -13,7 +13,11 @@ class Size extends BaseModel
 
     public const TYPE_RESOURCE = 'sizes';
 
-    protected $fillable = ['product_id','size_category_id','value','is_active'];
+    protected $fillable = ['product_id','size_category_id','value','balance','is_active'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     public function product(): BelongsTo
     {

@@ -3,21 +3,35 @@
 namespace App\Http\Controllers\Admin\Catalog\Sizes;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Catalog\Size\SizeCollection;
+use App\Http\Resources\Catalog\Size\SizeResource;
 use Domain\Catalog\Models\Product;
 use Domain\Catalog\Models\Size;
 use Domain\Catalog\Models\SizeCategory;
+use Domain\Catalog\Services\Size\SizeService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
+    public function __construct(
+        public SizeService $sizeService
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        dd(Product::find(229)->sizes()->with('prices')->get());
+        $data = $request->all();
+
+        $items = $this->sizeService->index($data);
+
+        return (new SizeCollection($items))->response();
     }
 
     /**
@@ -34,12 +48,17 @@ class SizeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Domain\Catalog\Models\Size  $size
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function show(Size $size)
+    public function show(Request $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+        $model = $this->sizeService->show($id, $data);
+
+        return (new SizeResource($model))->response();
     }
 
     /**

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('size_category_id');
             $table->unsignedBigInteger('product_id');
             $table->float('value', 4);
+            $table->integer('balance');
             $table->boolean('is_active');
             $table->timestamps();
 

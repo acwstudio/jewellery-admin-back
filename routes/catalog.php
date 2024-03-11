@@ -34,6 +34,14 @@ use App\Http\Controllers\Admin\Catalog\Weaves\WeavesProductsRelatedController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeavesProductsRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductSizesRelatedController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductSizesRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizePricesRelatedController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizePricesRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizesPriceCategoriesRelatedController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizesPriceCategoriesRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizesProductRelatedController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizesProductRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizesSizeCategoryRelatedController;
+use App\Http\Controllers\Admin\Catalog\Sizes\SizesSizeCategoryRelationshipsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -169,7 +177,7 @@ Route::patch('price-categories/{id}/relationships/sizes', [PriceCategoriesSizesR
     ->name('price-categories.relationships.sizes');
 Route::get('price-categories/{id}/sizes', [PriceCategoriesSizesRelatedController::class, 'index'])
     ->name('price-categories.sizes');
-//  many-to-one  Prices to Price Category
+//  one-to-many  Price Category to Prices
 Route::get('price-categories/{id}/relationships/prices', [PriceCategoryPricesRelationshipsController::class, 'index'])
     ->name('price-category.relationships.prices');
 Route::patch('price-categories/{id}/relationships/prices', [PriceCategoryPricesRelationshipsController::class, 'update'])
@@ -179,4 +187,36 @@ Route::get('price-categories/{id}/prices', [PriceCategoryPricesRelatedController
 
 /******************* SIZES ROUTES ****************************/
 // CRUD
-Route::get('sizes', [SizeController::class, 'index'])->name('sizess.index');
+Route::get('sizes', [SizeController::class, 'index'])->name('sizes.index');
+Route::get('sizes/{id}', [SizeController::class, 'show'])->name('sizes.show');
+Route::post('sizes', [SizeController::class, 'store'])->name('sizes.store');
+Route::patch('sizes/{id}', [SizeController::class, 'update'])->name('sizes.update');
+Route::delete('sizes/{id}', [SizeController::class, 'destroy'])->name('sizes.destroy');
+//  many-to-one  Sizes to Product
+Route::get('sizes/{id}/relationships/product', [SizesProductRelationshipsController::class, 'index'])
+    ->name('sizes.relationships.product');
+Route::patch('sizes/{id}/relationships/product', [SizesProductRelationshipsController::class, 'update'])
+    ->name('sizes.relationships.product');
+Route::get('sizes/{id}/product', [SizesProductRelatedController::class, 'index'])
+    ->name('sizes.product');
+//  many-to-one  Sizes to Size Category
+Route::get('sizes/{id}/relationships/size-category', [SizesSizeCategoryRelationshipsController::class, 'index'])
+    ->name('sizes.relationships.size-category');
+Route::patch('sizes/{id}/relationships/size-category', [SizesSizeCategoryRelationshipsController::class, 'update'])
+    ->name('sizes.relationships.size-category');
+Route::get('sizes/{id}/size-category', [SizesSizeCategoryRelatedController::class, 'index'])
+    ->name('sizes.size-category');
+//  one-to-many  Size to Prices
+Route::get('sizes/{id}/relationships/prices', [SizePricesRelationshipsController::class, 'index'])
+    ->name('size.relationships.prices');
+Route::patch('sizes/{id}/relationships/prices', [SizePricesRelationshipsController::class, 'update'])
+    ->name('size.relationships.prices');
+Route::get('sizes/{id}/prices', [SizePricesRelatedController::class, 'index'])
+    ->name('size.prices');
+//  many-to-many  Sizes to Price Categories
+Route::get('sizes/{id}/relationships/price-categories', [SizesPriceCategoriesRelationshipsController::class, 'index'])
+    ->name('sizes.relationships.price-categories');
+Route::patch('sizes/{id}/relationships/price-categories', [SizesPriceCategoriesRelationshipsController::class, 'update'])
+    ->name('sizes.relationships.price-categories');
+Route::get('sizes/{id}/price-categories', [SizesPriceCategoriesRelatedController::class, 'index'])
+    ->name('sizes.price-categories');
