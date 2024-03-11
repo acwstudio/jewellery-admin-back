@@ -25,7 +25,7 @@ class PriceCategoryResource extends JsonResource
             'type' => PriceCategory::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'products' => $this->sectionRelationships('price-categories.products', ProductCollection::class),
+                'products' => $this->sectionRelationships('price-categories.sizes', ProductCollection::class),
                 'prices' => $this->sectionRelationships('price-category.prices', PriceCollection::class),
             ]
         ];

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin\Catalog\Prices;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Catalog\Product\ProductResource;
+use App\Http\Resources\Catalog\Size\SizeResource;
 use Domain\Catalog\Services\Price\PriceRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class PricesProductRelatedController extends Controller
+class PricesSizeRelatedController extends Controller
 {
-    const RELATION = 'product';
+    const RELATION = 'size';
 
     public function __construct(
         public PriceRelationsService $priceRelationsService
@@ -24,6 +24,6 @@ class PricesProductRelatedController extends Controller
 
         $model = $this->priceRelationsService->indexRelations($data);
 
-        return (new ProductResource($model))->response();
+        return (new SizeResource($model))->response();
     }
 }
