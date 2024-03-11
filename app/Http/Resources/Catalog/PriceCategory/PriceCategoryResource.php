@@ -4,6 +4,7 @@ namespace App\Http\Resources\Catalog\PriceCategory;
 
 use App\Http\Resources\Catalog\Price\PriceCollection;
 use App\Http\Resources\Catalog\Product\ProductCollection;
+use App\Http\Resources\Catalog\Size\SizeCollection;
 use App\Http\Resources\IncludeRelatedEntitiesResourceTrait;
 use Domain\Catalog\Models\PriceCategory;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -25,7 +26,7 @@ class PriceCategoryResource extends JsonResource
             'type' => PriceCategory::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'products' => $this->sectionRelationships('price-categories.sizes', ProductCollection::class),
+                'sizes' => $this->sectionRelationships('price-categories.sizes', SizeCollection::class),
                 'prices' => $this->sectionRelationships('price-category.prices', PriceCollection::class),
             ]
         ];
@@ -34,7 +35,7 @@ class PriceCategoryResource extends JsonResource
     function relations(): array
     {
         return [
-            ProductCollection::class => $this->whenLoaded('products'),
+            SizeCollection::class => $this->whenLoaded('sizes'),
             PriceCollection::class => $this->whenLoaded('prices'),
         ];
     }

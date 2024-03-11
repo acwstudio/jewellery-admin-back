@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Catalog\PriceCategories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Catalog\PriceCategory\PriceCategoryCollection;
+use App\Http\Resources\Catalog\PriceCategory\PriceCategoryResource;
 use Domain\Catalog\Models\PriceCategory;
 use Domain\Catalog\Services\PriceCategory\PriceCategoryService;
 use Illuminate\Http\JsonResponse;
@@ -45,12 +46,17 @@ class PriceCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Domain\Catalog\Models\PriceCategory  $priceCategory
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function show(PriceCategory $priceCategory)
+    public function show(Request $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+        $model = $this->priceCategoryService->show($id, $data);
+
+        return (new PriceCategoryResource($model))->response();
     }
 
     /**
