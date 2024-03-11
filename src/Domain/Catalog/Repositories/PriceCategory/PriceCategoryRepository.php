@@ -17,7 +17,7 @@ final class PriceCategoryRepository implements PriceCategoryRepositoryInterface
     {
         return QueryBuilder::for(PriceCategory::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('price_categories'))
-            ->allowedIncludes(['prices','products'])
+            ->allowedIncludes(['prices','sizes'])
             ->allowedFilters([
                 'slug','is_active','name'
             ])
@@ -36,7 +36,7 @@ final class PriceCategoryRepository implements PriceCategoryRepositoryInterface
         return QueryBuilder::for(PriceCategory::class)
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('price_categories'))
-            ->allowedIncludes(['prices','products'])
+            ->allowedIncludes(['prices','sizes'])
             ->firstOrFail();
     }
 
