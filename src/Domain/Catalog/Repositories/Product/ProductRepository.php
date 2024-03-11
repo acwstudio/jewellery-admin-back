@@ -24,10 +24,12 @@ final class ProductRepository implements ProductRepositoryInterface
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('sku'),
-                AllowedFilter::custom('activeSizes', new FilterRelatedSizesByIsActive()),
-                AllowedFilter::custom('balance', new FilterRelatedSizesByBalance()),
+//                AllowedFilter::custom('activeSizes', new FilterRelatedSizesByIsActive()),
+//                AllowedFilter::custom('balance', new FilterRelatedSizesByBalance()),
+                AllowedFilter::exact('sizes.balance'),
                 AllowedFilter::exact('product_category_id'),
-                'name','is_active'
+                AllowedFilter::exact('is_active'),
+                'name'
             ])
             ->allowedSorts(['name','id','slug','product_category_id','sku'])
             ->paginate($data['per_page'] ?? null)

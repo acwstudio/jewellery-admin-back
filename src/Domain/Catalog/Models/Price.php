@@ -5,6 +5,7 @@ namespace Domain\Catalog\Models;
 use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Price extends BaseModel
 {
@@ -19,8 +20,13 @@ class Price extends BaseModel
         return $this->belongsTo(PriceCategory::class);
     }
 
-    public function product(): BelongsTo
+    public function sizeProduct(): HasOneThrough
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasOneThrough(Product::class, Size::class, 'id', 'id', 'size_id', 'product_id');
+    }
+
+    public function size(): BelongsTo
+    {
+        return $this->belongsTo(Size::class);
     }
 }
