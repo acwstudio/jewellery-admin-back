@@ -23,7 +23,7 @@ class PriceCategory extends BaseModel
 
     public function sizes(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'prices');
+        return $this->belongsToMany(Size::class, 'prices');
     }
 
     public function sluggable(): array

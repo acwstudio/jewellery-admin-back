@@ -5,6 +5,7 @@ namespace Domain\Catalog\Models;
 use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Size extends BaseModel
@@ -32,5 +33,10 @@ class Size extends BaseModel
     public function sizeCategory(): BelongsTo
     {
         return $this->belongsTo(SizeCategory::class);
+    }
+
+    public function priceCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(PriceCategory::class, 'prices');
     }
 }
