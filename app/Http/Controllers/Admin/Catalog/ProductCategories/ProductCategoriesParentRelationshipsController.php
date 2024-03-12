@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class ProductCategoriesParentRelationshipsController extends Controller
 {
+    const RELATION = 'parent';
+
     public function __construct(
         public ProductCategoryRelationsService $productCategoryRelationsService
     ) {
@@ -20,7 +22,7 @@ class ProductCategoriesParentRelationshipsController extends Controller
     {
         $data = $request->all();
 
-        data_set($data, 'relation_method', 'parent');
+        data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
 
         $model = $this->productCategoryRelationsService->indexRelations($data);

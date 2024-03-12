@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 class ProductCategoriesParentRelatedController extends Controller
 {
+    const RELATION = 'parent';
+
     public function __construct(
         public ProductCategoryRelationsService $productCategoryRelationsService
     ) {
@@ -17,7 +19,7 @@ class ProductCategoriesParentRelatedController extends Controller
 
     public function index(Request $request, int $id): JsonResponse
     {
-        data_set($data, 'relation_method', 'parent');
+        data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
 
         $model = $this->productCategoryRelationsService->indexRelations($data);
