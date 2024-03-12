@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 class ProductCategoryChildrenRelatedController extends Controller
 {
+    const RELATION = 'children';
+
     public function __construct(
         public ProductCategoryRelationsService $productCategoryRelationsService
     ) {
@@ -20,7 +22,7 @@ class ProductCategoryChildrenRelatedController extends Controller
         $params = ($request->query());
         unset($params['q']);
 
-        data_set($data, 'relation_method', 'children');
+        data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
