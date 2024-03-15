@@ -24,9 +24,9 @@ final class ProductRepository implements ProductRepositoryInterface
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('sku'),
-//                AllowedFilter::custom('activeSizes', new FilterRelatedSizesByIsActive()),
-//                AllowedFilter::custom('balance', new FilterRelatedSizesByBalance()),
-                AllowedFilter::exact('sizes.balance'),
+                AllowedFilter::custom('activeSizes', new FilterRelatedSizesByIsActive()),
+                AllowedFilter::custom('balance', new FilterRelatedSizesByBalance()),
+//                AllowedFilter::exact('sizes.balance'),
                 AllowedFilter::exact('product_category_id'),
                 AllowedFilter::exact('is_active'),
                 'name'

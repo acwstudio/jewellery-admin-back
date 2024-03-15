@@ -24,85 +24,19 @@ class PriceSeeder extends Seeder
         DB::table('price_categories')->truncate();
         DB::statement('SET SESSION_REPLICATION_ROLE="origin";');
 
-        $priceCategories = DB::connection('pgsql_core')->table('catalog.product_offer_prices')->select('type')
-            ->distinct()->pluck('type');
+        $price_categories = ['regular','live','promo'];
 
-        foreach ($priceCategories as $priceCategory) {
+        foreach ($price_categories as $price_category) {
+//            dd($price_category);
             DB::table('price_categories')->insert([
-                'name'      => $priceCategory,
-                'is_active' => true,
-                'slug'      => Str::slug($priceCategory)
+                'name' => $price_category,
+                'slug' => Str::slug($price_category),
+                'is_active' => true
             ]);
         }
 
-        $max = 900;
-        $total = $this->getQuery()->count();
-        $pages = ceil($total / $max);
-
-        for ($i = 1; $i < ($pages + 1); $i++) {
-            $offset = (($i - 1) * $max);
-            $start = ($offset == 0 ? 0 : ($offset + 1));
-
-            $prices = $this->getQuery()->skip($start)->take($max);
-            foreach ($prices as $price) {
-                $sizes = DB::table('sizes')
-                    ->where('product_id', $price->product_id)
-//                    ->where('size_category_id', 2)
-                    ->get();
-                if ($sizes->count()) {
-                    dump($sizes);
-                    foreach ($sizes as $size) {
-                        DB::table('prices')->insert([
-                            'price_category_id' => $price->price_category_id,
-                            'value' => $price->price,
-                            'size_id' => $size->id,
-                            'is_active' => $size->is_active
-                        ]);
-                    }
-                }
-            }
-//            dd('ok!');
-//            DB::table('prices')->insert($this->addAttributes($prices));
-            dump('ok');
-        }
-    }
-
-    private function getQuery(): Collection
-    {
-        $ids = DB::table('products')->pluck('core_id')->toArray();
-        $string = implode(',', $ids);
-
-        $items = DB::connection('pgsql_core')
-            ->select("(select po.product_id, pop.price, pop.type, count(*) as cnt,
-            case
-                when pop.type = 'regular' then 1
-                When pop.type = 'live' then 2
-                When pop.type = 'promo' then 3
-            end as price_category_id
-            from catalog.product_offers as po
-            inner join catalog.product_offer_prices pop on po.id = pop.product_offer_id
-            inner join catalog.products p on po.product_id = p.id
-            where po.product_id in ($string) and  pop.is_active = true and p.is_active = true
-            group by po.product_id, pop.price, pop.type)");
-
-        return collect($items);
-    }
-
-    private function addAttributes(Collection $items): array
-    {
-        $items->map(function ($item) {
-            $product_id = DB::table('products')->where('core_id', $item->product_id)->first();
-
-            if ($product_id) {
-                $item->value = $item->price;
-                $item->product_id = $product_id->id;
-                $item->is_active = true;
-                unset($item->price);
-                unset($item->type);
-                unset($item->cnt);
-            }
-        });
-
-        return $items->map(fn($row) => get_object_vars($row))->toArray();
+        DB::unprepared(file_get_contents(base_path() . '/database/seeders/sql/core_prices_create.sql'));
+        DB::unprepared(file_get_contents(base_path() . '/database/seeders/sql/core_prices_insert.sql'));
+        DB::unprepared(file_get_contents(base_path() . '/database/seeders/sql/prices_insert.sql'));
     }
 }
