@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Catalog\Products;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Catalog\Price\PriceCollection;
+use App\Http\Resources\Catalog\Size\SizeCollection;
 use Domain\Catalog\Services\Product\ProductRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,6 +29,6 @@ class ProductSizesRelatedController extends Controller
 
         $collection = $this->productRelationsService->indexRelations($data);
 
-        return (new PriceCollection($collection))->response();
+        return (new SizeCollection($collection))->response();
     }
 }

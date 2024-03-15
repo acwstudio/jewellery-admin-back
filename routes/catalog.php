@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryChildren
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryController;
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryProductsRelatedController;
 use App\Http\Controllers\Admin\Catalog\ProductCategories\ProductCategoryProductsRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\Products\ProductPricesRelatedController;
+use App\Http\Controllers\Admin\Catalog\Products\ProductPricesRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsBlogPostsRelatedController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsBlogPostsRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsSizeCategoriesRelatedController;
@@ -98,6 +100,13 @@ Route::patch('products/{id}/relationships/sizes', [ProductSizesRelationshipsCont
     ->name('product.relationships.sizes');
 Route::get('products/{id}/sizes', [ProductSizesRelatedController::class, 'index'])
     ->name('product.sizes');
+//  one-to-many (through sizes)  Product to Prices
+Route::get('products/{id}/relationships/prices', [ProductPricesRelationshipsController::class, 'index'])
+    ->name('product.relationships.prices');
+Route::patch('products/{id}/relationships/prices', [ProductPricesRelationshipsController::class, 'update'])
+    ->name('product.relationships.prices');
+Route::get('products/{id}/prices', [ProductPricesRelatedController::class, 'index'])
+    ->name('product.prices');
 
 /*****************  PRODUCT CATEGORIES ROUTES **************/
 // CRUD
@@ -150,7 +159,7 @@ Route::get('prices/{id}', [PriceController::class, 'show'])->name('prices.show')
 Route::post('prices', [PriceController::class, 'store'])->name('prices.store');
 Route::patch('prices/{id}', [PriceController::class, 'update'])->name('prices.update');
 Route::delete('prices/{id}', [PriceController::class, 'destroy'])->name('prices.destroy');
-//  many-to-one  Prices to Product
+//  many-to-one (through sizes)  Prices to Product
 Route::get('prices/{id}/relationships/product', [PricesProductRelationshipsController::class, 'index'])
     ->name('prices.relationships.product');
 Route::patch('prices/{id}/relationships/product', [PricesProductRelationshipsController::class, 'update'])
