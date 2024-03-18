@@ -6,20 +6,21 @@ namespace Domain\Catalog\Repositories\Product;
 
 use Domain\Catalog\CustomBuilders\Product\FilterRelatedSizesByBalance;
 use Domain\Catalog\CustomBuilders\Product\FilterRelatedSizesByIsActive;
+use Domain\Catalog\CustomBuilders\Product\ProductBuilder;
 use Domain\Catalog\Models\Product;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class ProductRepository implements ProductRepositoryInterface
 {
-
     public function index(array $data): Paginator
     {
         return QueryBuilder::for(Product::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('products'))
-            ->allowedIncludes(['weaves','blogPosts','sizeCategories','brand','sizes','productCategory'])
+            ->allowedIncludes(['weaves','blogPosts','sizeCategories','brand','sizes','productCategory','prices'])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),
@@ -32,6 +33,10 @@ final class ProductRepository implements ProductRepositoryInterface
                 'name'
             ])
             ->allowedSorts(['name','id','slug','product_category_id','sku'])
+            ->addSelect(data_get($data, 'fields') ? 'id' : '*', DB::raw(
+                '(SELECT name FROM product_categories where product_category_id = id) as product_category_name'))
+            ->addSelect(data_get($data, 'fields') ? 'id' : '*', DB::raw('(SELECT name FROM brands where brand_id = id)
+                as brand_name'))
             ->paginate($data['per_page'] ?? null)
             ->appends($data);
     }
@@ -46,11 +51,15 @@ final class ProductRepository implements ProductRepositoryInterface
         return QueryBuilder::for(Product::class)
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('products'))
-            ->allowedIncludes(['weaves','blogPosts','sizeCategories','brand','sizes','productCategory'])
+            ->allowedIncludes(['weaves','blogPosts','sizeCategories','brand','sizes','productCategory','prices'])
             ->allowedFilters([
                 AllowedFilter::custom('activeSizes', new FilterRelatedSizesByIsActive()),
                 AllowedFilter::custom('balance', new FilterRelatedSizesByBalance()),
             ])
+            ->addSelect(data_get($data, 'fields') ? 'id' : '*', DB::raw('(SELECT name FROM product_categories where product_category_id = id)
+                as product_category_name'))
+            ->addSelect(data_get($data, 'fields') ? 'id' : '*', DB::raw('(SELECT name FROM brands where brand_id = id)
+                as brand_name'))
             ->firstOrFail();
     }
 

@@ -63,7 +63,7 @@ return [
     [
         'interface'      => ProductRepositoryInterface::class,
         'implementation' => ProductRepository::class,
-        'cache'          => ProductCachedRepository::class
+//        'cache'          => ProductCachedRepository::class
     ],
     [
         'interface'      => ProductCategoryRepositoryInterface::class,

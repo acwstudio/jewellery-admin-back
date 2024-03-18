@@ -19,7 +19,7 @@ final class PriceCategoryRepository implements PriceCategoryRepositoryInterface
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('price_categories'))
             ->allowedIncludes(['prices','sizes'])
             ->allowedFilters([
-                'slug','is_active','name'
+                'slug','is_active','name','id'
             ])
             ->allowedSorts(['name','id','slug'])
             ->paginate($data['per_page'] ?? null)
