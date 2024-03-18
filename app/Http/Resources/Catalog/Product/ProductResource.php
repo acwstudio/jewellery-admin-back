@@ -37,6 +37,7 @@ class ProductResource extends JsonResource
 //                'brand' => $this->sectionRelationships('products.brand', BrandCollection::class),
                 'blogPosts' => $this->sectionRelationships('products.blog-posts', BlogPostCollection::class),
                 'sizes' => $this->sectionRelationships('product.sizes', SizeCollection::class),
+                'prices' => $this->sectionRelationships('product.prices', PriceCollection::class),
                 'sizeCategories' => $this->sectionRelationships(
                     'products.size-categories', SizeCategoryCollection::class
                 )
@@ -52,6 +53,7 @@ class ProductResource extends JsonResource
 //            BrandCollection::class => $this->whenLoaded('brand'),
             BlogPostCollection::class => $this->whenLoaded('blogPosts'),
             SizeCollection::class => $this->whenLoaded('sizes'),
+            PriceCollection::class => $this->whenLoaded('prices'),
             SizeCategoryCollection::class => $this->whenLoaded('sizeCategories'),
         ];
     }

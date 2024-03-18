@@ -16,7 +16,9 @@ final class ProductCategoryRepository implements ProductCategoryRepositoryInterf
     {
         return QueryBuilder::for(ProductCategory::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('product_categories'))
-            ->allowedIncludes(['products','parent','children'])
+            ->allowedIncludes([
+                'products','parent','children'
+            ])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
                 AllowedFilter::exact('id'),

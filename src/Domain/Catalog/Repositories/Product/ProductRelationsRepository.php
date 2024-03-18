@@ -8,6 +8,7 @@ use Domain\AbstractRelationsRepository;
 use Domain\Catalog\Models\Product;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 final class ProductRelationsRepository extends AbstractRelationsRepository
 {
@@ -22,7 +23,11 @@ final class ProductRelationsRepository extends AbstractRelationsRepository
             return Product::findOrFail($id)->{$relation}()->firstOrFail();
         }
 
-        return Product::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
+        return Product::findOrFail($id)->{$relation}()
+            ->addSelect('*', DB::raw('(SELECT name FROM price_categories where price_category_id = id) as price_category_name'))
+            ->addSelect('*', DB::raw('(SELECT value FROM sizes where size_id = id) as size_value'))
+            ->addSelect('*', DB::raw('(SELECT type FROM size_categories where size_category_id = id) as size_type'))
+            ->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
     /**

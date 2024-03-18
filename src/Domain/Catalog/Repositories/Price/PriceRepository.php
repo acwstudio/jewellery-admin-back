@@ -20,6 +20,7 @@ final class PriceRepository implements PriceRepositoryInterface
             ->allowedFilters([
                 AllowedFilter::exact('product_id'),
                 AllowedFilter::exact('price_category_id'),
+                AllowedFilter::exact('id'),
                 'value','is_active'
             ])
             ->allowedSorts(['name','id','slug','product_category_id','sku'])
