@@ -26,7 +26,7 @@ class ProductsBlogPostsRelatedController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $collection = $this->productRelationsService->indexRelations($data);
+        $collection = $this->productRelationsService->indexProductsBlogPosts($data);
 
         return (new BlogPostCollection($collection))->response();
     }
