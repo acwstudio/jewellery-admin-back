@@ -14,10 +14,42 @@ final class ProductRelationsService
     {
     }
 
+    public function indexProductsWeaves(array $data): Paginator
+    {
+        return $this->productRelationsRepository->indexProductsWeaves($data);
+    }
+
+    public function indexProductsPrices(array $data): Paginator
+    {
+        return $this->productRelationsRepository->indexProductPrices($data);
+    }
+
+    public function indexProductsProductCategory(array $data): Model
+    {
+        return $this->productRelationsRepository->indexProductsProductCategory($data);
+    }
+
+    public function indexProductSizes(array $data): Paginator|Model
+    {
+        return $this->productRelationsRepository->indexProductSizes($data);
+    }
+
+    public function indexProductSizeCategories(array $data): Paginator|Model
+    {
+        return $this->productRelationsRepository->indexProductSizeCategories($data);
+    }
+
+    public function indexProductsBlogPosts(array $data): Paginator|Model
+    {
+        return $this->productRelationsRepository->indexProductsBlogPosts($data);
+    }
+
     public function indexRelations(array $data): Paginator|Model
     {
         return $this->productRelationsRepository->indexRelations($data);
     }
+
+
 
     /**
      * @throws \ReflectionException

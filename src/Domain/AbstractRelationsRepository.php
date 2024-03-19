@@ -18,7 +18,7 @@ abstract class AbstractRelationsRepository
     private array $relationManyToMany = ['BelongsToMany', 'MorphToMany', 'MorphedToMany', 'MorphedByMany'];
     private string $nameRelationClass;
 
-    abstract public function indexRelations(array $data): Paginator|Model;
+//    abstract public function indexRelations(array $data): Paginator|Model;
 
     abstract public function updateRelations(array $data): void;
 

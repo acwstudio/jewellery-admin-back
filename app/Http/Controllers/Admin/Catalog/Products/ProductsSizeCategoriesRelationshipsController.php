@@ -27,7 +27,7 @@ class ProductsSizeCategoriesRelationshipsController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $paginatedQuery = $this->productRelationsService->indexRelations($data);
+        $paginatedQuery = $this->productRelationsService->indexProductSizeCategories($data);
 
         return ApiEntityIdentifierResource::collection($paginatedQuery)->response();
     }
