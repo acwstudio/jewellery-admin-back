@@ -26,7 +26,7 @@ class ProductCategoryChildrenRelatedController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $collection = $this->productCategoryRelationsService->indexRelations($data);
+        $collection = $this->productCategoryRelationsService->indexProductCategoryChildren($data);
 
         return (new ProductCategoryCollection($collection))->response();
     }

@@ -8,22 +8,41 @@ use Domain\AbstractRelationsRepository;
 use Domain\Catalog\Models\ProductCategory;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 final class ProductCategoryRelationsRepository extends AbstractRelationsRepository
 {
-
-    public function indexRelations(array $data): Paginator|Model
+    public function indexProductCategoryProducts(array $data): Paginator
     {
         $relation = data_get($data, 'relation_method');
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        if (in_array(ProductCategory::findOrFail($id)->{$relation}()::class, config('api-settings.to-one')))
-        {
-            return ProductCategory::findOrFail($id)->{$relation}()->firstOrFail();
-        }
+        return ProductCategory::findOrFail($id)->$relation()
+            ->paginate($perPage)->appends(data_get($data, 'params'));
+    }
 
-        return ProductCategory::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
+    public function indexProductCategoryChildren(array $data): Paginator
+    {
+        $relation = data_get($data, 'relation_method');
+        $id = data_get($data, 'id');
+        $perPage = data_get($data, 'params.per_page');
+
+        return ProductCategory::findOrFail($id)->$relation()
+            ->addSelect('*', DB::raw('(select name from product_categories as pc
+            where pc.id = product_categories.parent_id) as parent_name'))
+            ->paginate($perPage)->appends(data_get($data, 'params'));
+    }
+
+    public function indexProductCategoriesParent(array $data): Model
+    {
+        $relation = data_get($data, 'relation_method');
+        $id = data_get($data, 'id');
+
+        return ProductCategory::findOrFail($id)->$relation()
+            ->addSelect('*', DB::raw('(select name from product_categories as pc
+            where pc.id = product_categories.parent_id) as parent_name'))
+            ->firstOrFail();
     }
 
     /**

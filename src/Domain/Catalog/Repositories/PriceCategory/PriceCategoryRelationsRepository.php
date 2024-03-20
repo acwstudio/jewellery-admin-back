@@ -18,11 +18,11 @@ final class PriceCategoryRelationsRepository extends AbstractRelationsRepository
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        return PriceCategory::findOrFail($id)->{$relation}()
-            ->addSelect(DB::raw('(SELECT name FROM products where products.id = sizes.product_id)
-            as product_name'))
-            ->addSelect(DB::raw('(SELECT name FROM size_categories where size_categories.id = sizes.size_category_id)
-            as size_category_name'))
+        return PriceCategory::findOrFail($id)->$relation()
+            ->addSelect(DB::raw('(SELECT name FROM products as p
+            where p.id = sizes.product_id) as product_name'))
+            ->addSelect(DB::raw('(SELECT name FROM size_categories as cs
+            where cs.id = sizes.size_category_id) as size_category_name'))
             ->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
