@@ -68,17 +68,17 @@ return [
     [
         'interface'      => ProductCategoryRepositoryInterface::class,
         'implementation' => ProductCategoryRepository::class,
-        'cache'          => ProductCategoryCachedRepository::class
+//        'cache'          => ProductCategoryCachedRepository::class
     ],
     [
         'interface'      => PriceRepositoryInterface::class,
         'implementation' => PriceRepository::class,
-        'cache'          => PriceCachedRepository::class
+//        'cache'          => PriceCachedRepository::class
     ],
     [
         'interface'      => PriceCategoryRepositoryInterface::class,
         'implementation' => PriceCategoryRepository::class,
-        'cache'          => PriceCategoryCachedRepository::class
+//        'cache'          => PriceCategoryCachedRepository::class
     ],
     [
         'interface'      => BannerRepositoryInterface::class,

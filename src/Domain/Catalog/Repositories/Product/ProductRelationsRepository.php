@@ -18,7 +18,7 @@ final class ProductRelationsRepository extends AbstractRelationsRepository
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        return Product::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
+        return Product::findOrFail($id)->$relation()->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
     public function indexProductSizes(array $data): Paginator
@@ -27,8 +27,8 @@ final class ProductRelationsRepository extends AbstractRelationsRepository
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        return Product::findOrFail($id)->{$relation}()
-            ->addSelect('*', DB::raw('(SELECT type FROM size_categories where size_category_id = id) as size_category_type'))
+        return Product::findOrFail($id)->$relation()
+            ->addSelect('*', DB::raw('(SELECT name FROM size_categories where size_category_id = id) as size_category_name'))
             ->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
@@ -38,7 +38,7 @@ final class ProductRelationsRepository extends AbstractRelationsRepository
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        return Product::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
+        return Product::findOrFail($id)->$relation()->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
     public function indexProductsBlogPosts(array $data)
@@ -47,7 +47,7 @@ final class ProductRelationsRepository extends AbstractRelationsRepository
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        return Product::findOrFail($id)->{$relation}()
+        return Product::findOrFail($id)->$relation()
             ->addSelect('*', DB::raw('(SELECT name FROM blog_categories where blog_category_id = id) as size_category_name'))
             ->paginate($perPage)->appends(data_get($data, 'params'));
     }
@@ -58,10 +58,10 @@ final class ProductRelationsRepository extends AbstractRelationsRepository
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        return Product::findOrFail($id)->{$relation}()
-            ->addSelect('*', DB::raw('(SELECT name FROM price_categories where price_category_id = id) as price_category_name'))
-            ->addSelect('*', DB::raw('(SELECT value FROM sizes where size_id = id) as size_value'))
-            ->addSelect('*', DB::raw('(SELECT type FROM size_categories where size_category_id = id) as size_type'))
+        return Product::findOrFail($id)->$relation()
+            ->addSelect(DB::raw('(SELECT name FROM price_categories where price_category_id = id) as price_category_name'))
+            ->addSelect(DB::raw('(SELECT value FROM sizes where size_id = id) as size_value'))
+            ->addSelect(DB::raw('(SELECT name FROM size_categories where size_category_id = id) as size_name'))
             ->paginate($perPage)->appends(data_get($data, 'params'));
     }
 

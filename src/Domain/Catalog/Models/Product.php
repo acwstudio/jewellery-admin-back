@@ -4,14 +4,12 @@ namespace Domain\Catalog\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Domain\Blog\Models\BlogPost;
-use Domain\Catalog\CustomBuilders\Product\ProductBuilder;
 use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Facades\DB;
 
 class Product extends BaseModel
 {

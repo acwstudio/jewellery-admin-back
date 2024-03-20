@@ -14,6 +14,16 @@ final class PriceCategoryRelationsService
     {
     }
 
+    public function indexPriceCategoryPrices(array $data)
+    {
+        return $this->priceCategoryRelationsRepository->indexPriceCategoryPrices($data);
+    }
+
+    public function indexPriceCategorySizes(array $data)
+    {
+        return $this->priceCategoryRelationsRepository->indexPriceCategorySizes($data);
+    }
+
     public function indexRelations(array $data): Paginator|Model
     {
         return $this->priceCategoryRelationsRepository->indexRelations($data);

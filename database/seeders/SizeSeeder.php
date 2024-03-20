@@ -32,7 +32,7 @@ class SizeSeeder extends Seeder
 
         foreach ($sizeCategories as $sizeCategory) {
             DB::table('size_categories')->insert([
-                'type' => $sizeCategory,
+                'name' => $sizeCategory,
                 'slug' => Str::slug($sizeCategory),
                 'is_active' => true
             ]);

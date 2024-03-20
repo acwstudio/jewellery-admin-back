@@ -8,21 +8,41 @@ use Domain\AbstractRelationsRepository;
 use Domain\Catalog\Models\Price;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 final class PriceRelationsRepository extends AbstractRelationsRepository
 {
-    public function indexRelations(array $data): Paginator|Model
+    public function indexPricesProduct(array $data)
     {
         $relation = data_get($data, 'relation_method');
         $id = data_get($data, 'id');
-        $perPage = data_get($data, 'params.per_page');
 
-        if (in_array(Price::findOrFail($id)->{$relation}()::class, config('api-settings.to-one')))
-        {
-            return Price::findOrFail($id)->{$relation}()->firstOrFail();
-        }
+        return Price::findOrFail($id)->$relation
+            ->addSelect('*', DB::raw('(select name from product_categories as pc
+            where pc.id = products.product_category_id) as product_category_name'))
+             ->firstOrFail();
+    }
 
-        return Price::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
+    public function indexPricesSize(array $data)
+    {
+        $relation = data_get($data, 'relation_method');
+        $id = data_get($data, 'id');
+
+        return Price::findOrFail($id)->$relation()
+            ->addSelect('*', DB::raw('(select name from size_categories as sc
+            where sc.id = sizes.size_category_id) as size_category_name'))
+            ->addSelect('*', DB::raw('(select name from products as p
+            where p.id = sizes.product_id
+            ) as product_name'))
+            ->firstOrFail();
+    }
+
+    public function indexPricesPriceCategory(array $data)
+    {
+        $relation = data_get($data, 'relation_method');
+        $id = data_get($data, 'id');
+
+        return Price::findOrFail($id)->$relation()->firstOrFail();
     }
 
     /**

@@ -14,9 +14,19 @@ final class PriceRelationsService
     {
     }
 
-    public function indexRelations(array $data): Paginator|Model
+    public function indexPricesProduct(array $data): Model
     {
-        return $this->priceRelationsRepository->indexRelations($data);
+        return $this->priceRelationsRepository->indexPricesProduct($data);
+    }
+
+    public function indexPricesSize(array $data): Model
+    {
+        return $this->priceRelationsRepository->indexPricesSize($data);
+    }
+
+    public function indexPricesPriceCategory(array $data): Model
+    {
+        return $this->priceRelationsRepository->indexPricesPriceCategory($data);
     }
 
     /**
