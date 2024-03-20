@@ -6,7 +6,6 @@ namespace Domain\Catalog\Repositories\Product;
 
 use Domain\Catalog\CustomBuilders\Product\FilterRelatedSizesByBalance;
 use Domain\Catalog\CustomBuilders\Product\FilterRelatedSizesByIsActive;
-use Domain\Catalog\CustomBuilders\Product\ProductBuilder;
 use Domain\Catalog\Models\Product;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
@@ -33,10 +32,10 @@ final class ProductRepository implements ProductRepositoryInterface
                 'name'
             ])
             ->allowedSorts(['name','id','slug','product_category_id','sku'])
-            ->addSelect(data_get($data, 'fields') ? 'id' : '*', DB::raw(
-                '(SELECT name FROM product_categories where product_category_id = id) as product_category_name'))
-            ->addSelect(data_get($data, 'fields') ? 'id' : '*', DB::raw('(SELECT name FROM brands where brand_id = id)
-                as brand_name'))
+//            ->addSelect(data_get($data, 'fields') ? 'id' : '*', DB::raw(
+//                '(SELECT name FROM product_categories where product_category_id = id) as product_category_name'))
+//            ->addSelect(data_get($data, 'fields') ? 'id' : '*', DB::raw('(SELECT name FROM brands where brand_id = id)
+//                as brand_name'))
             ->paginate($data['per_page'] ?? null)
             ->appends($data);
     }

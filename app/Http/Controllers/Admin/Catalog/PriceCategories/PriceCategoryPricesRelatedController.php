@@ -26,7 +26,7 @@ class PriceCategoryPricesRelatedController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $collection = $this->priceCategoryRelationsService->indexRelations($data);
+        $collection = $this->priceCategoryRelationsService->indexPriceCategoryPrices($data);
 
         return (new PriceCollection($collection))->response();
     }

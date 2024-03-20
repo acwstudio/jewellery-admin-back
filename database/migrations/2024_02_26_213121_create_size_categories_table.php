@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('size_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->string('slug');
             $table->boolean('is_active');
             $table->timestamps();

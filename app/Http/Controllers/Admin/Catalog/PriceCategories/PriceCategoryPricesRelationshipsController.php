@@ -27,7 +27,7 @@ class PriceCategoryPricesRelationshipsController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $paginatedQuery = $this->priceCategoryRelationsService->indexRelations($data);
+        $paginatedQuery = $this->priceCategoryRelationsService->indexPriceCategoryPrices($data);
 
         return ApiEntityIdentifierResource::collection($paginatedQuery)->response();
     }

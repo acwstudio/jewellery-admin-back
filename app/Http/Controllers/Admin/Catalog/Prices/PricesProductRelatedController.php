@@ -22,7 +22,7 @@ class PricesProductRelatedController extends Controller
         data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
 
-        $model = $this->priceRelationsService->indexRelations($data);
+        $model = $this->priceRelationsService->indexPricesProduct($data);
 
         return (new ProductResource($model))->response();
     }

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Catalog\Repositories\ProductCategory;
 
+use Domain\Catalog\CustomBuilders\ProductCategory\LimitProductsRelatedBuilder;
 use Domain\Catalog\Models\ProductCategory;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedInclude;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class ProductCategoryRepository implements ProductCategoryRepositoryInterface
@@ -17,7 +19,7 @@ final class ProductCategoryRepository implements ProductCategoryRepositoryInterf
         return QueryBuilder::for(ProductCategory::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('product_categories'))
             ->allowedIncludes([
-                'products','parent','children'
+                'parent','children'
             ])
             ->allowedFilters([
                 AllowedFilter::exact('slug'),
@@ -39,7 +41,9 @@ final class ProductCategoryRepository implements ProductCategoryRepositoryInterf
         return QueryBuilder::for(ProductCategory::class)
             ->where('id', $id)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('product_categories'))
-            ->allowedIncludes(['products','parent','children'])
+            ->allowedIncludes([
+                'parent','children'
+            ])
             ->firstOrFail();
     }
 

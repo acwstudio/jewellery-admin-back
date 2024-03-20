@@ -23,7 +23,7 @@ class PricesSizeRelationshipsController extends Controller
         data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
 
-        $model = $this->priceRelationsService->indexRelations($data);
+        $model = $this->priceRelationsService->indexPricesSize($data);
 
         return (new ApiEntityIdentifierResource($model))->response();
     }

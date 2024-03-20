@@ -39,8 +39,8 @@ class ProductSeeder extends Seeder
         $pendants = $this->getQuery('подвеск')->get();
         DB::table('products')->insert($this->addAttributes($pendants, 15));
 
-        $pendants = $this->getQuery('бусы')->get();
-        DB::table('products')->insert($this->addAttributes($pendants, 11));
+        $beads = $this->getQuery('бусы')->get();
+        DB::table('products')->insert($this->addAttributes($beads, 11));
 
         $max = 600;
         $total = $this->getQuery('кольц')->count();
