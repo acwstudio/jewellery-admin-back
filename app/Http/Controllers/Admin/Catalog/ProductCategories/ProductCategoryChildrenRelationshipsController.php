@@ -27,7 +27,7 @@ class ProductCategoryChildrenRelationshipsController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $paginatedQuery = $this->productCategoryRelationsService->indexRelations($data);
+        $paginatedQuery = $this->productCategoryRelationsService->indexProductCategoryChildren($data);
 
         return ApiEntityIdentifierResource::collection($paginatedQuery)->response();
     }

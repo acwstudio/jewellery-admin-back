@@ -14,9 +14,19 @@ final class ProductCategoryRelationsService
     {
     }
 
-    public function indexRelations(array $data): Paginator|Model
+    public function indexProductCategoryProducts(array $data): Paginator
     {
-        return $this->productCategoryRelationsRepository->indexRelations($data);
+        return $this->productCategoryRelationsRepository->indexProductCategoryProducts($data);
+    }
+
+    public function indexProductCategoryChildren(array $data): Paginator
+    {
+        return $this->productCategoryRelationsRepository->indexProductCategoryChildren($data);
+    }
+
+    public function indexProductCategoriesParent(array $data): Model
+    {
+        return $this->productCategoryRelationsRepository->indexProductCategoriesParent($data);
     }
 
     /**

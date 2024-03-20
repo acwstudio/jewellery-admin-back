@@ -6,8 +6,6 @@ namespace Domain\Catalog\Repositories\Price;
 
 use Domain\AbstractRelationsRepository;
 use Domain\Catalog\Models\Price;
-use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 final class PriceRelationsRepository extends AbstractRelationsRepository
@@ -32,8 +30,7 @@ final class PriceRelationsRepository extends AbstractRelationsRepository
             ->addSelect('*', DB::raw('(select name from size_categories as sc
             where sc.id = sizes.size_category_id) as size_category_name'))
             ->addSelect('*', DB::raw('(select name from products as p
-            where p.id = sizes.product_id
-            ) as product_name'))
+            where p.id = sizes.product_id) as product_name'))
             ->firstOrFail();
     }
 

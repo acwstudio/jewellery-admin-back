@@ -22,7 +22,7 @@ class ProductCategoriesParentRelatedController extends Controller
         data_set($data, 'relation_method', self::RELATION);
         data_set($data, 'id', $id);
 
-        $model = $this->productCategoryRelationsService->indexRelations($data);
+        $model = $this->productCategoryRelationsService->indexProductCategoriesParent($data);
 
         return (new ProductCategoryResource($model))->response();
     }
