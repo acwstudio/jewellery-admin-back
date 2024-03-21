@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Catalog\Services\ProductCategory;
 
+use Domain\AbstractRelationsRepository;
 use Domain\Catalog\Repositories\ProductCategory\ProductCategoryRelationsRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 
-final class ProductCategoryRelationsService
+final class ProductCategoryRelationsService  extends AbstractRelationsRepository
 {
     public function __construct(public ProductCategoryRelationsRepository $productCategoryRelationsRepository)
     {
