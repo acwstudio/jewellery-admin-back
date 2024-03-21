@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Catalog\PriceCategories;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Catalog\PriceCategory\PriceCategoryStoreRequest;
+use App\Http\Requests\Catalog\PriceCategory\PriceCategoryUpdateRequest;
 use App\Http\Resources\Catalog\PriceCategory\PriceCategoryCollection;
 use App\Http\Resources\Catalog\PriceCategory\PriceCategoryResource;
 use Domain\Catalog\Models\PriceCategory;
@@ -35,12 +37,21 @@ class PriceCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param PriceCategoryStoreRequest $request
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function store(Request $request)
+    public function store(PriceCategoryStoreRequest $request): JsonResponse
     {
-        //
+        $data = $request->all();
+        /** @var PriceCategory $model */
+        $model = $this->priceCategoryService->store($data);
+
+        return (new PriceCategoryResource(PriceCategory::find($model->id)))
+            ->response()
+            ->header('Location', route('price-categories.show', [
+                'id' => $model->id
+            ]));
     }
 
     /**
@@ -62,23 +73,32 @@ class PriceCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Domain\Catalog\Models\PriceCategory  $priceCategory
-     * @return \Illuminate\Http\Response
+     * @param PriceCategoryUpdateRequest $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function update(Request $request, PriceCategory $priceCategory)
+    public function update(PriceCategoryUpdateRequest $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+
+        $this->priceCategoryService->update($data);
+
+        return response()->json(null, 204);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Domain\Catalog\Models\PriceCategory  $priceCategory
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function destroy(PriceCategory $priceCategory)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        $this->priceCategoryService->destroy($id);
+
+        return response()->json(null, 204);
     }
 }
