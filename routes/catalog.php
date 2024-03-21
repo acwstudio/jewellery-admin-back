@@ -32,6 +32,11 @@ use App\Http\Controllers\Admin\Catalog\Products\ProductsProductCategoryRelations
 use App\Http\Controllers\Admin\Catalog\Products\ProductController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsWeavesRelatedController;
 use App\Http\Controllers\Admin\Catalog\Products\ProductsWeavesRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\SizeCategories\SizeCategoriesProductsRelatedController;
+use App\Http\Controllers\Admin\Catalog\SizeCategories\SizeCategoriesProductsRelationshipsController;
+use App\Http\Controllers\Admin\Catalog\SizeCategories\SizeCategoryController;
+use App\Http\Controllers\Admin\Catalog\SizeCategories\SizeCategorySizesRelatedController;
+use App\Http\Controllers\Admin\Catalog\SizeCategories\SizeCategorySizesRelationshipsController;
 use App\Http\Controllers\Admin\Catalog\Sizes\SizeController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeaveController;
 use App\Http\Controllers\Admin\Catalog\Weaves\WeavesProductsRelatedController;
@@ -238,3 +243,25 @@ Route::patch('sizes/{id}/relationships/price-categories', [SizesPriceCategoriesR
     ->name('sizes.relationships.price-categories');
 Route::get('sizes/{id}/price-categories', [SizesPriceCategoriesRelatedController::class, 'index'])
     ->name('sizes.price-categories');
+
+/******************* SIZE CATEGORIES ROUTES ****************************/
+// CRUD
+Route::get('size-categories', [SizeCategoryController::class, 'index'])->name('size-categories.index');
+Route::get('size-categories/{id}', [SizeCategoryController::class, 'show'])->name('size-categories.show');
+Route::post('size-categories', [SizeCategoryController::class, 'store'])->name('size-categories.store');
+Route::patch('size-categories/{id}', [SizeCategoryController::class, 'update'])->name('size-categories.update');
+Route::delete('size-categories/{id}', [SizeCategoryController::class, 'destroy'])->name('size-categories.destroy');
+//  one-to-many  Size Category to Sizes
+Route::get('size-categories/{id}/relationships/sizes', [SizeCategorySizesRelationshipsController::class, 'index'])
+    ->name('size-category.relationships.sizes');
+Route::patch('size-categories/{id}/relationships/sizes', [SizeCategorySizesRelationshipsController::class, 'update'])
+    ->name('size-category.relationships.sizes');
+Route::get('size-categories/{id}/sizes', [SizeCategorySizesRelatedController::class, 'index'])
+    ->name('size-category.sizes');
+//  many-to-many  Size Category to Products
+Route::get('size-categories/{id}/relationships/products', [SizeCategoriesProductsRelationshipsController::class, 'index'])
+    ->name('size-categories.relationships.products');
+Route::patch('size-categories/{id}/relationships/products', [SizeCategoriesProductsRelationshipsController::class, 'update'])
+    ->name('size-categories.relationships.products');
+Route::get('size-categories/{id}/products', [SizeCategoriesProductsRelatedController::class, 'index'])
+    ->name('size-categories.products');

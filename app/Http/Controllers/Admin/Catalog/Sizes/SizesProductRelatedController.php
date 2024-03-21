@@ -3,12 +3,27 @@
 namespace App\Http\Controllers\Admin\Catalog\Sizes;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Catalog\Product\ProductResource;
+use Domain\Catalog\Services\Size\SizeRelationsService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SizesProductRelatedController extends Controller
 {
-    public function index()
-    {
+    const RELATION = 'product';
 
+    public function __construct(
+        public SizeRelationsService $sizeRelationsService
+    ) {
+    }
+
+    public function index(Request $request, int $id): JsonResponse
+    {
+        data_set($data, 'relation_method', self::RELATION);
+        data_set($data, 'id', $id);
+
+        $model = $this->sizeRelationsService->indexSizesProduct($data);
+
+        return (new ProductResource($model))->response();
     }
 }
