@@ -8,21 +8,48 @@ use Domain\AbstractRelationsRepository;
 use Domain\Catalog\Models\SizeCategory;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 final class SizeCategoryRelationsRepository extends AbstractRelationsRepository
 {
-    public function indexRelations(array $data): Paginator|Model
+    public function indexSizeCategoryPrices(array $data): Paginator|Model
     {
         $relation = data_get($data, 'relation_method');
         $id = data_get($data, 'id');
         $perPage = data_get($data, 'params.per_page');
 
-        if (in_array(SizeCategory::findOrFail($id)->{$relation}()::class, config('api-settings.to-one')))
-        {
-            return SizeCategory::findOrFail($id)->{$relation}()->firstOrFail();
-        }
+        return SizeCategory::findOrFail($id)->{$relation}()
+            ->addSelect(DB::raw('(select name from price_categories as pc
+            where pc.id = prices.price_category_id) as price_category_name'))
+            ->addSelect(DB::raw('(select value from sizes as s
+            where s.id = prices.size_id) as size_value'))
+            ->paginate($perPage)->appends(data_get($data, 'params'));
+    }
 
-        return SizeCategory::findOrFail($id)->{$relation}()->paginate($perPage)->appends(data_get($data, 'params'));
+    public function indexSizeCategorySizes(array $data): Paginator|Model
+    {
+        $relation = data_get($data, 'relation_method');
+        $id = data_get($data, 'id');
+        $perPage = data_get($data, 'params.per_page');
+
+        return SizeCategory::findOrFail($id)->{$relation}()
+            ->addSelect('*', DB::raw('(select name from products as p
+            where p.id = sizes.product_id) as product_name'))
+            ->paginate($perPage)->appends(data_get($data, 'params'));
+    }
+
+    public function indexSizeCategoriesProducts(array $data): Paginator|Model
+    {
+        $relation = data_get($data, 'relation_method');
+        $id = data_get($data, 'id');
+        $perPage = data_get($data, 'params.per_page');
+
+        return SizeCategory::findOrFail($id)->{$relation}()
+            ->addSelect(DB::raw('(select name from product_categories as pc
+            where pc.id = products.product_category_id) as product_category_name'))
+            ->addSelect(DB::raw('(select name from brands as b
+            where b.id = products.brand_id) as brand_name'))
+            ->paginate($perPage)->appends(data_get($data, 'params'));
     }
 
     /**

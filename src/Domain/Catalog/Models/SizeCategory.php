@@ -7,6 +7,7 @@ use Domain\Shared\Models\BaseModel;
 use Domain\Shared\Observers\RedisCache\RedisCacheable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class SizeCategory extends BaseModel
 {
@@ -24,6 +25,11 @@ class SizeCategory extends BaseModel
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'sizes');
+    }
+
+    public function prices(): HasManyThrough
+    {
+        return $this->hasManyThrough(Price::class, Size::class, 'size_category_id', 'size_id', 'id', 'id');
     }
 
     public function sluggable(): array

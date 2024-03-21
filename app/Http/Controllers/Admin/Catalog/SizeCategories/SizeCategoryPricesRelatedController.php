@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin\Catalog\SizeCategories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Catalog\Product\ProductCollection;
+use App\Http\Resources\Catalog\Price\PriceCollection;
 use Domain\Catalog\Services\SizeCategory\SizeCategoryRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class SizeCategoriesProductsRelatedController extends Controller
+class SizeCategoryPricesRelatedController extends Controller
 {
-    const RELATION = 'products';
+    const RELATION = 'prices';
 
     public function __construct(
         public SizeCategoryRelationsService $sizeCategoryRelationsService
@@ -26,8 +26,8 @@ class SizeCategoriesProductsRelatedController extends Controller
         data_set($data, 'id', $id);
         data_set($data, 'params', $params);
 
-        $collection = $this->sizeCategoryRelationsService->indexSizeCategoriesProducts($data);
+        $collection = $this->sizeCategoryRelationsService->indexSizeCategoryPrices($data);
 
-        return (new ProductCollection($collection))->response();
+        return (new PriceCollection($collection))->response();
     }
 }

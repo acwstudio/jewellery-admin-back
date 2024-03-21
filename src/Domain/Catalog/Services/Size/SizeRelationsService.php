@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Catalog\Services\Size;
 
+use Domain\AbstractRelationsRepository;
 use Domain\Catalog\Repositories\Size\SizeRelationsRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Pagination\Paginator;
 
-final class SizeRelationsService
+final class SizeRelationsService  extends AbstractRelationsRepository
 {
     public function __construct(public SizeRelationsRepository $sizeRelationsRepository)
     {
@@ -32,5 +33,10 @@ final class SizeRelationsService
     public function indexSizePriceCategories(array $data): Paginator
     {
         return $this->sizeRelationsRepository->indexSizesPriceCategories($data);
+    }
+
+    public function updateRelations(array $data): void
+    {
+        // TODO: Implement updateRelations() method.
     }
 }

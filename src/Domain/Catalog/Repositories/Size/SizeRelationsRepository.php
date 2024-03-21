@@ -52,10 +52,6 @@ final class SizeRelationsRepository extends AbstractRelationsRepository
         $perPage = data_get($data, 'params.per_page');
 
         return Size::findOrFail($id)->{$relation}()
-//            ->addSelect('*', DB::raw('(select name from price_categories as pc
-//            where pc.id = prices.price_category_id) as price_category_name'))
-//            ->addSelect('*', DB::raw('(select value from sizes as s
-//            where s.id = prices.size_id) as size_value'))
             ->paginate($perPage)->appends(data_get($data, 'params'));
     }
 

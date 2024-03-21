@@ -16,7 +16,6 @@ final class SizeCategoryRepository implements SizeCategoryRepositoryInterface
     {
         return QueryBuilder::for(SizeCategory::class)
             ->allowedFields(\DB::getSchemaBuilder()->getColumnListing('size_categories'))
-            ->allowedIncludes(['sizes','products'])
             ->allowedFilters([
                 AllowedFilter::exact('type'),
                 AllowedFilter::exact('slug'),
