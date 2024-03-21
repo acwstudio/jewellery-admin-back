@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Catalog\Price;
 
+use Domain\Catalog\Models\Price;
+use Domain\Catalog\Models\PriceCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PriceStoreRequest extends FormRequest

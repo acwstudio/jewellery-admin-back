@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Catalog\PriceCategory;
 
+use Domain\Catalog\Models\Price;
+use Domain\Catalog\Models\PriceCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PriceCategoryUpdateRequest extends FormRequest
@@ -24,7 +26,20 @@ class PriceCategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data' => ['required']
+            'data'                      => ['required','array'],
+            'data.type'                 => ['required','string','in:' . PriceCategory::TYPE_RESOURCE],
+            'data.attributes'           => ['required','array'],
+            'data.attributes.name'      => ['sometimes','string'],
+            'data.attributes.slug'      => ['prohibited','string'],
+            'data.attributes.is_active' => ['sometimes','boolean'],
+            // relationships
+            'data.relationships'                    => ['sometimes','required','array'],
+            // one-to-many prices
+            'data.relationships.prices'             => ['sometimes','required','array'],
+            'data.relationships.prices.data'        => ['sometimes','required','array'],
+            'data.relationships.prices.data.*'      => ['sometimes','required','array'],
+            'data.relationships.prices.data.*.type' => ['present','string','in:' . Price::TYPE_RESOURCE],
+            'data.relationships.prices.data.*.id'   => ['present','string', 'distinct', 'exists:prices,id'],
         ];
     }
 }
