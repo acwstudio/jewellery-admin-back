@@ -15,6 +15,7 @@ final class PriceCategoryStorePipe
     public function handle(array $data, \Closure $next): mixed
     {
         $model = $this->productRepository->store($data);
+
         data_set($data, 'model', $model);
         data_set($data, 'id', $model->id);
 

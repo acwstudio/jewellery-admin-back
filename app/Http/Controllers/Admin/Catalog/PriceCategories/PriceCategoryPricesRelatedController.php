@@ -5,28 +5,25 @@ namespace App\Http\Controllers\Admin\Catalog\PriceCategories;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Catalog\Price\PriceCollection;
 use Domain\Catalog\Services\PriceCategory\PriceCategoryRelationsService;
+use Domain\Catalog\Services\PriceCategory\Relationships\PriceCategoryPricesRelationshipsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PriceCategoryPricesRelatedController extends Controller
 {
-    const RELATION = 'prices';
+//    const RELATION = 'prices';
 
     public function __construct(
-        public PriceCategoryRelationsService $priceCategoryRelationsService
+        public PriceCategoryPricesRelationshipsService $service
     ) {
     }
 
     public function index(Request $request, int $id): JsonResponse
     {
-        $params = ($request->query());
-        unset($params['q']);
+        $params = $request->except('q');
+        data_set($params, 'id', $id);
 
-        data_set($data, 'relation_method', self::RELATION);
-        data_set($data, 'id', $id);
-        data_set($data, 'params', $params);
-
-        $collection = $this->priceCategoryRelationsService->indexPriceCategoryPrices($data);
+        $collection = $this->service->index($params);
 
         return (new PriceCollection($collection))->response();
     }

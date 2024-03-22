@@ -43,6 +43,7 @@ final class PriceCategoryRepository implements PriceCategoryRepositoryInterface
     public function update(array $data): Model|PriceCategory
     {
         $model = PriceCategory::findOrFail(data_get($data, 'id'));
+
         $model->update(data_get($data, 'data.attributes'));
 
         return $model;

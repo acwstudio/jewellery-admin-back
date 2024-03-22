@@ -37,6 +37,7 @@ final class PriceCategoryPipeline extends AbstractPipeline
             DB::commit();
 
             return data_get($data, 'model');
+
         } catch (\Exception | \Throwable $e) {
             DB::rollBack();
             Log::error($e);

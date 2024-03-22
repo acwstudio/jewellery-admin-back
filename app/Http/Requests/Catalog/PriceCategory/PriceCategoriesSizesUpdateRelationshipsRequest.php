@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Catalog\PriceCategory;
 
+use Domain\Catalog\Models\Size;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PriceCategoriesSizesUpdateRelationshipsRequest extends FormRequest
@@ -21,10 +22,12 @@ class PriceCategoriesSizesUpdateRelationshipsRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'data' => ['required']
+            'data'        => ['prohibited','array'],
+            'data.*.id'   => ['required','string','exists:sizes,id'],
+            'data.*.type' => ['required','string','in:' . Size::TYPE_RESOURCE],
         ];
     }
 }
