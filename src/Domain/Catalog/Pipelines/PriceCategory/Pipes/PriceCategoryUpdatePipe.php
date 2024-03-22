@@ -14,8 +14,9 @@ final class PriceCategoryUpdatePipe
 
     public function handle(array $data, \Closure $next): mixed
     {
-        $model = $this->priceCategoryRepository->update($data);
-        data_set($data, 'model', $model);
+        $this->priceCategoryRepository->update($data);
+
+//        data_set($data, 'model', $model);
 
         return $next($data);
     }

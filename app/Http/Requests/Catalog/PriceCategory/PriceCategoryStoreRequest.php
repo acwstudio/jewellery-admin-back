@@ -42,7 +42,7 @@ class PriceCategoryStoreRequest extends FormRequest
             'data.relationships.prices.data.*.type' => ['present','string','in:' . Price::TYPE_RESOURCE],
             'data.relationships.prices.data.*.id'   => ['present','string', 'distinct', 'exists:prices,id'],
             // many to many sizes
-            'data.relationships.sizes'             => ['sometimes','required','array'],
+            'data.relationships.sizes'             => ['prohibited'],
             'data.relationships.sizes.data'        => ['sometimes','required','array'],
             'data.relationships.sizes.data.*'      => ['sometimes','required','array'],
             'data.relationships.sizes.data.*.type' => ['present','string','in:' . Size::TYPE_RESOURCE],

@@ -24,11 +24,6 @@ final class PriceCategoryRelationsService
         return $this->priceCategoryRelationsRepository->indexPriceCategorySizes($data);
     }
 
-    public function indexRelations(array $data): Paginator|Model
-    {
-        return $this->priceCategoryRelationsRepository->indexRelations($data);
-    }
-
     /**
      * @throws \ReflectionException
      */
