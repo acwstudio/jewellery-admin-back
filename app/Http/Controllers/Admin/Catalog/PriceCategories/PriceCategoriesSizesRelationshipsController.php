@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Catalog\PriceCategories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Catalog\PriceCategory\PriceCategorySizesUpdateRelationshipsRequest;
+use App\Http\Requests\Catalog\PriceCategory\PriceCategoriesSizesUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
 use Domain\Catalog\Services\PriceCategory\PriceCategoryRelationsService;
 use Illuminate\Http\JsonResponse;
@@ -35,7 +35,7 @@ class PriceCategoriesSizesRelationshipsController extends Controller
     /**
      * @throws \ReflectionException
      */
-    public function update(PriceCategorySizesUpdateRelationshipsRequest $request, int $id): JsonResponse
+    public function update(PriceCategoriesSizesUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
         data_set($data, 'relation_data', $request->all());
         data_set($data, 'relation_method', self::RELATION);

@@ -96,6 +96,7 @@ abstract class AbstractRelationsRepository
 
     private function updateRelationManyToMany($data): void
     {
+//        dd($data);
         // todo sync related models
     }
 
