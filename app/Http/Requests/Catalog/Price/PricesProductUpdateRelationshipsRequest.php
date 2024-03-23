@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Catalog\Price;
 
+use Domain\Catalog\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PricesProductUpdateRelationshipsRequest extends FormRequest
@@ -24,7 +25,9 @@ class PricesProductUpdateRelationshipsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data' => ['required']
+            'data'      => ['required', 'array'],
+            'data.id'   => ['required','integer','exists:products,id'],
+            'data.type' => ['required','string','in:' . Product::TYPE_RESOURCE],
         ];
     }
 }

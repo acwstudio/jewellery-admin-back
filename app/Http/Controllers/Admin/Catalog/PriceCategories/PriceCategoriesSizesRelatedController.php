@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Catalog\PriceCategories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Catalog\Size\SizeCollection;
-use Domain\Catalog\Services\PriceCategory\PriceCategoryRelationsService;
 use Domain\Catalog\Services\PriceCategory\Relationships\PriceCategoriesSizesRelationshipsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

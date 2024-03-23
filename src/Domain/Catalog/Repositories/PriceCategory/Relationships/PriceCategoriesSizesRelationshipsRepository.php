@@ -18,7 +18,7 @@ final class PriceCategoriesSizesRelationshipsRepository extends AbstractRelation
         $perPage = data_get($params, 'per_page');
         unset($params['id']);
 
-        return PriceCategory::findOrFail($id)->sizes()
+        return PriceCategory::findOrFail($id)->sizes()->select()
             ->addSelect(DB::raw("(SELECT name FROM size_categories as sc
             where sc.id = sizes.size_category_id) as size_category_name"))
             ->addSelect(DB::raw("(SELECT name FROM products as p

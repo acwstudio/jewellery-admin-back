@@ -25,6 +25,11 @@ class Price extends BaseModel
         return $this->hasOneThrough(Product::class, Size::class, 'id', 'id', 'size_id', 'product_id');
     }
 
+    public function sizeCategory(): HasOneThrough
+    {
+        return $this->hasOneThrough(SizeCategory::class, Size::class, 'id', 'id', 'size_id', 'size_category_id');
+    }
+
     public function size(): BelongsTo
     {
         return $this->belongsTo(Size::class);

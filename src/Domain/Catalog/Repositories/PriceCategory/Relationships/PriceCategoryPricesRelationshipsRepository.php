@@ -18,8 +18,8 @@ final class PriceCategoryPricesRelationshipsRepository extends AbstractRelations
         $perPage = data_get($params, 'per_page');
         unset($params['id']);
 
-        return PriceCategory::findOrFail($id)->prices()
-            ->addSelect("*", DB::raw("(SELECT value FROM sizes where sizes.id = prices.size_id)
+        return PriceCategory::findOrFail($id)->prices()->select()
+            ->addSelect(DB::raw("(SELECT value FROM sizes where sizes.id = prices.size_id)
             as size_value"))
             ->paginate($perPage)->appends($params);
     }
