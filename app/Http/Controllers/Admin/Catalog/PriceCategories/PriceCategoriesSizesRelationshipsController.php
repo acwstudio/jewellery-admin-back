@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin\Catalog\PriceCategories;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\PriceCategory\PriceCategoriesSizesUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
-use Domain\Catalog\Services\PriceCategory\PriceCategoryRelationsService;
 use Domain\Catalog\Services\PriceCategory\Relationships\PriceCategoriesSizesRelationshipsService;
-use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

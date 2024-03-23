@@ -6,11 +6,12 @@ namespace Domain\Catalog\Repositories\Price;
 
 use Domain\AbstractRelationsRepository;
 use Domain\Catalog\Models\Price;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 final class PriceRelationsRepository extends AbstractRelationsRepository
 {
-    public function indexPricesProduct(array $data)
+    public function indexPricesProduct(array $data): Model
     {
         $relation = data_get($data, 'relation_method');
         $id = data_get($data, 'id');

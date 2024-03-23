@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Admin\Catalog\Prices;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Catalog\Product\ProductResource;
-use Domain\Catalog\Services\Price\Relationships\PricesProductRelationshipsService;
+use App\Http\Resources\Catalog\SizeCategory\SizeCategoryResource;
+use Domain\Catalog\Services\Price\Relationships\PricesSizeCategoryRelationshipsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class PricesProductRelatedController extends Controller
+class PricesSizeCategoryRelatedController extends Controller
 {
-    public function __construct(
-        public PricesProductRelationshipsService $service
-    ) {
+    public function __construct(protected PricesSizeCategoryRelationshipsService $service)
+    {
     }
 
     public function index(Request $request, int $id): JsonResponse
@@ -22,6 +21,6 @@ class PricesProductRelatedController extends Controller
 
         $model = $this->service->index($params);
 
-        return (new ProductResource($model))->response();
+        return (new SizeCategoryResource($model))->response();
     }
 }

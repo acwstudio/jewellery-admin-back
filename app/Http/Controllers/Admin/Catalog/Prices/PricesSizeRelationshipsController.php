@@ -5,25 +5,23 @@ namespace App\Http\Controllers\Admin\Catalog\Prices;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\Price\PricesSizeUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
-use Domain\Catalog\Services\Price\PriceRelationsService;
+use Domain\Catalog\Services\Price\Relationships\PricesSizeRelationshipsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PricesSizeRelationshipsController extends Controller
 {
-    const RELATION = 'size';
-
     public function __construct(
-        public PriceRelationsService $priceRelationsService
+        public PricesSizeRelationshipsService $service
     ) {
     }
 
     public function index(Request $request, int $id): JsonResponse
     {
-        data_set($data, 'relation_method', self::RELATION);
-        data_set($data, 'id', $id);
+        $params = $request->except('q');
+        data_set($params, 'id', $id);
 
-        $model = $this->priceRelationsService->indexPricesSize($data);
+        $model = $this->service->index($params);
 
         return (new ApiEntityIdentifierResource($model))->response();
     }
