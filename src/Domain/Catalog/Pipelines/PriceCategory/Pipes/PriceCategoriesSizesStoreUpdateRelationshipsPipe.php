@@ -15,11 +15,11 @@ final class PriceCategoriesSizesStoreUpdateRelationshipsPipe
     public function handle(array $data, \Closure $next)
     {
         $id = data_get($data, 'id');
-        $dataSize = data_get($data, 'data.relationships.sizes');
+        $dataRelationship = data_get($data, 'data.relationships.sizes');
 
-        if ($dataSize) {
-            $dataSize = data_set($dataSize, 'id', $id);
-            $this->repository->update($dataSize);
+        if ($dataRelationship) {
+            data_set($dataRelationship, 'id', $id);
+            $this->repository->update($dataRelationship);
         }
 
         return $next($data);

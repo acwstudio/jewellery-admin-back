@@ -2,24 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Domain\Catalog\Services\Price\Relationships;
+namespace Domain\Catalog\Pipelines\Price\Pipes;
 
 use Domain\Catalog\Repositories\Price\Relationships\PricesProductRelationshipsRepository;
-use Illuminate\Database\Eloquent\Model;
 
-final class PricesProductRelationshipsService
+final class PricesProductStoreUpdateRelationshipsPipe
 {
     public function __construct(protected PricesProductRelationshipsRepository $repository)
     {
     }
 
-    public function index(array $params): Model
-    {
-        return $this->repository->index($params);
-    }
-
-    public function update(array $data): void
+    public function handle(array $data, \Closure $next)
     {
         // HasOneThrough updating doesn't make sense. You can do something another
+
+        return $next($data);
     }
 }

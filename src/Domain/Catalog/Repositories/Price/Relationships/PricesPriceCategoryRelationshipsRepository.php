@@ -8,6 +8,7 @@ use Domain\AbstractRelationshipsRepository;
 use Domain\Catalog\Models\Price;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use JetBrains\PhpStorm\NoReturn;
 
 final class PricesPriceCategoryRelationshipsRepository extends AbstractRelationshipsRepository
 {
@@ -21,6 +22,12 @@ final class PricesPriceCategoryRelationshipsRepository extends AbstractRelations
 
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        $priceCategoryId = data_get($data, 'data.id');
+
+        $model = Price::findOrFail(data_get($data, 'id'));
+
+        $model->update([
+            'price_category_id' => $priceCategoryId
+        ]);
     }
 }

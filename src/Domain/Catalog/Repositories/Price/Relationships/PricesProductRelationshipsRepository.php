@@ -25,6 +25,6 @@ final class PricesProductRelationshipsRepository extends AbstractRelationshipsRe
 
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        // HasOneThrough updating doesn't make sense. You can do something another
     }
 }

@@ -21,6 +21,6 @@ final class PricesSizeCategoryRelationshipsService
 
     public function update(array $data): void
     {
-        $this->repository->update($data);
+        // HasOneThrough updating doesn't make sense. You can do something another
     }
 }
