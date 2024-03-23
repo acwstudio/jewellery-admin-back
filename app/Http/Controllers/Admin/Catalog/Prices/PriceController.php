@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Catalog\Prices;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\Price\PriceStoreRequest;
+use App\Http\Requests\Catalog\Price\PriceUpdateRequest;
 use App\Http\Resources\Catalog\Price\PriceCollection;
 use App\Http\Resources\Catalog\Price\PriceResource;
 use Domain\Catalog\Models\Price;
@@ -36,12 +37,21 @@ class PriceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param PriceStoreRequest $request
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function store(PriceStoreRequest $request)
+    public function store(PriceStoreRequest $request): JsonResponse
     {
-        //
+        $data = $request->all();
+
+        $model = $this->priceService->store($data);
+
+        return (new PriceResource(Price::find($model->id)))
+            ->response()
+            ->header('Location', route('prices.show', [
+            'id' => $model->id
+        ]));
     }
 
     /**
@@ -63,23 +73,32 @@ class PriceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Domain\Catalog\Models\Price  $price
-     * @return \Illuminate\Http\Response
+     * @param PriceUpdateRequest $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function update(Request $request, Price $price)
+    public function update(PriceUpdateRequest $request, int $id): JsonResponse
     {
-        //
+        $data = $request->all();
+        data_set($data, 'id', $id);
+
+        $this->priceService->update($data);
+
+        return response()->json(null, 204);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Domain\Catalog\Models\Price  $price
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function destroy(Price $price)
+    public function destroy(int $id)
     {
-        //
+        $this->priceService->destroy($id);
+
+        return response()->json(null, 204);
     }
 }

@@ -7,6 +7,8 @@ namespace Domain\Catalog\Pipelines\Price;
 use Domain\AbstractPipeline;
 use Domain\Catalog\Pipelines\Price\Pipes\PriceDestroyPipe;
 use Domain\Catalog\Pipelines\Price\Pipes\PricesPriceCategoryStoreUpdateRelationshipsPipe;
+use Domain\Catalog\Pipelines\Price\Pipes\PricesProductStoreUpdateRelationshipsPipe;
+use Domain\Catalog\Pipelines\Price\Pipes\PricesSizeCategoryStoreUpdateRelationshipsPipe;
 use Domain\Catalog\Pipelines\Price\Pipes\PricesSizeStoreUpdateRelationshipsPipe;
 use Domain\Catalog\Pipelines\Price\Pipes\PriceStorePipe;
 use Domain\Catalog\Pipelines\Price\Pipes\PriceUpdatePipe;
@@ -30,6 +32,8 @@ final class PricePipeline extends AbstractPipeline
                     PriceStorePipe::class,
                     PricesSizeStoreUpdateRelationshipsPipe::class,
                     PricesPriceCategoryStoreUpdateRelationshipsPipe::class,
+                    PricesSizeCategoryStoreUpdateRelationshipsPipe::class,
+                    PricesProductStoreUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
@@ -58,6 +62,8 @@ final class PricePipeline extends AbstractPipeline
                     PriceUpdatePipe::class,
                     PricesSizeStoreUpdateRelationshipsPipe::class,
                     PricesPriceCategoryStoreUpdateRelationshipsPipe::class,
+                    PricesSizeCategoryStoreUpdateRelationshipsPipe::class,
+                    PricesProductStoreUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 

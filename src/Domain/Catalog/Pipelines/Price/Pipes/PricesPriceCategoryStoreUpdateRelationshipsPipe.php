@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace Domain\Catalog\Pipelines\Price\Pipes;
 
-use Domain\Catalog\Repositories\Price\PriceRelationsRepository;
+use Domain\Catalog\Repositories\Price\Relationships\PricesPriceCategoryRelationshipsRepository;
 
 final class PricesPriceCategoryStoreUpdateRelationshipsPipe
 {
-    public function __construct(public PriceRelationsRepository $priceRelationsRepository)
+    public function __construct(public PricesPriceCategoryRelationshipsRepository $repository)
     {
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function handle(array $data, \Closure $next)
     {
-        $relationData = data_get($data, 'data.relationships.priceCategory');
+        $id = data_get($data, 'id');
+        $dataRelationship = data_get($data, 'data.relationships.priceCategory');
 
-        if ($relationData) {
-            data_set($data, 'relation_data', $relationData);
-            data_set($data, 'relation_method', 'priceCategory');
-
-            $this->priceRelationsRepository->updateRelations($data);
+        if ($dataRelationship) {
+            data_set($dataRelationship, 'id', $id);
+            $this->repository->update($dataRelationship);
         }
 
         return $next($data);

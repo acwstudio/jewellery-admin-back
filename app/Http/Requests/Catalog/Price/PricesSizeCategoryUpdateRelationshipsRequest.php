@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Catalog\Price;
 
-use Domain\Catalog\Models\Product;
+use Domain\Catalog\Models\SizeCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PricesProductUpdateRelationshipsRequest extends FormRequest
+class PricesSizeCategoryUpdateRelationshipsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,10 @@ class PricesProductUpdateRelationshipsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dummy'       => 'required'
+            'dummy'      => ['required'],
 //            'data'      => ['required', 'array'],
-//            'data.id'   => ['required','integer','exists:products,id'],
-//            'data.type' => ['required','string','in:' . Product::TYPE_RESOURCE],
+//            'data.id'   => ['required','integer','exists:size_categories,id'],
+//            'data.type' => ['required','string','in:' . SizeCategory::TYPE_RESOURCE],
         ];
     }
 

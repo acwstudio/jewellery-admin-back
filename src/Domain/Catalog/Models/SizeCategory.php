@@ -13,7 +13,7 @@ class SizeCategory extends BaseModel
 {
     use Sluggable, RedisCacheable;
 
-    public const TYPE_RESOURCE = 'sizes';
+    public const TYPE_RESOURCE = 'sizeCategories';
 
     protected $fillable = ['type','slug','is_active'];
 

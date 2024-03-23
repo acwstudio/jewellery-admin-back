@@ -28,8 +28,11 @@ class PricesPriceCategoryRelationshipsController extends Controller
 
     public function update(PricesPriceCategoryUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        return response()->json([
-            'Warning' => 'use update blog_category_id field by PATCH ' .
-                route('products.update',['id' => $id]) . ' instead']);
+        $data = $request->except('q');
+        data_set($data, 'id', $id);
+
+        $this->service->update($data);
+
+        return response()->json(null, 204);
     }
 }

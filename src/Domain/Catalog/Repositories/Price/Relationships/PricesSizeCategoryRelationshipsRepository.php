@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 final class PricesSizeCategoryRelationshipsRepository extends AbstractRelationshipsRepository
 {
-
     public function index(array $params): Model
     {
         return Price::findOrFail(data_get($params, 'id'))->sizeCategory()->first();
@@ -20,6 +19,12 @@ final class PricesSizeCategoryRelationshipsRepository extends AbstractRelationsh
 
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        $sizeId = data_get($data, 'data.id');
+
+        $model = Price::findOrFail(data_get($data, 'id'));
+
+        $model->update([
+            'size_id' => $sizeId
+        ]);
     }
 }

@@ -26,10 +26,8 @@ class PricesProductRelationshipsController extends Controller
         return (new ApiEntityIdentifierResource($model))->response();
     }
 
-    public function update(PricesProductUpdateRelationshipsRequest $request, int $id): JsonResponse
+    public function update(PricesProductUpdateRelationshipsRequest $request, int $id)
     {
-        return \response()->json([
-            'Warning' => 'use update blog_category_id field by PATCH ' .
-                route('products.update',['id' => $id]) . ' instead']);
+        // HasOneThrough updating doesn't make sense. You can do something another
     }
 }

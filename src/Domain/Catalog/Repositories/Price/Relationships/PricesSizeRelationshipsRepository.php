@@ -25,6 +25,11 @@ final class PricesSizeRelationshipsRepository extends AbstractRelationshipsRepos
 
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        $sizeId = data_get($data, 'data.id');
+        $model = Price::findOrFail(data_get($data, 'id'));
+
+        $model->update([
+            'size_id' => (int) $sizeId
+        ]);
     }
 }

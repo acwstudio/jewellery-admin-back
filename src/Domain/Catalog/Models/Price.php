@@ -13,7 +13,7 @@ class Price extends BaseModel
 
     public const TYPE_RESOURCE = 'prices';
 
-    protected $fillable = ['price_category_id','product_id','value','is_active'];
+    protected $fillable = ['price_category_id','size_id','value','is_active'];
 
     public function priceCategory(): BelongsTo
     {
