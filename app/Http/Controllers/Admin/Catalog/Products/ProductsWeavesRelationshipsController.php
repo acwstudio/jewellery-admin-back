@@ -6,26 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\Product\ProductsWeavesUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
 use Domain\Catalog\Services\Product\ProductRelationsService;
+use Domain\Catalog\Services\Product\Relationships\ProductsWeavesRelationshipsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductsWeavesRelationshipsController extends Controller
 {
     public function __construct(
-        public ProductRelationsService $productRelationsService
+        public ProductsWeavesRelationshipsService $service
     ) {
     }
 
     public function index(Request $request, int $id)
     {
-        $params = ($request->query());
-        unset($params['q']);
+        $params = $request->except('q');
+        data_set($params, 'id', $id);
 
-        data_set($data, 'relation_method', 'weaves');
-        data_set($data, 'id', $id);
-        data_set($data, 'params', $params);
-
-        $collection = $this->productRelationsService->indexProductsWeaves($data);
+        $collection = $this->service->index($params);
 
         return ApiEntityIdentifierResource::collection($collection)->response();
     }
@@ -35,11 +32,10 @@ class ProductsWeavesRelationshipsController extends Controller
      */
     public function update(ProductsWeavesUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        data_set($data, 'relation_data', $request->all());
-        data_set($data, 'relation_method', 'weaves');
+        $data = $request->except('q');
         data_set($data, 'id', $id);
 
-        $this->productRelationsService->updateRelations($data);
+        $this->service->update($data);
 
         return response()->json(null, 204);
     }
