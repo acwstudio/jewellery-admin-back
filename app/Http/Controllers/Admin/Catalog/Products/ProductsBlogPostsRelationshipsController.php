@@ -6,26 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\Product\ProductsBlogPostsUpdateRelationshipsRequest;
 use App\Http\Resources\Identifiers\ApiEntityIdentifierResource;
 use Domain\Catalog\Services\Product\ProductRelationsService;
+use Domain\Catalog\Services\Product\Relationships\ProductsBlogPostsRelationshipsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductsBlogPostsRelationshipsController extends Controller
 {
     public function __construct(
-        public ProductRelationsService $productRelationsService
+        public ProductsBlogPostsRelationshipsService $service
     ) {
     }
 
     public function index(Request $request, int $id)
     {
-        $params = ($request->query());
-        unset($params['q']);
+        $params = $request->except('q');
+        data_set($params, 'id', $id);
 
-        data_set($data, 'relation_method', 'blogPosts');
-        data_set($data, 'id', $id);
-        data_set($data, 'params', $params);
-
-        $collection = $this->productRelationsService->indexProductsBlogPosts($data);
+        $collection = $this->service->index($params);
 
         return ApiEntityIdentifierResource::collection($collection)->response();
     }
@@ -35,11 +32,10 @@ class ProductsBlogPostsRelationshipsController extends Controller
      */
     public function update(ProductsBlogPostsUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        data_set($data, 'relation_data', $request->all());
-        data_set($data, 'relation_method', 'blogPosts');
-        data_set($data, 'id', $id);
+        $data = $request->e('q');
+        data_set($params, 'id', $id);
 
-        $this->productRelationsService->updateRelations($data);
+        $this->service->update($data);
 
         return response()->json(null, 204);
     }

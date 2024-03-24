@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Catalog\Services\Price\Relationships;
 
+use Domain\AbstractRelationshipsService;
 use Domain\Catalog\Repositories\Price\Relationships\PricesSizeRelationshipsRepository;
 use Illuminate\Database\Eloquent\Model;
 
-final class PricesSizeRelationshipsService
+final class PricesSizeRelationshipsService extends AbstractRelationshipsService
 {
     public function __construct(protected PricesSizeRelationshipsRepository $repository)
     {

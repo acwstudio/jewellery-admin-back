@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Catalog\Services\PriceCategory\Relationships;
 
+use Domain\AbstractRelationshipsService;
 use Domain\Catalog\Repositories\PriceCategory\Relationships\PriceCategoryPricesRelationshipsRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-final class PriceCategoryPricesRelationshipsService
+final class PriceCategoryPricesRelationshipsService extends AbstractRelationshipsService
 {
     public function __construct(public PriceCategoryPricesRelationshipsRepository $repository)
     {
