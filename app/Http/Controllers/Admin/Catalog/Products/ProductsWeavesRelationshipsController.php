@@ -27,9 +27,6 @@ class ProductsWeavesRelationshipsController extends Controller
         return ApiEntityIdentifierResource::collection($collection)->response();
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function update(ProductsWeavesUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
         $data = $request->except('q');

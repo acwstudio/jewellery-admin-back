@@ -88,7 +88,7 @@ class ProductSeeder extends Seeder
     {
         $upperPattern = Str::ucfirst($pattern);
 
-        return $chains = DB::connection('pgsql_core')
+        return DB::connection('pgsql_core')
             ->table('catalog.products')->select(['sku', 'name', 'summary', 'description', 'id'])
             ->where('is_active', true)
             ->where('summary', 'NOT LIKE', '%на цепи%')

@@ -31,6 +31,6 @@ final class ProductPricesRelationshipsRepository extends AbstractRelationshipsRe
 
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        // HasManyThrough updating can't be made with RESTful API. It needs something like GraphQL
     }
 }

@@ -27,16 +27,8 @@ class ProductPricesRelationshipsController extends Controller
         return ApiEntityIdentifierResource::collection($collection)->response();
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function update(ProductPricesUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        $data = $request->except('q');
-        data_set($data, 'id', $id);
-
-        $this->service->update($data);
-
-        return response()->json(null, 204);
+        // HasManyThrough updating can't be made with RESTful API. It needs something like GraphQL
     }
 }

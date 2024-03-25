@@ -27,6 +27,8 @@ final class ProductsBlogPostsRelationshipsRepository extends AbstractRelationshi
 
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        $ids = data_get($data, 'data.*.id');
+
+        Product::findOrFail(data_get($data, 'id'))->blogPosts()->sync($ids);
     }
 }

@@ -6,6 +6,7 @@ namespace Domain\Catalog\Pipelines\Product;
 
 use Domain\AbstractPipeline;
 use Domain\Catalog\Pipelines\Product\Pipes\ProductDestroyPipe;
+use Domain\Catalog\Pipelines\Product\Pipes\ProductPricesStoreUpdateRelationshipsPipe;
 use Domain\Catalog\Pipelines\Product\Pipes\ProductsBlogPostsStoreUpdateRelationshipsPipe;
 use Domain\Catalog\Pipelines\Product\Pipes\ProductSizesStoreUpdateRelationshipsPipe;
 use Domain\Catalog\Pipelines\Product\Pipes\ProductsProductCategoryStoreUpdateRelationshipsPipe;
@@ -35,7 +36,8 @@ final class ProductPipeline extends AbstractPipeline
                     ProductsProductCategoryStoreUpdateRelationshipsPipe::class,
                     ProductSizesStoreUpdateRelationshipsPipe::class,
                     ProductsSizeCategoriesStoreUpdateRelationshipsPipe::class,
-                    ProductsBlogPostsStoreUpdateRelationshipsPipe::class
+                    ProductsBlogPostsStoreUpdateRelationshipsPipe::class,
+                    ProductPricesStoreUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
@@ -66,7 +68,8 @@ final class ProductPipeline extends AbstractPipeline
                     ProductsProductCategoryStoreUpdateRelationshipsPipe::class,
                     ProductSizesStoreUpdateRelationshipsPipe::class,
                     ProductsSizeCategoriesStoreUpdateRelationshipsPipe::class,
-                    ProductsBlogPostsStoreUpdateRelationshipsPipe::class
+                    ProductsBlogPostsStoreUpdateRelationshipsPipe::class,
+                    ProductPricesStoreUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
