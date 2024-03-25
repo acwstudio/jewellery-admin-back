@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_weave', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->unique();
             $table->unsignedBigInteger('weave_id');
             $table->timestamps();
 

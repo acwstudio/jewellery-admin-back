@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Catalog\Product;
 
+use Domain\Catalog\Models\Weave;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductsWeavesUpdateRelationshipsRequest extends FormRequest
@@ -24,7 +25,9 @@ class ProductsWeavesUpdateRelationshipsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'validation' => ['required']
+            'data'        => ['present','array'],
+            'data.*.id'   => ['required','string','exists:weaves,id'],
+            'data.*.type' => ['required','string','in:' . Weave::TYPE_RESOURCE],
         ];
     }
 }

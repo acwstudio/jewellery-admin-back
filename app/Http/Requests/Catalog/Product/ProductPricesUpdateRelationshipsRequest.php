@@ -13,7 +13,7 @@ class ProductPricesUpdateRelationshipsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class ProductPricesUpdateRelationshipsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data' => ['required']
+            'dummy'       => 'required'
+//            'data'      => ['required', 'array'],
+//            'data.id'   => ['required','integer','exists:products,id'],
+//            'data.type' => ['required','string','in:' . Product::TYPE_RESOURCE],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'dummy.required' => "HasManyThrough updating can't be made with RESTful",
         ];
     }
 }

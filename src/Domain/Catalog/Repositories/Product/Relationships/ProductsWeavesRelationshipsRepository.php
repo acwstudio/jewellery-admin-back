@@ -23,6 +23,8 @@ final class ProductsWeavesRelationshipsRepository extends AbstractRelationshipsR
 
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        $ids = data_get($data, 'data.*.id');
+
+        Product::findOrFail(data_get($data, 'id'))->weaves()->sync($ids);
     }
 }

@@ -6,6 +6,7 @@ namespace Domain\Catalog\Repositories\Product\Relationships;
 
 use Domain\AbstractRelationshipsRepository;
 use Domain\Catalog\Models\Product;
+use Domain\Catalog\Models\Size;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,15 @@ final class ProductSizesRelationshipsRepository extends AbstractRelationshipsRep
 
     public function update(array $data): void
     {
-        // TODO: Implement update() method.
+        // one-to-many
+        $ids = data_get($data, 'data.*.id');
+        $collection = Size::whereIn('id', $ids)->get();
+
+        /** @var Size $model */
+        foreach ($collection as $model) {
+            $model->update([
+                'product_id' => data_get($data, 'id')
+            ]);
+        }
     }
 }

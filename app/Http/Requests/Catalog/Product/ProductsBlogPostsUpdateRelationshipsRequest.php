@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Catalog\Product;
 
+use Domain\Blog\Models\BlogPost;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductsBlogPostsUpdateRelationshipsRequest extends FormRequest
@@ -24,7 +25,9 @@ class ProductsBlogPostsUpdateRelationshipsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'validation' => ['required']
+            'data'        => ['present','array'],
+            'data.*.id'   => ['required','string','exists:blog_posts,id'],
+            'data.*.type' => ['required','string','in:' . BlogPost::TYPE_RESOURCE],
         ];
     }
 }

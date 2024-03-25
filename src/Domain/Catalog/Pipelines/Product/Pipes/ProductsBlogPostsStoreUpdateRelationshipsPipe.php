@@ -5,27 +5,22 @@ declare(strict_types=1);
 namespace Domain\Catalog\Pipelines\Product\Pipes;
 
 use Domain\Catalog\Repositories\Product\ProductRelationsRepository;
+use Domain\Catalog\Repositories\Product\Relationships\ProductsBlogPostsRelationshipsRepository;
 
 final class ProductsBlogPostsStoreUpdateRelationshipsPipe
 {
-    const RELATION = 'blogPosts';
-
-    public function __construct(public ProductRelationsRepository $productRelationsRepository)
+    public function __construct(public ProductsBlogPostsRelationshipsRepository $repository)
     {
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function handle(array $data, \Closure $next)
     {
-        $relationData = data_get($data, 'data.relationships.' . self::RELATION);
+        $id = data_get($data, 'id');
+        $blogPosts = data_get($data, 'data.relationships.blogPosts');
 
-        if ($relationData) {
-            data_set($data, 'relation_data', $relationData);
-            data_set($data, 'relation_method', self::RELATION);
-
-            $this->productRelationsRepository->updateRelations($data);
+        if ($blogPosts) {
+            $dataPrices = data_set($dataPrices, 'id', $id);
+            $this->repository->update($blogPosts);
         }
 
         return $next($data);
